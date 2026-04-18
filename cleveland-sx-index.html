@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cleveland SX — Triple Crown | REVMX</title>
+<meta name="description" content="Cleveland Supercross Triple Crown — Live Gate Drop Timers, Pick Your Winner Vote, and Weekly Drama. Round 14 of 2026 Monster Energy Supercross.">
+<meta property="og:title" content="Cleveland SX Triple Crown — REVMX">
+<meta property="og:description" content="Live gate drop countdown, pick your winner, and this week's drama. Round 14 — April 18, 2026.">
+<meta property="og:image" content="https://raw.githubusercontent.com/weiszdev/2026SXMX/main/revmx-og-image.png">
+<meta property="og:url" content="https://weiszdev.github.io/2026SXMX/">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:#0a0a0a;color:#fff;min-height:100vh;overflow-x:hidden}
+:root{--red:#ef4444;--orange:#f97316;--glow:rgba(239,68,68,0.4)}
+
+/* Top bar */
+.topbar{height:4px;background:linear-gradient(90deg,var(--red),var(--orange),var(--red));width:100%}
+
+/* Header */
+.header{display:flex;align-items:center;gap:14px;padding:20px 24px;max-width:700px;margin:0 auto}
+.logo{width:52px;height:52px;border-radius:50%;border:2px solid var(--red);display:flex;align-items:center;justify-content:center;font-family:'Oswald',sans-serif;font-weight:700;font-size:11px;line-height:1.1;text-align:center;color:var(--red);background:rgba(239,68,68,0.08);flex-shrink:0}
+.header-text .badge{display:inline-block;background:var(--red);color:#fff;font-family:'Oswald',sans-serif;font-size:11px;font-weight:600;padding:2px 10px;border-radius:3px;letter-spacing:1.5px;text-transform:uppercase}
+.header-text .brand{font-family:'Oswald',sans-serif;font-size:18px;font-weight:600;color:#9ca3af;letter-spacing:3px;margin-top:2px}
+
+/* Countdown Hub */
+.countdown-hub{max-width:700px;margin:0 auto 20px;padding:0 16px}
+.countdown-box{border:2px solid var(--red);border-radius:12px;padding:20px;text-align:center;background:rgba(239,68,68,0.04);position:relative;overflow:hidden}
+.countdown-box::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(239,68,68,0.08) 0%,transparent 70%);pointer-events:none}
+.countdown-box .status{display:flex;align-items:center;justify-content:center;gap:6px;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:2px;margin-bottom:4px}
+.status-dot{width:8px;height:8px;border-radius:50%;background:#22c55e;animation:pulse-dot 1.5s ease infinite}
+.status-dot.upcoming{background:var(--orange);animation:none}
+.status-dot.done{background:#6b7280;animation:none}
+@keyframes pulse-dot{0%,100%{opacity:1}50%{opacity:0.3}}
+.countdown-box .event-label{font-size:13px;color:#9ca3af;margin-bottom:2px;text-transform:uppercase;letter-spacing:1px}
+.countdown-box .gate-drop{font-family:'Oswald',sans-serif;font-size:42px;font-weight:700;color:var(--red);text-transform:uppercase;letter-spacing:2px;text-shadow:0 0 30px var(--glow)}
+.countdown-box .venue{font-size:13px;color:var(--orange);margin-top:4px;letter-spacing:1px}
+.countdown-timer{font-family:'Oswald',sans-serif;font-size:36px;font-weight:700;color:#fff;letter-spacing:3px;margin-top:8px}
+.countdown-timer .label{font-size:10px;color:#6b7280;letter-spacing:1px;display:block;font-family:'Inter',sans-serif;font-weight:400}
+
+/* Race Timeline */
+.timeline{max-width:700px;margin:0 auto 24px;padding:0 16px}
+.timeline h3{font-family:'Oswald',sans-serif;font-size:20px;text-transform:uppercase;letter-spacing:2px;color:#fff;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.timeline h3 .icon{color:var(--red)}
+.race-list{display:flex;flex-direction:column;gap:6px}
+.race-item{display:flex;align-items:center;gap:12px;background:#111;border:1px solid #222;border-radius:8px;padding:12px 16px;transition:all 0.3s}
+.race-item.active{border-color:var(--red);background:rgba(239,68,68,0.06);box-shadow:0 0 20px rgba(239,68,68,0.15)}
+.race-item.completed{opacity:0.5}
+.race-item .time{font-family:'Oswald',sans-serif;font-size:16px;font-weight:600;color:var(--orange);min-width:75px}
+.race-item .name{flex:1;font-size:14px;font-weight:600}
+.race-item .name .class-tag{font-size:10px;font-weight:700;padding:2px 6px;border-radius:3px;margin-right:6px}
+.class-250{background:rgba(59,130,246,0.2);color:#60a5fa;border:1px solid rgba(59,130,246,0.3)}
+.class-450{background:rgba(239,68,68,0.2);color:#f87171;border:1px solid rgba(239,68,68,0.3)}
+.race-item .countdown-mini{font-family:'Oswald',sans-serif;font-size:14px;color:var(--red);min-width:70px;text-align:right}
+.race-item .countdown-mini.live{color:#22c55e;font-weight:700}
+.race-item .countdown-mini.done{color:#6b7280}
+
+/* Pick Your Winner */
+.section{max-width:700px;margin:0 auto 24px;padding:0 16px}
+.section h3{font-family:'Oswald',sans-serif;font-size:22px;text-transform:uppercase;letter-spacing:2px;margin-bottom:4px}
+.section .sub{font-size:13px;color:var(--orange);text-transform:uppercase;letter-spacing:1.5px;font-weight:600;margin-bottom:16px}
+
+/* Stepper */
+.stepper{display:flex;align-items:center;justify-content:center;gap:0;margin-bottom:20px}
+.step-num{width:36px;height:36px;border-radius:50%;border:2px solid #333;display:flex;align-items:center;justify-content:center;font-family:'Oswald',sans-serif;font-size:16px;font-weight:600;color:#666;transition:all 0.3s}
+.step-num.active{border-color:var(--orange);color:var(--orange);box-shadow:0 0 12px rgba(249,115,22,0.3)}
+.step-num.done{border-color:#22c55e;color:#22c55e;background:rgba(34,197,94,0.1)}
+.step-line{width:60px;height:2px;background:#333}
+.step-label{font-size:11px;color:#666;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+
+/* Rider cards */
+.riders{display:flex;flex-direction:column;gap:8px}
+.rider{display:flex;align-items:center;gap:14px;background:#111;border:1px solid #222;border-radius:10px;padding:14px 18px;cursor:pointer;transition:all 0.2s;user-select:none}
+.rider:active{transform:scale(0.98)}
+.rider.selected{border-color:var(--orange);background:rgba(249,115,22,0.06);box-shadow:0 0 16px rgba(249,115,22,0.15)}
+.rider .num{font-family:'Oswald',sans-serif;font-size:28px;font-weight:700;min-width:50px}
+.rider .num.tomac{color:var(--orange)}
+.rider .num.lawrence{color:var(--red)}
+.rider .num.webb{color:#3b82f6}
+.rider .num.roczen{color:#eab308}
+.rider .num.sexton{color:#ef4444}
+.rider .num.anderson{color:#22c55e}
+.rider .info{flex:1}
+.rider .rname{font-family:'Oswald',sans-serif;font-size:16px;font-weight:600;text-transform:uppercase;letter-spacing:1px}
+.rider .team{font-size:11px;color:#6b7280;text-transform:uppercase;letter-spacing:0.5px}
+.rider .check{width:28px;height:28px;border-radius:50%;border:2px solid #333;display:flex;align-items:center;justify-content:center;font-size:14px;transition:all 0.2s}
+.rider.selected .check{border-color:var(--orange);background:var(--orange);color:#fff}
+
+/* Vote steps */
+.vote-step{display:none}
+.vote-step.active{display:block}
+.btn-next{width:100%;padding:16px;border:none;border-radius:10px;font-family:'Oswald',sans-serif;font-size:18px;font-weight:600;text-transform:uppercase;letter-spacing:2px;cursor:pointer;margin-top:16px;transition:all 0.2s;background:#222;color:#666}
+.btn-next.ready{background:linear-gradient(135deg,var(--orange),var(--red));color:#fff;box-shadow:0 4px 20px rgba(239,68,68,0.3)}
+.btn-next.ready:hover{transform:translateY(-1px);box-shadow:0 6px 24px rgba(239,68,68,0.4)}
+
+/* Drama */
+.drama-card{background:#111;border:1px solid #222;border-radius:12px;padding:20px;margin-bottom:12px}
+.drama-card .drama-tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--red);margin-bottom:6px}
+.drama-card h4{font-family:'Oswald',sans-serif;font-size:18px;font-weight:600;text-transform:uppercase;margin-bottom:6px}
+.drama-card p{font-size:13px;color:#9ca3af;line-height:1.6}
+
+/* Summary card */
+.summary-card{background:#111;border:1px solid var(--orange);border-radius:12px;padding:24px;text-align:center}
+.summary-card h4{font-family:'Oswald',sans-serif;font-size:20px;color:var(--orange);margin-bottom:8px;text-transform:uppercase;letter-spacing:2px}
+.summary-picks{display:flex;flex-direction:column;gap:6px;margin:16px 0}
+.summary-pick{display:flex;justify-content:space-between;padding:8px 12px;background:rgba(249,115,22,0.06);border-radius:6px;font-size:14px}
+.summary-pick .pick-label{color:#9ca3af}
+.summary-pick .pick-value{font-weight:700;color:var(--orange)}
+.btn-share{width:100%;padding:14px;border:none;border-radius:10px;font-family:'Oswald',sans-serif;font-size:16px;font-weight:600;text-transform:uppercase;letter-spacing:2px;cursor:pointer;background:linear-gradient(135deg,var(--orange),var(--red));color:#fff;margin-top:12px}
+
+/* Footer */
+.footer{text-align:center;padding:24px 16px;font-size:12px;color:#4b5563}
+.footer a{color:var(--orange);text-decoration:none}
+
+/* Bingo link */
+.bingo-banner{max-width:700px;margin:0 auto 24px;padding:0 16px}
+.bingo-link{display:flex;align-items:center;justify-content:space-between;background:linear-gradient(135deg,rgba(249,115,22,0.1),rgba(239,68,68,0.1));border:1px solid rgba(249,115,22,0.3);border-radius:10px;padding:14px 18px;text-decoration:none;transition:all 0.2s}
+.bingo-link:hover{border-color:var(--orange);box-shadow:0 0 20px rgba(249,115,22,0.15)}
+.bingo-link .bl-text{font-family:'Oswald',sans-serif;font-size:16px;font-weight:600;color:#fff;text-transform:uppercase;letter-spacing:1px}
+.bingo-link .bl-sub{font-size:12px;color:#9ca3af;margin-top:2px;font-family:'Inter',sans-serif;text-transform:none;letter-spacing:0}
+.bingo-link .bl-arrow{font-size:24px;color:var(--orange)}
+</style>
+</head>
+<body>
+<div class="topbar"></div>
+
+<!-- Header -->
+<div class="header">
+  <div class="logo">REV<br>MX</div>
+  <div class="header-text">
+    <span class="badge">Supercross 2026</span>
+    <div class="brand">REVMX</div>
+  </div>
+</div>
+
+<!-- Dynamic Countdown Hub -->
+<div class="countdown-hub">
+  <div class="countdown-box">
+    <div class="status">
+      <span class="status-dot" id="statusDot"></span>
+      <span id="statusText">LOADING...</span>
+    </div>
+    <div class="event-label" id="eventLabel">CLEVELAND SUPERCROSS &mdash; TRIPLE CROWN</div>
+    <div class="gate-drop" id="gateDrop">GATE DROP</div>
+    <div class="venue">APR 18 &bull; HUNTINGTON BANK FIELD &bull; CLEVELAND, OH</div>
+    <div class="countdown-timer" id="mainTimer">--:--:--</div>
+  </div>
+</div>
+
+<!-- Race Timeline -->
+<div class="timeline">
+  <h3><span class="icon">&#9632;</span> TRIPLE CROWN SCHEDULE (ET)</h3>
+  <div class="race-list" id="raceList"></div>
+</div>
+
+<!-- MOTO Bingo Banner -->
+<div class="bingo-banner">
+  <a href="https://revmx.com/bingo/" class="bingo-link" target="_blank">
+    <div>
+      <div class="bl-text">MOTO BINGO &mdash; Play Along Live!</div>
+      <div class="bl-sub">Tap squares as race moments happen. Can you get 5 in a row?</div>
+    </div>
+    <span class="bl-arrow">&#8250;</span>
+  </a>
+</div>
+
+<!-- Weekly Drama -->
+<div class="section">
+  <h3>This Week's Drama</h3>
+  <div class="sub">Cleveland Edition &mdash; Round 14</div>
+
+  <div class="drama-card">
+    <div class="drama-tag">Points Battle</div>
+    <h4>Lawrence vs. Tomac: 3 Points Apart</h4>
+    <p>Hunter Lawrence leads the 450 championship by just 3 points over Eli Tomac heading into Cleveland. A Triple Crown format adds chaos &mdash; three races means three gate drops and three chances for the points lead to change hands. Both riders have been trading wins all season.</p>
+  </div>
+
+  <div class="drama-card">
+    <div class="drama-tag">Injury Watch</div>
+    <h4>Who's In, Who's Out?</h4>
+    <p>The injury list continues to grow as the season grinds on. Several big names are racing through bumps and bruises. Check the Racer X pre-race report for the latest updates on who's lined up for Cleveland.</p>
+  </div>
+
+  <div class="drama-card">
+    <div class="drama-tag">Format Wildcard</div>
+    <h4>Day Race Triple Crown = Chaos</h4>
+    <p>Cleveland is a rare daytime Triple Crown &mdash; the broadcast starts at 3 PM ET on NBC and Peacock. Shorter races, no time for mistakes, and a different vibe under the arena lights-off, daylight-on atmosphere. Track conditions change throughout the afternoon.</p>
+  </div>
+</div>
+
+<!-- Pick Your Winner -->
+<div class="section">
+  <h3>Cleveland SX</h3>
+  <div class="sub">Who's Taking The Checkers?</div>
+
+  <div class="stepper">
+    <div class="step-num active" id="s1">1</div>
+    <div class="step-line"></div>
+    <div class="step-num" id="s2">2</div>
+    <div class="step-line"></div>
+    <div class="step-num" id="s3">3</div>
+  </div>
+
+  <!-- Step 1: Pick Winner -->
+  <div class="vote-step active" id="step1">
+    <div class="step-label">STEP 1 OF 3</div>
+    <h3 style="margin-bottom:16px">Pick Your Winner</h3>
+    <div class="riders" id="winnerPicks">
+      <div class="rider" data-rider="Eli Tomac" onclick="pickRider(this,'winner')">
+        <div class="num tomac">#3</div>
+        <div class="info"><div class="rname">Eli Tomac</div><div class="team">Star Racing Yamaha</div></div>
+        <div class="check">&#10003;</div>
+      </div>
+      <div class="rider" data-rider="Hunter Lawrence" onclick="pickRider(this,'winner')">
+        <div class="num lawrence">#96</div>
+        <div class="info"><div class="rname">Hunter Lawrence</div><div class="team">Team Honda HRC</div></div>
+        <div class="check">&#10003;</div>
+      </div>
+      <div class="rider" data-rider="Cooper Webb" onclick="pickRider(this,'winner')">
+        <div class="num webb">#1</div>
+        <div class="info"><div class="rname">Cooper Webb</div><div class="team">Red Bull KTM</div></div>
+        <div class="check">&#10003;</div>
+      </div>
+      <div class="rider" data-rider="Ken Roczen" onclick="pickRider(this,'winner')">
+        <div class="num roczen">#94</div>
+        <div class="info"><div class="rname">Ken Roczen</div><div class="team">Suzuki Factory</div></div>
+        <div class="check">&#10003;</div>
+      </div>
+      <div class="rider" data-rider="Chase Sexton" onclick="pickRider(this,'winner')">
+        <div class="num sexton">#4</div>
+        <div class="info"><div class="rname">Chase Sexton</div><div class="team">Red Bull KTM</div></div>
+        <div class="check">&#10003;</div>
+      </div>
+      <div class="rider" data-rider="Jason Anderson" onclick="pickRider(this,'winner')">
+        <div class="num anderson">#21</div>
+        <div class="info"><div class="rname">Jason Anderson</div><div class="team">Monster Kawasaki</div></div>
+        <div class="check">&#10003;</div>
+      </div>
+    </div>
+    <button class="btn-next" id="btn1" onclick="goStep(2)">NEXT &mdash; LOCK IT IN</button>
+  </div>
+
+  <!-- Step 2: Pick Podium -->
+  <div class="vote-step" id="step2">
+    <div class="step-label">STEP 2 OF 3</div>
+    <h3 style="margin-bottom:16px">Biggest Drama Pick</h3>
+    <div class="riders" id="dramaPicks">
+      <div class="rider" data-pick="First-turn pileup" onclick="pickRider(this,'drama')">
+        <div class="info"><div class="rname">First-Turn Pileup</div><div class="team">Chaos off the gate</div></div>
+        <div class="check">&#10003;</div>
+      </div>
+      <div class="rider" data-pick="Last-lap pass for the win" onclick="pickRider(this,'drama')">
+        <div class="info"><div class="rname">Last-Lap Pass for the Win</div><div class="team">The ultimate clutch move</div></div>
+        <div class="check">&#10003;</div>
+      </div>
+      <div class="rider" data-pick="Lapped rider takes out leader" onclick="pickRider(this,'drama')">
+        <div class="info"><div class="rname">Lapped Rider Takes Out Leader</div><div class="team">Wrong place, wrong time</div></div>
+        <div class="check">&#10003;</div>
+      </div>
+      <div class="rider" data-pick="Points leader crashes" onclick="pickRider(this,'drama')">
+        <div class="info"><div class="rname">Points Leader Crashes</div><div class="team">Championship implications</div></div>
+        <div class="check">&#10003;</div>
+      </div>
+      <div class="rider" data-pick="Clean sweep by one rider" onclick="pickRider(this,'drama')">
+        <div class="info"><div class="rname">Clean Sweep &mdash; 3 for 3</div><div class="team">Total domination</div></div>
+        <div class="check">&#10003;</div>
+      </div>
+    </div>
+    <button class="btn-next" id="btn2" onclick="goStep(3)">NEXT &mdash; FINAL PICK</button>
+  </div>
+
+  <!-- Step 3: Summary -->
+  <div class="vote-step" id="step3">
+    <div class="step-label">STEP 3 OF 3</div>
+    <div class="summary-card">
+      <h4>Your Cleveland Picks</h4>
+      <div class="summary-picks" id="summaryPicks"></div>
+      <button class="btn-share" onclick="sharePicks()">SHARE YOUR PICKS</button>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <a href="https://revmx.com">RevMX.com</a> &bull; Monday Moto Madness &bull; Cleveland SX 2026
+</div>
+
+<script>
+(function(){
+// ─── RACE SCHEDULE (EDT) ───
+// Triple Crown Cleveland — April 18, 2026
+var RACES = [
+  { name: '250 Race #1', cls: '250', time: '2026-04-18T15:06:00-04:00' },
+  { name: '450 Race #1', cls: '450', time: '2026-04-18T15:31:00-04:00' },
+  { name: '250 Race #2', cls: '250', time: '2026-04-18T16:12:00-04:00' },
+  { name: '450 Race #2', cls: '450', time: '2026-04-18T16:33:00-04:00' },
+  { name: '250 Race #3', cls: '250', time: '2026-04-18T17:09:00-04:00' },
+  { name: '450 Race #3', cls: '450', time: '2026-04-18T17:36:00-04:00' }
+];
+
+function fmtTime(iso) {
+  var d = new Date(iso);
+  var h = d.getHours(), m = d.getMinutes();
+  var ap = h >= 12 ? 'PM' : 'AM';
+  h = h % 12 || 12;
+  return h + ':' + (m < 10 ? '0' : '') + m + ' ' + ap + ' ET';
+}
+
+function fmtCountdown(ms) {
+  if (ms <= 0) return null;
+  var s = Math.floor(ms / 1000);
+  var h = Math.floor(s / 3600);
+  var m = Math.floor((s % 3600) / 60);
+  var sec = s % 60;
+  if (h > 0) return h + 'h ' + m + 'm ' + sec + 's';
+  if (m > 0) return m + 'm ' + sec + 's';
+  return sec + 's';
+}
+
+function fmtBigCountdown(ms) {
+  if (ms <= 0) return 'GATE DROP!';
+  var s = Math.floor(ms / 1000);
+  var h = Math.floor(s / 3600);
+  var m = Math.floor((s % 3600) / 60);
+  var sec = s % 60;
+  return (h < 10 ? '0' : '') + h + ':' + (m < 10 ? '0' : '') + m + ':' + (sec < 10 ? '0' : '') + sec;
+}
+
+function buildTimeline() {
+  var list = document.getElementById('raceList');
+  list.innerHTML = '';
+  RACES.forEach(function(r, i) {
+    var div = document.createElement('div');
+    div.className = 'race-item';
+    div.id = 'race-' + i;
+    div.innerHTML =
+      '<div class="time">' + fmtTime(r.time) + '</div>' +
+      '<div class="name"><span class="class-tag class-' + r.cls + '">' + r.cls + 'SX</span>' + r.name + '</div>' +
+      '<div class="countdown-mini" id="rc-' + i + '">--:--</div>';
+    list.appendChild(div);
+  });
+}
+
+function updateTimers() {
+  var now = Date.now();
+  var nextRace = null;
+  var allDone = true;
+
+  RACES.forEach(function(r, i) {
+    var t = new Date(r.time).getTime();
+    var diff = t - now;
+    var el = document.getElementById('rc-' + i);
+    var item = document.getElementById('race-' + i);
+
+    item.classList.remove('active', 'completed');
+
+    if (diff > 0) {
+      // Upcoming
+      el.textContent = fmtCountdown(diff);
+      el.className = 'countdown-mini';
+      allDone = false;
+      if (!nextRace) nextRace = { race: r, diff: diff, index: i };
+    } else if (diff > -900000) {
+      // Within 15 min after start = "LIVE"
+      el.textContent = 'LIVE';
+      el.className = 'countdown-mini live';
+      item.classList.add('active');
+      allDone = false;
+      if (!nextRace) nextRace = { race: r, diff: 0, index: i, live: true };
+    } else {
+      // Done
+      el.textContent = 'DONE';
+      el.className = 'countdown-mini done';
+      item.classList.add('completed');
+    }
+  });
+
+  // Update main countdown
+  var dot = document.getElementById('statusDot');
+  var statusText = document.getElementById('statusText');
+  var eventLabel = document.getElementById('eventLabel');
+  var gateDrop = document.getElementById('gateDrop');
+  var mainTimer = document.getElementById('mainTimer');
+
+  if (allDone) {
+    dot.className = 'status-dot done';
+    statusText.textContent = 'RACES COMPLETE';
+    gateDrop.textContent = 'CHECKERED FLAG';
+    mainTimer.textContent = 'SEE YOU IN PHILLY!';
+    mainTimer.style.fontSize = '20px';
+  } else if (nextRace && nextRace.live) {
+    dot.className = 'status-dot';
+    statusText.textContent = 'RACE IS LIVE';
+    eventLabel.textContent = 'CLEVELAND SUPERCROSS \u2014 TRIPLE CROWN';
+    gateDrop.textContent = 'GATE DROP!';
+    mainTimer.textContent = nextRace.race.name.toUpperCase();
+    mainTimer.style.fontSize = '24px';
+  } else if (nextRace) {
+    var firstRaceTime = new Date(RACES[0].time).getTime();
+    if (now < firstRaceTime) {
+      dot.className = 'status-dot upcoming';
+      statusText.textContent = 'COMING UP';
+      eventLabel.textContent = 'CLEVELAND SUPERCROSS \u2014 TRIPLE CROWN';
+      gateDrop.textContent = 'GATE DROP';
+      mainTimer.textContent = fmtBigCountdown(nextRace.diff);
+      mainTimer.style.fontSize = '36px';
+    } else {
+      dot.className = 'status-dot upcoming';
+      statusText.textContent = 'UP NEXT: ' + nextRace.race.name.toUpperCase();
+      eventLabel.textContent = 'CLEVELAND SUPERCROSS \u2014 TRIPLE CROWN';
+      gateDrop.textContent = nextRace.race.name.toUpperCase();
+      mainTimer.textContent = fmtBigCountdown(nextRace.diff);
+      mainTimer.style.fontSize = '36px';
+    }
+  }
+}
+
+buildTimeline();
+updateTimers();
+setInterval(updateTimers, 1000);
+
+// ─── VOTE LOGIC ───
+var picks = { winner: null, drama: null };
+
+window.pickRider = function(el, type) {
+  var container = el.parentElement;
+  container.querySelectorAll('.rider').forEach(function(r) { r.classList.remove('selected'); });
+  el.classList.add('selected');
+  picks[type] = el.dataset.rider || el.dataset.pick;
+
+  var btnId = type === 'winner' ? 'btn1' : 'btn2';
+  document.getElementById(btnId).classList.add('ready');
+};
+
+window.goStep = function(step) {
+  if (step === 2 && !picks.winner) return;
+  if (step === 3 && !picks.drama) return;
+
+  document.querySelectorAll('.vote-step').forEach(function(s) { s.classList.remove('active'); });
+  document.getElementById('step' + step).classList.add('active');
+
+  document.querySelectorAll('.step-num').forEach(function(s, i) {
+    s.classList.remove('active', 'done');
+    if (i < step - 1) s.classList.add('done');
+    if (i === step - 1) s.classList.add('active');
+  });
+
+  if (step === 3) {
+    var sp = document.getElementById('summaryPicks');
+    sp.innerHTML =
+      '<div class="summary-pick"><span class="pick-label">Winner</span><span class="pick-value">' + picks.winner + '</span></div>' +
+      '<div class="summary-pick"><span class="pick-label">Drama Pick</span><span class="pick-value">' + picks.drama + '</span></div>';
+  }
+};
+
+window.sharePicks = function() {
+  var text = '\uD83C\uDFC1 My Cleveland SX Picks (REVMX)\n' +
+    'Winner: ' + picks.winner + '\n' +
+    'Drama: ' + picks.drama + '\n' +
+    'Make your picks: weiszdev.github.io/2026SXMX/';
+  if (navigator.share) {
+    navigator.share({ title: 'RevMX Cleveland SX Picks', text: text }).catch(function(){});
+  } else {
+    navigator.clipboard.writeText(text).then(function() {
+      alert('Copied to clipboard! Paste to share.');
+    });
+  }
+};
+})();
+</script>
+</body>
+</html>
