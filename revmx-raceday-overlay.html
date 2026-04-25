@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=400, initial-scale=1" />
+<title>RevMX Race Day Overlay — 400x1080</title>
+<style>
+  :root{
+    --rev-red:#E10600;
+    --rev-red-bright:#FF2D2D;
+    --rev-black:#0A0A0A;
+    --rev-charcoal:#161616;
+    --rev-white:#FFFFFF;
+    --rev-yellow:#FFD400;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{
+    width:400px;height:1080px;
+    background:#000;
+    color:var(--rev-white);
+    font-family:'Impact','Arial Black','Helvetica Neue',Arial,sans-serif;
+    overflow:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  .stage{
+    position:relative;
+    width:400px;height:1080px;
+    background:
+      radial-gradient(circle at 50% 0%, rgba(225,6,0,0.40), transparent 55%),
+      radial-gradient(circle at 50% 100%, rgba(225,6,0,0.25), transparent 55%),
+      linear-gradient(180deg,#0a0a0a 0%, #141414 50%, #0a0a0a 100%);
+    border-left:5px solid var(--rev-red);
+    border-right:5px solid var(--rev-red);
+    overflow:hidden;
+    display:flex;flex-direction:column;
+  }
+  .stripes{
+    position:absolute;inset:0;
+    background-image:
+      repeating-linear-gradient(135deg,
+        rgba(225,6,0,0.06) 0 10px,
+        transparent 10px 30px);
+    pointer-events:none;
+  }
+
+  /* ========== TOP: COUNTDOWN ========== */
+  .top{
+    position:relative; z-index:2;
+    flex:0 0 600px;
+    border-bottom:5px solid var(--rev-red);
+    background:linear-gradient(180deg, rgba(225,6,0,0.10), rgba(0,0,0,0));
+    padding-bottom:14px;
+  }
+
+  .brand{
+    text-align:center;
+    padding:22px 20px 12px;
+  }
+  .brand .logo{
+    font-family:'Impact','Arial Black',sans-serif;
+    font-size:62px;line-height:.9;letter-spacing:2px;
+    color:var(--rev-white);
+    text-shadow:0 4px 0 #000, 0 0 18px rgba(225,6,0,.7);
+  }
+  .brand .logo span{ color:var(--rev-red); }
+  .brand .tag{
+    margin-top:4px;
+    font-family:'Arial Black',sans-serif;
+    font-size:13px;letter-spacing:6px;color:var(--rev-yellow);
+  }
+
+  .race-label{
+    margin-top:14px;text-align:center;
+    font-family:'Impact','Arial Black',sans-serif;
+    font-size:34px;line-height:1;color:var(--rev-white);
+    letter-spacing:1px;text-shadow:0 3px 0 #000;
+  }
+  .race-name{
+    margin-top:4px;text-align:center;
+    font-family:'Impact','Arial Black',sans-serif;
+    font-size:54px;line-height:1;color:var(--rev-red);
+    letter-spacing:2px;
+    text-shadow:0 4px 0 #000, 0 0 16px rgba(225,6,0,.6);
+  }
+  .race-meta{
+    margin-top:6px;text-align:center;
+    font-family:'Arial Black',sans-serif;
+    font-size:17px;letter-spacing:3px;color:var(--rev-white);
+  }
+  .race-meta .dot{ color:var(--rev-red); padding:0 6px; }
+
+  .countdown-title{
+    margin-top:18px;text-align:center;
+    font-family:'Arial Black',sans-serif;
+    font-size:18px;letter-spacing:7px;color:var(--rev-yellow);
+    text-shadow:0 2px 0 #000;
+  }
+  .countdown{
+    margin:10px 14px 0;
+    display:grid;grid-template-columns:repeat(4,1fr);gap:7px;
+  }
+  .unit{
+    background:linear-gradient(180deg,#1a1a1a,#000);
+    border:3px solid var(--rev-red);
+    border-radius:12px;
+    padding:10px 2px 8px;text-align:center;
+    box-shadow: 0 0 22px rgba(225,6,0,.30), inset 0 0 0 2px #000;
+  }
+  .unit .num{
+    font-family:'Impact','Arial Black',sans-serif;
+    font-size:60px;line-height:1;color:var(--rev-white);
+    text-shadow:0 3px 0 #000, 0 0 12px rgba(225,6,0,.7);
+    letter-spacing:-2px;
+  }
+  .unit .lbl{
+    margin-top:4px;font-family:'Arial Black',sans-serif;
+    font-size:12px;letter-spacing:3px;color:var(--rev-red);
+  }
+
+  .status{
+    margin:14px auto 0;width:fit-content;
+    padding:9px 20px;background:var(--rev-red);color:#fff;
+    font-family:'Arial Black',sans-serif;
+    font-size:18px;letter-spacing:3px;border-radius:6px;
+    box-shadow:0 0 22px rgba(225,6,0,.7);
+    text-align:center;
+  }
+  .status.live{ background:var(--rev-yellow);color:#000;animation:pulse 1s infinite alternate; }
+  .status.done{ background:#444;color:#fff; }
+  @keyframes pulse{ from{filter:brightness(1)} to{filter:brightness(1.35)} }
+
+  /* ========== BOTTOM: BINGO INVITE ========== */
+  .bottom{
+    position:relative; z-index:2;
+    flex:1 1 auto;
+    display:flex;flex-direction:column;align-items:center;
+    padding:18px 20px 40px;
+  }
+
+  .b-title{
+    font-family:'Impact','Arial Black',sans-serif;
+    font-size:64px;line-height:.95;color:var(--rev-red);
+    letter-spacing:5px;text-align:center;
+    text-shadow:0 4px 0 #000, 0 0 18px rgba(225,6,0,.7);
+  }
+  .b-tag{
+    margin-top:4px;
+    font-family:'Arial Black',sans-serif;
+    font-size:14px;letter-spacing:6px;color:var(--rev-yellow);
+    text-align:center;
+  }
+
+  .play-along{
+    margin-top:14px;text-align:center;
+    font-family:'Impact','Arial Black',sans-serif;
+    font-size:30px;line-height:1.05;color:var(--rev-white);
+    letter-spacing:2px;
+    text-shadow:0 2px 0 #000;
+  }
+  .play-along .accent{ color:var(--rev-red); }
+
+  .qr-card{
+    margin-top:16px;
+    background:#fff;
+    padding:14px;
+    border-radius:14px;
+    border:4px solid var(--rev-red);
+    box-shadow:0 0 30px rgba(225,6,0,.4);
+  }
+  .qr-card img{
+    display:block;
+    width:240px;height:240px;
+  }
+
+  .scan-line{
+    margin-top:14px;
+    font-family:'Impact','Arial Black',sans-serif;
+    font-size:36px;letter-spacing:6px;color:var(--rev-red);
+    text-align:center;
+    text-shadow:0 3px 0 #000;
+  }
+  .url-line{
+    margin-top:2px;
+    font-family:'Arial Black',sans-serif;
+    font-size:22px;letter-spacing:3px;color:var(--rev-white);
+    text-align:center;
+  }
+  .arrow{
+    margin-top:6px;
+    font-family:'Impact','Arial Black',sans-serif;
+    font-size:20px;letter-spacing:2px;color:var(--rev-yellow);
+    text-align:center;
+  }
+
+  .footer{
+    position:absolute;left:0;right:0;bottom:8px;z-index:3;
+    text-align:center;
+    font-family:'Arial Black',sans-serif;
+    font-size:11px;letter-spacing:6px;color:#888;
+  }
+  .footer span{ color:var(--rev-red); }
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="stripes"></div>
+
+  <!-- ============ TOP: COUNTDOWN ============ -->
+  <div class="top">
+    <div class="brand">
+      <div class="logo">REV<span>MX</span></div>
+      <div class="tag">MONDAY MOTO MADNESS</div>
+    </div>
+
+    <div class="race-label">NEXT RACE</div>
+    <div class="race-name" id="raceName">DENVER</div>
+    <div class="race-meta">
+      ROUND <span id="raceRound">15</span><span class="dot">•</span><span id="raceDate">APR 25</span>
+    </div>
+
+    <div class="countdown-title">RACE STARTS IN</div>
+    <div class="countdown">
+      <div class="unit"><div class="num" id="d">--</div><div class="lbl">DAYS</div></div>
+      <div class="unit"><div class="num" id="h">--</div><div class="lbl">HRS</div></div>
+      <div class="unit"><div class="num" id="m">--</div><div class="lbl">MIN</div></div>
+      <div class="unit"><div class="num" id="s">--</div><div class="lbl">SEC</div></div>
+    </div>
+
+    <div class="status" id="status">PRE-RACE</div>
+  </div>
+
+  <!-- ============ BOTTOM: BINGO INVITE ============ -->
+  <div class="bottom">
+    <div class="b-title">MOTO<br>BINGO</div>
+    <div class="b-tag">PLAY DURING THE RACE</div>
+
+    <div class="play-along">
+      Watch the race.<br>
+      Tap the squares.<br>
+      <span class="accent">Yell BINGO!</span>
+    </div>
+
+    <div class="qr-card">
+      <img alt="QR to revmx.com/bingo"
+           src="https://api.qrserver.com/v1/create-qr-code/?size=400x400&margin=0&color=000000&bgcolor=ffffff&data=https%3A%2F%2Frevmx.com%2Fbingo" />
+    </div>
+
+    <div class="scan-line">SCAN TO PLAY</div>
+    <div class="url-line">REVMX.COM/BINGO</div>
+    <div class="arrow">▲ POINT YOUR PHONE HERE ▲</div>
+  </div>
+
+  <div class="footer">REVMX.COM <span>•</span> RACE DAY</div>
+</div>
+
+<script>
+  const schedule = [
+    { round:14, name:"CLEVELAND",   date:"APR 18", iso:"2026-04-18T19:00:00-04:00" },
+    { round:15, name:"DENVER",      date:"APR 25", iso:"2026-04-25T19:00:00-06:00" },
+    { round:16, name:"PHILADELPHIA",date:"MAY 02", iso:"2026-05-02T19:00:00-04:00" },
+    { round:17, name:"SALT LAKE",   date:"MAY 09", iso:"2026-05-09T19:00:00-06:00" }
+  ];
+  function pad(n){ return String(n).padStart(2,"0"); }
+  function pickRace(now){
+    for (const r of schedule){
+      if (new Date(r.iso).getTime() > now.getTime()) return r;
+    }
+    return null;
+  }
+  function tick(){
+    const now = new Date();
+    const race = pickRace(now);
+    const status = document.getElementById("status");
+
+    if (!race){
+      document.getElementById("raceName").textContent = "SEASON COMPLETE";
+      document.getElementById("raceRound").textContent = "—";
+      document.getElementById("raceDate").textContent  = "2026";
+      ["d","h","m","s"].forEach(id=>document.getElementById(id).textContent="00");
+      status.textContent = "SEE YOU IN 2027";
+      status.className = "status done";
+      return;
+    }
+
+    document.getElementById("raceName").textContent  = race.name;
+    document.getElementById("raceRound").textContent = race.round;
+    document.getElementById("raceDate").textContent  = race.date;
+
+    const target = new Date(race.iso).getTime();
+    let diff = Math.max(0, target - now.getTime());
+    const dayMs = 86400000;
+    const days  = Math.floor(diff / dayMs); diff -= days*dayMs;
+    const hrs   = Math.floor(diff / 3600000); diff -= hrs*3600000;
+    const mins  = Math.floor(diff / 60000);   diff -= mins*60000;
+    const secs  = Math.floor(diff / 1000);
+
+    document.getElementById("d").textContent = pad(days);
+    document.getElementById("h").textContent = pad(hrs);
+    document.getElementById("m").textContent = pad(mins);
+    document.getElementById("s").textContent = pad(secs);
+
+    const total = target - now.getTime();
+    if (total <= 0){ status.textContent = "🔴 LIVE — GATE DROP"; status.className="status live"; }
+    else if (total < 3600000){ status.textContent = "STAGING LANE"; status.className="status"; }
+    else if (total < 86400000){ status.textContent = "RACE DAY"; status.className="status"; }
+    else { status.textContent = "PRE-RACE"; status.className="status"; }
+  }
+  tick(); setInterval(tick, 1000);
+</script>
+</body>
+</html>
