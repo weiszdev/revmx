@@ -14,12 +14,18 @@
     --rev-yellow:#FFD400;
   }
   *{box-sizing:border-box;margin:0;padding:0}
-  html,body{
+  html{
+    width:400px;height:1080px;
+    overflow:hidden;
+    background:#000;
+  }
+  body{
     width:400px;height:1080px;
     background:#000;
     color:var(--rev-white);
     font-family:'Impact','Arial Black','Helvetica Neue',Arial,sans-serif;
     overflow:hidden;
+    position:fixed;top:0;left:0;
     -webkit-font-smoothing:antialiased;
   }
   .stage{
@@ -46,19 +52,19 @@
   /* ========== TOP: COUNTDOWN ========== */
   .top{
     position:relative; z-index:2;
-    flex:0 0 600px;
+    flex:0 0 520px;
     border-bottom:5px solid var(--rev-red);
     background:linear-gradient(180deg, rgba(225,6,0,0.10), rgba(0,0,0,0));
-    padding-bottom:14px;
+    padding-bottom:10px;
   }
 
   .brand{
     text-align:center;
-    padding:22px 20px 12px;
+    padding:16px 20px 8px;
   }
   .brand .logo{
     font-family:'Impact','Arial Black',sans-serif;
-    font-size:62px;line-height:.9;letter-spacing:2px;
+    font-size:56px;line-height:.9;letter-spacing:2px;
     color:var(--rev-white);
     text-shadow:0 4px 0 #000, 0 0 18px rgba(225,6,0,.7);
   }
@@ -70,58 +76,58 @@
   }
 
   .race-label{
-    margin-top:14px;text-align:center;
+    margin-top:10px;text-align:center;
     font-family:'Impact','Arial Black',sans-serif;
-    font-size:34px;line-height:1;color:var(--rev-white);
+    font-size:30px;line-height:1;color:var(--rev-white);
     letter-spacing:1px;text-shadow:0 3px 0 #000;
   }
   .race-name{
-    margin-top:4px;text-align:center;
+    margin-top:2px;text-align:center;
     font-family:'Impact','Arial Black',sans-serif;
-    font-size:54px;line-height:1;color:var(--rev-red);
+    font-size:48px;line-height:1;color:var(--rev-red);
     letter-spacing:2px;
     text-shadow:0 4px 0 #000, 0 0 16px rgba(225,6,0,.6);
   }
   .race-meta{
-    margin-top:6px;text-align:center;
+    margin-top:4px;text-align:center;
     font-family:'Arial Black',sans-serif;
-    font-size:17px;letter-spacing:3px;color:var(--rev-white);
+    font-size:16px;letter-spacing:3px;color:var(--rev-white);
   }
   .race-meta .dot{ color:var(--rev-red); padding:0 6px; }
 
   .countdown-title{
-    margin-top:18px;text-align:center;
+    margin-top:14px;text-align:center;
     font-family:'Arial Black',sans-serif;
-    font-size:18px;letter-spacing:7px;color:var(--rev-yellow);
+    font-size:16px;letter-spacing:7px;color:var(--rev-yellow);
     text-shadow:0 2px 0 #000;
   }
   .countdown{
-    margin:10px 14px 0;
-    display:grid;grid-template-columns:repeat(4,1fr);gap:7px;
+    margin:8px 14px 0;
+    display:grid;grid-template-columns:repeat(4,1fr);gap:6px;
   }
   .unit{
     background:linear-gradient(180deg,#1a1a1a,#000);
     border:3px solid var(--rev-red);
     border-radius:12px;
-    padding:10px 2px 8px;text-align:center;
+    padding:8px 2px 6px;text-align:center;
     box-shadow: 0 0 22px rgba(225,6,0,.30), inset 0 0 0 2px #000;
   }
   .unit .num{
     font-family:'Impact','Arial Black',sans-serif;
-    font-size:60px;line-height:1;color:var(--rev-white);
+    font-size:52px;line-height:1;color:var(--rev-white);
     text-shadow:0 3px 0 #000, 0 0 12px rgba(225,6,0,.7);
     letter-spacing:-2px;
   }
   .unit .lbl{
-    margin-top:4px;font-family:'Arial Black',sans-serif;
-    font-size:12px;letter-spacing:3px;color:var(--rev-red);
+    margin-top:3px;font-family:'Arial Black',sans-serif;
+    font-size:11px;letter-spacing:3px;color:var(--rev-red);
   }
 
   .status{
-    margin:14px auto 0;width:fit-content;
-    padding:9px 20px;background:var(--rev-red);color:#fff;
+    margin:10px auto 0;width:fit-content;
+    padding:8px 18px;background:var(--rev-red);color:#fff;
     font-family:'Arial Black',sans-serif;
-    font-size:18px;letter-spacing:3px;border-radius:6px;
+    font-size:17px;letter-spacing:3px;border-radius:6px;
     box-shadow:0 0 22px rgba(225,6,0,.7);
     text-align:center;
   }
@@ -134,52 +140,53 @@
     position:relative; z-index:2;
     flex:1 1 auto;
     display:flex;flex-direction:column;align-items:center;
-    padding:18px 20px 40px;
+    padding:14px 20px 24px;
+    overflow:hidden;
   }
 
   .b-title{
     font-family:'Impact','Arial Black',sans-serif;
-    font-size:54px;line-height:.95;color:var(--rev-red);
+    font-size:50px;line-height:.95;color:var(--rev-red);
     letter-spacing:2px;text-align:center;white-space:nowrap;
     text-shadow:0 4px 0 #000, 0 0 18px rgba(225,6,0,.7);
   }
   .b-tag{
-    margin-top:4px;
+    margin-top:2px;
     font-family:'Arial Black',sans-serif;
-    font-size:14px;letter-spacing:6px;color:var(--rev-yellow);
+    font-size:13px;letter-spacing:5px;color:var(--rev-yellow);
     text-align:center;
   }
 
   .qr-card{
-    margin-top:18px;
+    margin-top:12px;
     background:#fff;
-    padding:14px;
-    border-radius:14px;
+    padding:10px;
+    border-radius:12px;
     border:4px solid var(--rev-red);
     box-shadow:0 0 30px rgba(225,6,0,.4);
   }
   .qr-card img{
     display:block;
-    width:280px;height:280px;
+    width:260px;height:260px;
   }
 
   .scan-line{
-    margin-top:14px;
+    margin-top:10px;
     font-family:'Impact','Arial Black',sans-serif;
-    font-size:36px;letter-spacing:6px;color:var(--rev-red);
+    font-size:32px;letter-spacing:6px;color:var(--rev-red);
     text-align:center;
     text-shadow:0 3px 0 #000;
   }
   .url-line{
     margin-top:2px;
     font-family:'Arial Black',sans-serif;
-    font-size:22px;letter-spacing:3px;color:var(--rev-white);
+    font-size:20px;letter-spacing:3px;color:var(--rev-white);
     text-align:center;
   }
   .arrow{
-    margin-top:6px;
+    margin-top:4px;
     font-family:'Impact','Arial Black',sans-serif;
-    font-size:20px;letter-spacing:2px;color:var(--rev-yellow);
+    font-size:18px;letter-spacing:2px;color:var(--rev-yellow);
     text-align:center;
   }
 
@@ -204,7 +211,7 @@
     </div>
 
     <div class="race-label">NEXT RACE</div>
-    <div class="race-name" id="raceName">DENVER</div>
+    <div class="race-name" id="raceName">PHILADELPHIA</div>
     <div class="race-meta">
       ROUND <span id="raceRound">15</span><span class="dot">•</span><span id="raceDate">APR 25</span>
     </div>
@@ -241,8 +248,8 @@
 <script>
   const schedule = [
     { round:14, name:"CLEVELAND",   date:"APR 18", iso:"2026-04-18T19:00:00-04:00" },
-    { round:15, name:"DENVER",      date:"APR 25", iso:"2026-04-25T19:00:00-06:00" },
-    { round:16, name:"PHILADELPHIA",date:"MAY 02", iso:"2026-05-02T19:00:00-04:00" },
+    { round:15, name:"PHILADELPHIA",date:"APR 25", iso:"2026-04-25T19:00:00-04:00" },
+    { round:16, name:"DENVER",      date:"MAY 02", iso:"2026-05-02T19:00:00-06:00" },
     { round:17, name:"SALT LAKE",   date:"MAY 09", iso:"2026-05-09T19:00:00-06:00" }
   ];
   function pad(n){ return String(n).padStart(2,"0"); }
