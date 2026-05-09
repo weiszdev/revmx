@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+<title>RevMX — Next Race Countdown</title>
+<meta name="description" content="Countdown to the next Supercross / Pro Motocross gate drop. Powered by RevMX." />
+<meta property="og:title" content="RevMX — Next Race Countdown" />
+<meta property="og:description" content="Counting down to the next gate drop. Vote, predict, play MOTO BINGO at revmx.com." />
+<meta property="og:type" content="website" />
+<style>
+  /* ---------- RESET + BASE ---------- */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 100%; }
+  body {
+    font-family: "Arial Black", "Helvetica Neue", Arial, sans-serif;
+    color: #fff;
+    background: radial-gradient(ellipse at top, #1a0000 0%, #000 65%);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    line-height: 1.2;
+    overflow-x: hidden;
+  }
+
+  /* ---------- LAYOUT ---------- */
+  .stage {
+    width: 100%;
+    max-width: 980px;
+    margin: 0 auto;
+    padding: clamp(16px, 3.5vw, 32px) clamp(14px, 3vw, 28px);
+    display: flex;
+    flex-direction: column;
+    gap: clamp(14px, 2.5vw, 22px);
+  }
+
+  /* ---------- HEADER ---------- */
+  .brand {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .logo {
+    font-family: Impact, "Arial Black", sans-serif;
+    font-weight: 900;
+    letter-spacing: 2px;
+    font-size: clamp(28px, 5vw, 44px);
+    line-height: 1;
+    color: #fff;
+  }
+  .logo .mx { color: #E10600; }
+  .status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #E10600;
+    color: #fff;
+    padding: 8px 14px;
+    border-radius: 999px;
+    font-size: clamp(11px, 1.6vw, 14px);
+    font-weight: 900;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    white-space: nowrap;
+    box-shadow: 0 2px 12px rgba(225, 6, 0, 0.4);
+  }
+  .status-pill[data-state="LIVE"]      { background: #FFD400; color: #000; }
+  .status-pill[data-state="STAGING"]   { background: #FF2D2D; }
+  .status-pill[data-state="RACE_DAY"]  { background: #E10600; }
+  .status-pill[data-state="PRE_RACE"]  { background: #2a0000; border: 2px solid #E10600; color: #fff; }
+  .status-pill .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: currentColor; opacity: 0.9;
+    animation: pulse 1.4s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 0.4; transform: scale(0.85); }
+    50%      { opacity: 1;   transform: scale(1.15); }
+  }
+
+  /* ---------- HEADLINE ---------- */
+  .headline {
+    text-align: center;
+    padding: clamp(8px, 2vw, 14px) 0 clamp(2px, 1vw, 6px);
+    border-top: 2px solid #E10600;
+    border-bottom: 2px solid #E10600;
+    background: linear-gradient(180deg, rgba(225, 6, 0, 0.08), rgba(0, 0, 0, 0));
+  }
+  .headline .label {
+    font-family: Impact, "Arial Black", sans-serif;
+    font-size: clamp(13px, 2vw, 17px);
+    letter-spacing: 4px;
+    color: #E10600;
+    text-transform: uppercase;
+  }
+  .headline .race-name {
+    font-family: Impact, "Arial Black", sans-serif;
+    font-size: clamp(36px, 7vw, 72px);
+    line-height: 1;
+    letter-spacing: 1.5px;
+    margin: clamp(4px, 1vw, 8px) 0;
+    text-transform: uppercase;
+    text-shadow: 0 2px 0 rgba(0,0,0,0.5);
+  }
+  .headline .round {
+    font-family: "Arial Black", sans-serif;
+    font-size: clamp(13px, 1.8vw, 16px);
+    letter-spacing: 3px;
+    color: #FFD400;
+    text-transform: uppercase;
+  }
+
+  /* ---------- TIMER ---------- */
+  .timer {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: clamp(8px, 1.5vw, 14px);
+  }
+  .tile {
+    background: #0e0000;
+    border: 2px solid #E10600;
+    border-radius: 10px;
+    padding: clamp(10px, 2vw, 18px) 8px;
+    text-align: center;
+    box-shadow: inset 0 -4px 0 rgba(225, 6, 0, 0.2);
+  }
+  .tile .num {
+    font-family: Impact, "Arial Black", sans-serif;
+    font-size: clamp(40px, 9vw, 88px);
+    line-height: 1;
+    letter-spacing: 1px;
+    color: #fff;
+    font-variant-numeric: tabular-nums;
+    -webkit-font-feature-settings: "tnum";
+            font-feature-settings: "tnum";
+  }
+  .tile .lbl {
+    font-family: "Arial Black", sans-serif;
+    font-size: clamp(11px, 1.5vw, 14px);
+    letter-spacing: 2.5px;
+    color: #E10600;
+    text-transform: uppercase;
+    margin-top: clamp(4px, 1vw, 8px);
+  }
+
+  /* ---------- LIVE BANNER (when at gate drop) ---------- */
+  .live-banner {
+    display: none;
+    background: #FFD400;
+    color: #000;
+    text-align: center;
+    padding: clamp(14px, 3vw, 22px);
+    border-radius: 10px;
+    font-family: Impact, "Arial Black", sans-serif;
+    font-size: clamp(28px, 6vw, 56px);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    animation: blink 1s step-end infinite;
+  }
+  @keyframes blink {
+    50% { background: #FF2D2D; color: #fff; }
+  }
+
+  /* ---------- SCHEDULE STRIP ---------- */
+  .schedule {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    padding-top: clamp(6px, 1.5vw, 10px);
+  }
+  .sched-item {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(225, 6, 0, 0.4);
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-family: "Arial Black", sans-serif;
+    font-size: clamp(10px, 1.4vw, 12px);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #888;
+    white-space: nowrap;
+  }
+  .sched-item.past    { opacity: 0.45; text-decoration: line-through; }
+  .sched-item.current { background: #E10600; color: #fff; border-color: #fff; }
+  .sched-item.upcoming { color: #ddd; }
+
+  /* ---------- CTA ---------- */
+  .cta {
+    text-align: center;
+    padding-top: clamp(4px, 1vw, 8px);
+  }
+  .cta a {
+    display: inline-block;
+    background: #E10600;
+    color: #fff;
+    text-decoration: none;
+    font-family: Impact, "Arial Black", sans-serif;
+    font-size: clamp(14px, 2vw, 18px);
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    padding: 12px 22px;
+    border-radius: 8px;
+    transition: transform 120ms ease, box-shadow 120ms ease;
+    box-shadow: 0 4px 0 #7a0300;
+  }
+  .cta a:hover    { transform: translateY(-1px); box-shadow: 0 5px 0 #7a0300; }
+  .cta a:active   { transform: translateY(2px);  box-shadow: 0 2px 0 #7a0300; }
+
+  /* ---------- IFRAME-FRIENDLY: tiny viewports ---------- */
+  @media (max-width: 380px) {
+    .timer { gap: 6px; }
+    .tile  { padding: 8px 4px; }
+    .schedule .sched-item { padding: 6px 8px; font-size: 10px; letter-spacing: 1px; }
+  }
+</style>
+</head>
+<body>
+<main class="stage" role="main">
+
+  <!-- BRAND ROW -->
+  <div class="brand">
+    <div class="logo">REV<span class="mx">MX</span></div>
+    <div class="status-pill" id="statusPill" data-state="PRE_RACE" aria-live="polite">
+      <span class="dot" aria-hidden="true"></span>
+      <span id="statusText">PRE-RACE</span>
+    </div>
+  </div>
+
+  <!-- HEADLINE -->
+  <section class="headline" aria-label="Next race">
+    <div class="label">Next Race</div>
+    <h1 class="race-name" id="raceName">Salt Lake City</h1>
+    <div class="round" id="raceRound">Round 17 · Finale · May 9</div>
+  </section>
+
+  <!-- COUNTDOWN -->
+  <section class="timer" id="timer" aria-label="Countdown to gate drop">
+    <div class="tile"><div class="num" id="d">00</div><div class="lbl">Days</div></div>
+    <div class="tile"><div class="num" id="h">00</div><div class="lbl">Hours</div></div>
+    <div class="tile"><div class="num" id="m">00</div><div class="lbl">Min</div></div>
+    <div class="tile"><div class="num" id="s">00</div><div class="lbl">Sec</div></div>
+  </section>
+
+  <!-- LIVE BANNER (replaces timer at gate drop) -->
+  <div class="live-banner" id="liveBanner" role="status">🔴 LIVE — GATE DROP</div>
+
+  <!-- SCHEDULE STRIP -->
+  <section class="schedule" id="schedule" aria-label="Remaining schedule"></section>
+
+  <!-- CTA -->
+  <div class="cta">
+    <a href="https://revmx.com/" rel="noopener">Vote · Predict · Play MOTO BINGO →</a>
+  </div>
+
+</main>
+
+<script>
+/* ============================================================
+   RevMX Race Countdown — schedule-driven, auto-advances.
+   To update for next race week, edit the SCHEDULE array below.
+   Each entry: { round, name, short, iso, series }
+     - iso: ISO 8601 with timezone offset for gate drop (~7pm local)
+     - series: "SX" | "MX"
+============================================================ */
+const SCHEDULE = [
+  // Past 2026 SX rounds left in for the strip — feel free to trim.
+  { round: 14, name: "Cleveland",       short: "CLE", iso: "2026-04-18T19:00:00-04:00", series: "SX" },
+  { round: 15, name: "Philadelphia",    short: "PHI", iso: "2026-04-25T19:00:00-04:00", series: "SX" },
+  { round: 16, name: "Denver",          short: "DEN", iso: "2026-05-02T19:00:00-06:00", series: "SX" },
+  { round: 17, name: "Salt Lake City",  short: "SLC", iso: "2026-05-09T17:00:00-06:00", series: "SX" },
+  // --- PRO MOTOCROSS OUTDOOR — verify dates before next race ---
+  { round:  1, name: "Fox Raceway",     short: "FOX", iso: "2026-05-23T13:00:00-07:00", series: "MX" },
+  { round:  2, name: "Hangtown",        short: "HTN", iso: "2026-05-30T13:00:00-07:00", series: "MX" }
+];
+
+const $ = (id) => document.getElementById(id);
+const pad = (n) => String(n).padStart(2, "0");
+
+function pickActive(now) {
+  // Pick first event whose iso > now; fall back to last entry.
+  for (const ev of SCHEDULE) {
+    if (new Date(ev.iso).getTime() > now.getTime()) return ev;
+  }
+  return SCHEDULE[SCHEDULE.length - 1];
+}
+
+function setStatus(diffMs) {
+  const pill = $("statusPill"), txt = $("statusText");
+  const banner = $("liveBanner"), timer = $("timer");
+  const HOUR = 60*60*1000, DAY = 24*HOUR;
+
+  if (diffMs <= 0 && diffMs > -3*HOUR) {
+    pill.dataset.state = "LIVE";
+    txt.textContent = "🔴 LIVE";
+    banner.style.display = "block";
+    timer.style.display = "none";
+  } else if (diffMs <= HOUR) {
+    pill.dataset.state = "STAGING";
+    txt.textContent = "STAGING LANE";
+    banner.style.display = "none";
+    timer.style.display = "grid";
+  } else if (diffMs <= DAY) {
+    pill.dataset.state = "RACE_DAY";
+    txt.textContent = "RACE DAY";
+    banner.style.display = "none";
+    timer.style.display = "grid";
+  } else {
+    pill.dataset.state = "PRE_RACE";
+    txt.textContent = "PRE-RACE";
+    banner.style.display = "none";
+    timer.style.display = "grid";
+  }
+}
+
+function renderSchedule(activeIso) {
+  const el = $("schedule"); el.innerHTML = "";
+  const now = Date.now();
+  // Show next 4 rounds (current + 3 ahead) and the previous 2 rounds.
+  const idx = SCHEDULE.findIndex(s => s.iso === activeIso);
+  const start = Math.max(0, idx - 2);
+  const end = Math.min(SCHEDULE.length, idx + 4);
+  for (let i = start; i < end; i++) {
+    const s = SCHEDULE[i];
+    const t = new Date(s.iso).getTime();
+    const cls = (s.iso === activeIso) ? "current" : (t < now ? "past" : "upcoming");
+    const div = document.createElement("div");
+    div.className = "sched-item " + cls;
+    div.textContent = `${s.series === "MX" ? "MX " : "R"}${s.round} · ${s.short}`;
+    el.appendChild(div);
+  }
+}
+
+function tick() {
+  const now = new Date();
+  const ev  = pickActive(now);
+  const target = new Date(ev.iso).getTime();
+  const diff = target - now.getTime();
+
+  // Header
+  $("raceName").textContent = ev.name;
+  const seriesLabel = ev.series === "MX" ? "Pro Motocross" : "Supercross";
+  const roundLabel  = ev.series === "MX" ? `Round ${ev.round}` : `Round ${ev.round}${ev.round === 17 ? " · Finale" : ""}`;
+  const dateLabel   = new Date(ev.iso).toLocaleDateString(undefined, { month: "short", day: "numeric" });
+  $("raceRound").textContent = `${seriesLabel} · ${roundLabel} · ${dateLabel}`;
+
+  // Numbers (clamp negatives to 0 for display)
+  const safe = Math.max(0, diff);
+  const days = Math.floor(safe / 86400000);
+  const hrs  = Math.floor((safe % 86400000) / 3600000);
+  const mins = Math.floor((safe %  3600000) /   60000);
+  const secs = Math.floor((safe %    60000) /    1000);
+  $("d").textContent = pad(days);
+  $("h").textContent = pad(hrs);
+  $("m").textContent = pad(mins);
+  $("s").textContent = pad(secs);
+
+  setStatus(diff);
+  renderSchedule(ev.iso);
+}
+
+tick();
+setInterval(tick, 1000);
+</script>
+</body>
+</html>
