@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>MotoMic X — This Week in Moto</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;600;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Rajdhani', sans-serif;
+    background: #0a0a0a;
+    color: #fff;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: repeating-conic-gradient(#111 0% 25%, transparent 0% 50%) 0 0 / 40px 40px;
+    opacity: 0.12;
+    z-index: 0;
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+    max-width: 420px;
+    margin: 0 auto;
+    padding: 24px 14px 50px;
+  }
+
+  .header { text-align: center; margin-bottom: 20px; }
+
+  .brand {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 900;
+    font-size: 3.2rem;
+    letter-spacing: 4px;
+    background: linear-gradient(135deg, #ff0000, #ff4400, #ffaa00);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-transform: uppercase;
+    line-height: 1;
+  }
+
+  .brand-sub {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 6px;
+    color: #666;
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+
+  .racing-stripe {
+    height: 5px;
+    background: linear-gradient(90deg, #ff0000, #ff4400, #ffaa00, #ff4400, #ff0000);
+    border-radius: 3px;
+    margin: 14px 0 10px;
+    animation: glow 2s ease-in-out infinite;
+  }
+  @keyframes glow {
+    0%, 100% { box-shadow: 0 0 8px rgba(255,68,0,0.4); }
+    50% { box-shadow: 0 0 22px rgba(255,68,0,0.9); }
+  }
+
+  .week-label {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 3px;
+    color: #ff4400;
+    text-transform: uppercase;
+  }
+
+  .cards { display: flex; flex-direction: column; gap: 12px; margin-top: 18px; }
+
+  .card {
+    position: relative;
+    background: linear-gradient(145deg, #161616, #1a1a1a);
+    border: 1px solid #2a2a2a;
+    border-radius: 14px;
+    padding: 16px 14px 14px 58px;
+    overflow: hidden;
+    transition: transform 0.2s, border-color 0.3s;
+  }
+  .card:hover { transform: translateY(-2px); border-color: #ff440066; }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; bottom: 0; width: 4px;
+    border-radius: 14px 0 0 14px;
+  }
+  .card:nth-child(1)::before  { background: #ff0000; }
+  .card:nth-child(2)::before  { background: #ff1a00; }
+  .card:nth-child(3)::before  { background: #ff3300; }
+  .card:nth-child(4)::before  { background: #ff4400; }
+  .card:nth-child(5)::before  { background: #ff5500; }
+  .card:nth-child(6)::before  { background: #ff6600; }
+  .card:nth-child(7)::before  { background: #ff7700; }
+  .card:nth-child(8)::before  { background: #ff8800; }
+  .card:nth-child(9)::before  { background: #ff9900; }
+  .card:nth-child(10)::before { background: #ffaa00; }
+
+  .card-rank {
+    position: absolute;
+    top: 50%;
+    left: 14px;
+    transform: translateY(-50%);
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 900;
+    font-size: 1.6rem;
+    line-height: 1;
+    color: #ff440028;
+  }
+
+  .card-headline {
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700;
+    font-size: 1.35rem;
+    line-height: 1.2;
+    color: #fff;
+    margin-bottom: 4px;
+  }
+
+  .card-take {
+    font-size: 1.05rem;
+    line-height: 1.35;
+    color: #999;
+  }
+
+  .card-stat {
+    display: inline-block;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.6rem;
+    font-weight: 700;
+    color: #ff4400;
+    background: #ff440012;
+    padding: 3px 8px;
+    border-radius: 4px;
+    margin-top: 8px;
+    letter-spacing: 1px;
+  }
+
+  .footer {
+    text-align: center;
+    margin-top: 28px;
+    padding-top: 14px;
+    border-top: 1px solid #222;
+  }
+  .footer-brand {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.6rem;
+    letter-spacing: 4px;
+    color: #444;
+    text-transform: uppercase;
+  }
+  .footer-cta {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-top: 6px;
+    background: linear-gradient(135deg, #ff4400, #ffaa00);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .footer-handle { font-size: 0.8rem; color: #555; margin-top: 4px; }
+
+  .card {
+    opacity: 0; transform: translateY(30px);
+    animation: slideIn 0.45s ease forwards;
+  }
+  .card:nth-child(1)  { animation-delay: 0.05s; }
+  .card:nth-child(2)  { animation-delay: 0.15s; }
+  .card:nth-child(3)  { animation-delay: 0.25s; }
+  .card:nth-child(4)  { animation-delay: 0.35s; }
+  .card:nth-child(5)  { animation-delay: 0.45s; }
+  .card:nth-child(6)  { animation-delay: 0.55s; }
+  .card:nth-child(7)  { animation-delay: 0.65s; }
+  .card:nth-child(8)  { animation-delay: 0.75s; }
+  .card:nth-child(9)  { animation-delay: 0.85s; }
+  .card:nth-child(10) { animation-delay: 0.95s; }
+  @keyframes slideIn { to { opacity: 1; transform: translateY(0); } }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="header">
+    <div class="brand">MotoMic</div>
+    <div class="brand-sub">Powered by RevMX</div>
+    <div class="racing-stripe"></div>
+    <div class="week-label">Top 10 &mdash; June 3, 2026</div>
+  </div>
+
+  <div class="cards">
+
+    <div class="card">
+      <div class="card-rank">01</div>
+      <div class="card-headline">Deegan's Been on a 450 for 3 Months. Can He Podium Saturday?</div>
+      <div class="card-take">Went 5-4 at Pala on a bike he barely knows. Hangtown ruts don't care about your last name.</div>
+      <div class="card-stat">12 Pts Off the Lead After Rd 1</div>
+    </div>
+
+    <div class="card">
+      <div class="card-rank">02</div>
+      <div class="card-headline">Levi Kitchen Won Moto 1 by 5.5 Seconds. Then Moto 2 Happened.</div>
+      <div class="card-take">Crashed. Finished 13th. Zero career overalls. His teammate took the red plate instead. Speed ain't the problem.</div>
+      <div class="card-stat">Moto 1: 1st &bull; Moto 2: 13th</div>
+    </div>
+
+    <div class="card">
+      <div class="card-rank">03</div>
+      <div class="card-headline">Jett's 8-Moto Pala Win Streak? Dead.</div>
+      <div class="card-take">91 laps led at Fox Raceway, never lost there. Started 16th, charged to 3rd on an ankle held together by 11 screws. Legend behavior, but he's not 100% and everybody knows it.</div>
+      <div class="card-stat">91-Lap Streak Snapped</div>
+    </div>
+
+    <div class="card">
+      <div class="card-rank">04</div>
+      <div class="card-headline">Hunter Lawrence Won Both Motos and Chose Violence</div>
+      <div class="card-take">Won by 8.7 seconds and 6 seconds. Lost the SX title by 3 points. Now his injured little brother is chasing him. Thanksgiving is going to be awkward.</div>
+      <div class="card-stat">1-1 Sweep &bull; Red Plate Holder</div>
+    </div>
+
+    <div class="card">
+      <div class="card-rank">05</div>
+      <div class="card-headline">Prado: "Oh My God, I'm So Bad With Lappers"</div>
+      <div class="card-take">Two-time MXGP World Champ. Qualified 0.182s off Hunter. Went 2-2. Still can't figure out how to pass a guy on a 250 going 30 mph. Welcome to America, Jorge.</div>
+      <div class="card-stat">0.182s Off Pole &bull; P2 Overall</div>
+    </div>
+
+    <div class="card">
+      <div class="card-rank">06</div>
+      <div class="card-headline">Tomac &amp; Sexton Both Done After ONE Round</div>
+      <div class="card-take">Tomac: neck. Sexton: shoulder. Two former champs gone before Hangtown. The 450 class just lost half its depth and all its chaos.</div>
+      <div class="card-stat">2 Former Champs Out</div>
+    </div>
+
+    <div class="card">
+      <div class="card-rank">07</div>
+      <div class="card-headline">Roczen Won a Title at 32 After a Dozen Surgeries. Nobody Cried. We All Cried.</div>
+      <div class="card-take">13 seasons. 28 wins. 7 top-5 finishes without a championship. Beat Hunter by 3 points. Oldest SX champ ever. First on a Suzuki since Dungey.</div>
+      <div class="card-stat">349-346 &bull; 3-Point Title Win</div>
+    </div>
+
+    <div class="card">
+      <div class="card-rank">08</div>
+      <div class="card-headline">Pro Circuit Swept the 250 Podium Like It's 2019 Again</div>
+      <div class="card-take">Hammaker got his first career win in 33 starts. PC hasn't held the red plate since Cianciarulo. Mitch Payton might actually be smiling.</div>
+      <div class="card-stat">PC Kawasaki 1-2-3 Sweep</div>
+    </div>
+
+    <div class="card">
+      <div class="card-rank">09</div>
+      <div class="card-headline">Villopoto "Came Back" to Kawasaki. But Is He Actually Racing?</div>
+      <div class="card-take">10 titles. 83 wins. Last raced in 2015. Every article says "ambassador role." The internet thinks he's lining up. RV probably thinks it's funny.</div>
+      <div class="card-stat">10 Titles &bull; 83 Wins &bull; 0 Confirmed Gates</div>
+    </div>
+
+    <div class="card">
+      <div class="card-rank">10</div>
+      <div class="card-headline">Hangtown Saturday: The Field Got Smaller. The Drama Got Bigger.</div>
+      <div class="card-take">Hunter defending. Jett chasing. Deegan learning. Prado adjusting. Kitchen praying for a good Moto 2. This one's going to be loud.</div>
+      <div class="card-stat">June 7 &bull; 1 PM PT &bull; Peacock</div>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    <div class="footer-brand">MotoMic &times; RevMX</div>
+    <div class="footer-cta">Follow for Weekly Moto</div>
+    <div class="footer-handle">@motomusicog</div>
+  </div>
+
+</div>
+</body>
+</html>
