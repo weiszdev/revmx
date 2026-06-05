@@ -83,13 +83,31 @@
   .card {
     position: relative;
     background: linear-gradient(145deg, #161616, #1a1a1a);
-    border: 1px solid #2a2a2a;
+    border: 1px solid transparent;
     border-radius: 14px;
     padding: 16px 14px 14px 58px;
-    overflow: hidden;
-    transition: transform 0.2s, border-color 0.3s;
+    overflow: visible;
+    transition: transform 0.2s, box-shadow 0.3s;
   }
-  .card:hover { transform: translateY(-2px); border-color: #ff440066; }
+  .card:hover { transform: translateY(-2px); }
+
+  /* Fire orange glow — odd cards */
+  .card:nth-child(odd) {
+    border-color: rgba(255,102,0,0.35);
+    box-shadow: 0 0 12px rgba(255,102,0,0.2), 0 0 30px rgba(255,102,0,0.1), inset 0 0 20px rgba(255,102,0,0.04);
+  }
+  .card:nth-child(odd):hover {
+    box-shadow: 0 0 16px rgba(255,102,0,0.35), 0 0 40px rgba(255,102,0,0.15), inset 0 0 20px rgba(255,102,0,0.06);
+  }
+
+  /* Red glow — even cards */
+  .card:nth-child(even) {
+    border-color: rgba(255,0,0,0.3);
+    box-shadow: 0 0 12px rgba(255,0,0,0.2), 0 0 30px rgba(255,0,0,0.1), inset 0 0 20px rgba(255,0,0,0.04);
+  }
+  .card:nth-child(even):hover {
+    box-shadow: 0 0 16px rgba(255,0,0,0.35), 0 0 40px rgba(255,0,0,0.15), inset 0 0 20px rgba(255,0,0,0.06);
+  }
 
   .card::before {
     content: '';
@@ -97,23 +115,8 @@
     top: 0; left: 0; bottom: 0; width: 4px;
     border-radius: 14px 0 0 14px;
   }
-  .card:nth-child(1)::before  { background: #ff0000; }
-  .card:nth-child(2)::before  { background: #ff1a00; }
-  .card:nth-child(3)::before  { background: #ff3300; }
-  .card:nth-child(4)::before  { background: #ff4400; }
-  .card:nth-child(5)::before  { background: #ff5500; }
-  .card:nth-child(6)::before  { background: #ff6600; }
-  .card:nth-child(7)::before  { background: #ff7700; }
-  .card:nth-child(8)::before  { background: #ff8800; }
-  .card:nth-child(9)::before  { background: #ff9900; }
-  .card:nth-child(10)::before { background: #ffaa00; }
-
-  /* Every 3rd card gets a highlighted treatment */
-  .card:nth-child(3n+1) {
-    background: linear-gradient(145deg, #1c1408, #1a1206);
-    border-color: #ff440033;
-    box-shadow: 0 0 20px rgba(255,68,0,0.08), inset 0 0 30px rgba(255,68,0,0.03);
-  }
+  .card:nth-child(odd)::before  { background: #ff6600; }
+  .card:nth-child(even)::before { background: #ff0000; }
 
   .card-rank {
     position: absolute;
