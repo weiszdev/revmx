@@ -216,17 +216,28 @@
   .footer-yt:hover { color: #ff4444; }
 
   .footer-optin-label {
+    display: block;
     font-family: 'Orbitron', sans-serif;
     font-size: 0.85rem;
     font-weight: 700;
     letter-spacing: 2px;
     text-transform: uppercase;
-    margin-top: 12px;
-    margin-top: 12px;
+    text-align: center;
+    margin: 12px auto 0;
+    padding: 12px 24px;
+    border: 1px solid rgba(255,68,0,0.4);
+    border-radius: 10px;
     background: linear-gradient(135deg, #ff4400, #ffaa00);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    cursor: pointer;
+    text-decoration: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .footer-optin-label:hover {
+    border-color: rgba(255,68,0,0.7);
+    box-shadow: 0 0 12px rgba(255,68,0,0.2);
   }
 
   .card {
@@ -256,7 +267,7 @@
     <div class="week-label">Top 10</div>
   </div>
 
-  <div class="footer-optin-label">Join Our Email List</div>
+  <a class="footer-optin-label" href="https://weiszdev.github.io/daytona-sx-vote/RevMX_Predictions_current.html" target="_blank">Join Our Email List</a>
 
   <div class="cards">
 
