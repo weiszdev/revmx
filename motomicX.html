@@ -108,6 +108,13 @@
   .card:nth-child(9)::before  { background: #ff9900; }
   .card:nth-child(10)::before { background: #ffaa00; }
 
+  /* Every 3rd card gets a highlighted treatment */
+  .card:nth-child(3n+1) {
+    background: linear-gradient(145deg, #1c1408, #1a1206);
+    border-color: #ff440033;
+    box-shadow: 0 0 20px rgba(255,68,0,0.08), inset 0 0 30px rgba(255,68,0,0.03);
+  }
+
   .card-rank {
     position: absolute;
     top: 50%;
