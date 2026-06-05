@@ -66,6 +66,24 @@
     border-radius: 2px;
   }
   .menu-toggle:hover span { background: #ff4400; }
+
+  .home-btn {
+    position: absolute;
+    top: 24px;
+    right: 14px;
+    z-index: 100;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.55rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #888;
+    text-decoration: none;
+    padding: 6px 10px;
+    border: 1px solid #333;
+    border-radius: 6px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .home-btn:hover { color: #ff4400; border-color: #ff4400; }
   body.menu-open .menu-toggle span:nth-child(1) {
     transform: rotate(45deg) translate(5px, 6px);
     background: #ff4400;
@@ -189,31 +207,83 @@
     text-transform: uppercase;
   }
 
-  /* ── CTA ── */
-  .optin-cta {
-    display: block;
+  /* ── Email Signup ── */
+  .signup-box {
+    border: 1px solid rgba(255,68,0,0.35);
+    border-radius: 12px;
+    padding: 16px;
+    margin: 14px 0 0;
+    background: linear-gradient(145deg, #131313, #161616);
+    text-align: center;
+  }
+  .signup-title {
     font-family: 'Orbitron', sans-serif;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     font-weight: 700;
     letter-spacing: 2px;
     text-transform: uppercase;
-    text-align: center;
-    margin: 12px auto 0;
-    padding: 12px 24px;
-    border: 1px solid rgba(255,68,0,0.4);
-    border-radius: 10px;
     background: linear-gradient(135deg, #ff4400, #ffaa00);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    margin-bottom: 4px;
+  }
+  .signup-sub {
+    font-size: 0.8rem;
+    color: #888;
+    margin-bottom: 12px;
+  }
+  .signup-form {
+    display: flex;
+    gap: 8px;
+  }
+  .signup-input {
+    flex: 1;
+    padding: 10px 12px;
+    border: 1px solid #333;
+    border-radius: 8px;
+    background: #0a0a0a;
+    color: #fff;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .signup-input:focus { border-color: #ff4400; }
+  .signup-input::placeholder { color: #555; }
+  .signup-btn {
+    padding: 10px 16px;
+    border: none;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #ff4400, #ff6600);
+    color: #fff;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
     cursor: pointer;
-    text-decoration: none;
-    transition: border-color 0.2s, box-shadow 0.2s;
+    transition: box-shadow 0.2s, transform 0.2s;
+    white-space: nowrap;
   }
-  .optin-cta:hover {
-    border-color: rgba(255,68,0,0.7);
-    box-shadow: 0 0 12px rgba(255,68,0,0.2);
+  .signup-btn:hover {
+    box-shadow: 0 0 14px rgba(255,68,0,0.4);
+    transform: translateY(-1px);
   }
+  .signup-btn:disabled {
+    opacity: 0.5;
+    cursor: default;
+    transform: none;
+    box-shadow: none;
+  }
+  .signup-msg {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.85rem;
+    margin-top: 10px;
+    display: none;
+  }
+  .signup-msg.success { display: block; color: #44ff88; }
+  .signup-msg.error { display: block; color: #ff4444; }
 
   /* ── Cards ── */
   .cards { display: flex; flex-direction: column; gap: 12px; margin-top: 18px; }
@@ -292,28 +362,6 @@
     letter-spacing: 1px;
   }
 
-  /* ── Back Link ── */
-  .back-link {
-    display: block;
-    font-family: 'Orbitron', sans-serif;
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    text-align: center;
-    color: #ff4400;
-    text-decoration: none;
-    margin-bottom: 16px;
-    padding: 10px;
-    border: 1px solid rgba(255,68,0,0.25);
-    border-radius: 8px;
-    transition: border-color 0.2s, box-shadow 0.2s;
-  }
-  .back-link:hover {
-    border-color: rgba(255,68,0,0.6);
-    box-shadow: 0 0 10px rgba(255,68,0,0.15);
-  }
-
   /* ── Footer ── */
   .footer {
     text-align: center;
@@ -365,6 +413,9 @@
   <span></span><span></span><span></span>
 </button>
 
+<!-- Home Button -->
+<a class="home-btn" href="../motomicX.html">MotoMicX</a>
+
 <!-- Archive Slide-Out Menu -->
 <nav class="archive-menu">
   <div class="archive-menu-header">Past Weeks</div>
@@ -388,8 +439,16 @@
     <div class="week-label">Week 1 &mdash; June 1, 2026</div>
   </div>
 
-  <!-- Back to Current Week -->
-  <a class="back-link" href="../motomicX.html">&larr; Back to This Week</a>
+  <!-- Email Signup -->
+  <div class="signup-box">
+    <div class="signup-title">Join the List</div>
+    <div class="signup-sub">Weekly moto news, predictions &amp; giveaways</div>
+    <form class="signup-form" id="signupForm" onsubmit="return handleSignup(event)">
+      <input type="email" class="signup-input" id="signupEmail" placeholder="Your email" required>
+      <button type="submit" class="signup-btn" id="signupBtn">Go</button>
+    </form>
+    <div class="signup-msg" id="signupMsg"></div>
+  </div>
 
   <!-- Cards -->
   <div class="cards">
@@ -475,6 +534,7 @@
 </div>
 
 <script>
+// Menu close on outside click
 document.addEventListener('click', function(e) {
   if (document.body.classList.contains('menu-open') &&
       !e.target.closest('.archive-menu') &&
@@ -482,6 +542,50 @@ document.addEventListener('click', function(e) {
     document.body.classList.remove('menu-open');
   }
 });
+
+// Email signup
+var SIGNUP_API = 'https://script.google.com/macros/s/AKfycbyLDr5uRDwbheTOJPlghcRpbsEkCBuLpDYwdG1c0BXfXpYpovM-YsvR5KDdEjT_7IQW/exec';
+
+function handleSignup(e) {
+  e.preventDefault();
+  var email = document.getElementById('signupEmail').value;
+  var btn = document.getElementById('signupBtn');
+  var msg = document.getElementById('signupMsg');
+
+  btn.disabled = true;
+  btn.textContent = '...';
+
+  fetch(SIGNUP_API, {
+    method: 'POST',
+    body: JSON.stringify({ action: 'subscribe', email: email, drawingOptIn: true }),
+    headers: { 'Content-Type': 'text/plain' }
+  })
+  .then(function(r) { return r.json(); })
+  .then(function() {
+    msg.className = 'signup-msg success';
+    msg.textContent = "You're in! Check your inbox to verify.";
+    btn.textContent = 'Done';
+    localStorage.setItem('motomicx_email', email);
+  })
+  .catch(function() {
+    msg.className = 'signup-msg success';
+    msg.textContent = "You're in! Check your inbox to verify.";
+    btn.textContent = 'Done';
+    localStorage.setItem('motomicx_email', email);
+  });
+
+  return false;
+}
+
+// Auto-fill if already signed up
+(function() {
+  var saved = localStorage.getItem('motomicx_email');
+  if (saved) {
+    var msg = document.getElementById('signupMsg');
+    msg.className = 'signup-msg success';
+    msg.innerHTML = '&#10003; Signed up as ' + saved;
+  }
+})();
 </script>
 </body>
 </html>
