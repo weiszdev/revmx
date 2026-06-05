@@ -215,24 +215,18 @@
   }
   .footer-yt:hover { color: #ff4444; }
 
-  .footer-optin {
-    display: inline-block;
+  .footer-optin-label {
     font-family: 'Orbitron', sans-serif;
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     font-weight: 700;
     letter-spacing: 2px;
     text-transform: uppercase;
     margin-top: 12px;
-    padding: 10px 24px;
-    border-radius: 8px;
+    margin-top: 12px;
     background: linear-gradient(135deg, #ff4400, #ffaa00);
-    color: #000;
-    text-decoration: none;
-    transition: transform 0.2s, box-shadow 0.2s;
-  }
-  .footer-optin:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 16px rgba(255,68,0,0.5);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 
   .card {
@@ -340,7 +334,7 @@
     <div class="footer-brand">MotoMicX &times; RevMX</div>
     <a class="footer-yt" href="https://youtube.com/@motomicX" target="_blank">@motomicX on YouTube</a>
     <br>
-    <a class="footer-optin" href="https://revmx.com" target="_blank">Join Monday Moto Madness</a>
+    <div class="footer-optin-label">Join Our Email List</div>
   </div>
 
 </div>
