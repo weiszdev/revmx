@@ -343,8 +343,8 @@
     <img src="https://res.cloudinary.com/dyq7rnjjw/image/upload/w_400,q_auto,f_auto/v1780715540/9D3AB9D1-117E-48EF-8FAC-4B259B8A7E66_wkxfio.png" class="hdr-logo" alt="MotoMicX">
   </div>
 
-  <!-- Countdown -->
-  <div class="countdown" id="cdBox">
+  <!-- Countdown (hidden for now) -->
+  <div class="countdown" id="cdBox" style="display:none;">
     <div class="cd-label" id="cdLabel">Next Up</div>
     <div class="cd-time" id="cdTime">--:--:--</div>
     <div class="cd-next" id="cdNext"></div>
@@ -589,13 +589,19 @@ function updateMotoTimer() {
   var remaining = MOTO_DURATION - elapsed;
 
   if (remaining > 0) {
+    // Counting down
     var m = Math.floor(remaining / 60000);
     var s = Math.floor((remaining % 60000) / 1000);
     timer.textContent = m + ':' + (s < 10 ? '0' : '') + s;
     timer.style.color = m < 3 ? '#ff0000' : '#ff003c';
   } else {
-    timer.textContent = 'CHECKERED';
+    // Past zero — show negative time (+ 2 laps)
+    var over = Math.abs(remaining);
+    var om = Math.floor(over / 60000);
+    var os = Math.floor((over % 60000) / 1000);
+    timer.textContent = '-' + om + ':' + (os < 10 ? '0' : '') + os;
     timer.style.color = '#ffaa00';
+    label.textContent = MOTOS[currentMotoIdx] + ' (+2 Laps)';
   }
 }
 
