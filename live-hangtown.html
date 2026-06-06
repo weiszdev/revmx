@@ -85,7 +85,7 @@
   }
   .cd-time {
     font-family: 'Orbitron', sans-serif;
-    font-size: 1.8rem; font-weight: 900;
+    font-size: 2.8rem; font-weight: 900;
     color: #fff; letter-spacing: 2px;
   }
   .cd-next {
@@ -358,8 +358,9 @@ function getLocalTimeLabel() {
 function render() {
   var now = new Date();
   var wrap = document.getElementById('schedWrap');
-  var pastHTML = '', activeHTML = '', futureHTML = '';
+  var pastRows = [], activeHTML = '', futureHTML = '';
   var activeItem = null, nextItem = null;
+  var futureCount = 0;
 
   for (var i = 0; i < SCHEDULE.length; i++) {
     var s = SCHEDULE[i];
@@ -386,15 +387,18 @@ function render() {
       badge +
       '</div>';
 
-    if (status === 'past') pastHTML += row;
+    if (status === 'past') pastRows.push(row);
     else if (status === 'active') activeHTML += row;
-    else futureHTML += row;
+    else { futureCount++; if (futureCount <= 6) futureHTML += row; }
   }
 
+  // Only show last 2 completed events
+  var recentPast = pastRows.slice(-2).join('');
+
   var html = '';
-  if (pastHTML) html += '<div class="sched-section"><div class="sched-label past">Completed</div>' + pastHTML + '</div>';
+  if (recentPast) html += '<div class="sched-section"><div class="sched-label past">Completed</div>' + recentPast + '</div>';
   if (activeHTML) html += '<div class="sched-section"><div class="sched-label now">Happening Now</div>' + activeHTML + '</div>';
-  if (futureHTML) html += '<div class="sched-section"><div class="sched-label upcoming">Up Next</div>' + futureHTML + '</div>';
+  if (futureHTML) html += '<div class="sched-section"><div class="sched-label upcoming">Up Next' + (futureCount > 6 ? ' (+' + (futureCount - 6) + ' more)' : '') + '</div>' + futureHTML + '</div>';
 
   wrap.innerHTML = html;
 
