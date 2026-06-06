@@ -317,7 +317,7 @@
 <script>
 // All times in PDT (UTC-7) — Hangtown local time
 var SCHEDULE = [
-  { time: '2026-06-06T07:00:00-07:00', end: '2026-06-06T14:00:00-07:00', name: 'Rider Services / Will Call Opens' },
+  { time: '2026-06-06T07:00:00-07:00', end: '2026-06-06T07:15:00-07:00', name: 'Rider Services / Will Call Opens' },
   { time: '2026-06-06T07:15:00-07:00', end: '2026-06-06T07:30:00-07:00', name: 'Riders Meeting at AMA Semi' },
   { time: '2026-06-06T07:30:00-07:00', end: '2026-06-06T07:45:00-07:00', name: 'Chapel Service at AMA Semi' },
   { time: '2026-06-06T08:00:00-07:00', end: '2026-06-06T08:15:00-07:00', name: '250 Class Practice Grp B', cat: 'practice' },
@@ -373,6 +373,11 @@ function render() {
       status = 'past';
     } else if (now >= start && now < end) {
       status = 'active';
+      // If there's already an active item, demote the previous one to past
+      if (activeItem) {
+        var prevRow = '<div class="row past"><div class="row-time">' + formatTime(activeItem.time) + '</div><div class="row-dot"></div><div class="row-name">' + activeItem.name + '</div></div>';
+        pastRows.push(prevRow);
+      }
       activeItem = s;
     } else {
       status = 'future';
@@ -388,7 +393,7 @@ function render() {
       '</div>';
 
     if (status === 'past') pastRows.push(row);
-    else if (status === 'active') activeHTML += row;
+    else if (status === 'active') activeHTML = row;
     else { futureCount++; if (futureCount <= 6) futureHTML += row; }
   }
 
