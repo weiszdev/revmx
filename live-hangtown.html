@@ -120,7 +120,7 @@
   .moto-cd-time {
     font-family: 'Orbitron', sans-serif;
     font-size: 1.8rem; font-weight: 900;
-    color: #ff3333; letter-spacing: 2px;
+    color: #ffffff; letter-spacing: 2px;
   }
   .moto-cd-sub {
     font-size: 0.7rem; font-weight: 700; color: #888; margin-top: 2px;
@@ -580,7 +580,7 @@ function updateMotoTimer() {
   if (currentMotoIdx < 0 || !motoDropTime) {
     label.textContent = 'Tap a Moto to Start';
     timer.textContent = '25:30';
-    timer.style.color = '#ff003c';
+    timer.style.color = '#ffffff';
     return;
   }
 
@@ -593,7 +593,7 @@ function updateMotoTimer() {
     var m = Math.floor(remaining / 60000);
     var s = Math.floor((remaining % 60000) / 1000);
     timer.textContent = m + ':' + (s < 10 ? '0' : '') + s;
-    timer.style.color = m < 3 ? '#ff0000' : '#ffffff';
+    timer.style.color = m < 5 ? '#ff0000' : '#ffffff';
   } else {
     // Past zero — show negative time (+ 2 laps)
     var over = Math.abs(remaining);
