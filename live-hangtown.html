@@ -554,7 +554,7 @@ function getDelayMs() { return delayMinutes * 60 * 1000; }
 
 // ── Manual Moto Timer ──
 var MOTOS = ['250 Moto 1', '450 Moto 1', '250 Moto 2', '450 Moto 2'];
-var MOTO_DURATION = 12 * 60 * 1000 + 30 * 1000;
+var MOTO_DURATION = 25 * 60 * 1000 + 30 * 1000;
 var motoDropTime = parseInt(localStorage.getItem('mmx_motoDrop') || '0');
 var currentMotoIdx = parseInt(localStorage.getItem('mmx_motoIdx') || '-1');
 
@@ -579,7 +579,7 @@ function updateMotoTimer() {
 
   if (currentMotoIdx < 0 || !motoDropTime) {
     label.textContent = 'Tap a Moto to Start';
-    timer.textContent = '12:30';
+    timer.textContent = '25:30';
     timer.style.color = '#ff003c';
     return;
   }
