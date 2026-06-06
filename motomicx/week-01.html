@@ -157,10 +157,15 @@
   .container {
     position: relative;
     z-index: 1;
+    width: 100%;
     max-width: 420px;
     margin: 0 auto;
     padding: 24px 14px 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
+  .container > * { width: 100%; }
   @media (min-width: 600px) {
     .container { max-width: 620px; padding: 30px 24px 50px; }
   }
@@ -169,9 +174,8 @@
   .header { text-align: center; margin-bottom: 20px; }
 
   .logo-round {
-    width: 140px;
-    height: 140px;
-    border-radius: 50%;
+    width: 200px;
+    height: auto;
     margin-bottom: 8px;
     filter: drop-shadow(0 0 20px rgba(255,0,0,0.3));
   }
@@ -474,7 +478,7 @@
 
   <!-- Header -->
   <div class="header">
-    <img src="https://res.cloudinary.com/dyq7rnjjw/image/upload/w_180,h_180,c_fill,q_auto,f_auto/v1780696415/301BB837-6D5C-4C5D-A3DE-05FEBFC4F1D8_lb25w0.png" alt="MotoMicX" class="logo-round">
+    <img src="https://res.cloudinary.com/dyq7rnjjw/image/upload/w_400,q_auto,f_auto/v1780715540/9D3AB9D1-117E-48EF-8FAC-4B259B8A7E66_wkxfio.png" alt="MotoMicX" class="logo-round">
     <img src="https://res.cloudinary.com/dyq7rnjjw/image/upload/w_600,q_auto,f_auto/v1780696662/50AFC30A-D581-42AD-92DE-E057F93969D0_w2gfrm.png" alt="MotoMicX" class="logo-wide">
     <div class="racing-stripe"></div>
     <div class="week-label">Week 1 &mdash; June 1, 2026</div>
