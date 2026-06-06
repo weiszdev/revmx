@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MotoMicX LIVE — Hangtown Motocross Classic</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;600;700&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Rajdhani', sans-serif;
+    background: #060606;
+    color: #fff;
+    min-height: 100vh;
+  }
+
+  .wrap {
+    max-width: 440px;
+    margin: 0 auto;
+    padding: 12px 10px 30px;
+    position: relative;
+  }
+
+  /* ── Header ── */
+  .hdr {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  .hdr-logo { width: 44px; height: 44px; border-radius: 50%; }
+  .hdr-text { flex: 1; }
+  .hdr-brand {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.55rem; font-weight: 700;
+    letter-spacing: 2px; color: #666;
+    text-transform: uppercase;
+  }
+  .hdr-event {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.85rem; font-weight: 900;
+    letter-spacing: 1px;
+    background: linear-gradient(135deg, #ff0000, #ff4400, #ffaa00);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .hdr-loc {
+    font-size: 0.75rem; color: #888;
+  }
+  .hdr-live {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.5rem; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: #ff0000;
+    padding: 3px 8px;
+    border: 1px solid rgba(255,0,0,0.4);
+    border-radius: 4px;
+    animation: livePulse 1.5s ease-in-out infinite;
+  }
+  @keyframes livePulse {
+    0%, 100% { box-shadow: 0 0 4px rgba(255,0,0,0.3); }
+    50% { box-shadow: 0 0 14px rgba(255,0,0,0.7); }
+  }
+
+  /* ── Countdown ── */
+  .countdown {
+    text-align: center;
+    padding: 12px;
+    margin-bottom: 10px;
+    border: 1px solid #1a1a1a;
+    border-radius: 10px;
+    background: #0a0a0a;
+  }
+  .cd-label {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.55rem; font-weight: 700;
+    letter-spacing: 2px; color: #ff4400;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .cd-time {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.6rem; font-weight: 900;
+    color: #fff; letter-spacing: 2px;
+  }
+  .cd-next {
+    font-size: 0.75rem; color: #888; margin-top: 4px;
+  }
+
+  /* ── Stripe ── */
+  .stripe {
+    height: 3px;
+    background: linear-gradient(90deg, #ff0000, #ff4400, #ffaa00, #ff4400, #ff0000);
+    border-radius: 2px;
+    margin-bottom: 8px;
+  }
+
+  /* ── Schedule ── */
+  .sched-section {
+    margin-bottom: 6px;
+  }
+  .sched-label {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.5rem; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase;
+    padding: 4px 8px;
+    border-radius: 4px;
+    margin-bottom: 4px;
+    display: inline-block;
+  }
+  .sched-label.past { color: #555; background: rgba(255,255,255,0.03); }
+  .sched-label.now { color: #ff0000; background: rgba(255,0,0,0.1); }
+  .sched-label.upcoming { color: #ff4400; background: rgba(255,68,0,0.08); }
+
+  .row {
+    display: flex;
+    align-items: flex-start;
+    padding: 6px 8px;
+    border-radius: 6px;
+    margin-bottom: 2px;
+    transition: all 0.3s;
+    font-size: 0.82rem;
+    gap: 8px;
+  }
+
+  .row.past {
+    opacity: 0.35;
+  }
+  .row.active {
+    background: rgba(255,0,0,0.08);
+    border: 1px solid rgba(255,0,0,0.3);
+    box-shadow: 0 0 15px rgba(255,0,0,0.12), inset 0 0 20px rgba(255,0,0,0.04);
+    animation: activeGlow 2s ease-in-out infinite;
+    opacity: 1;
+  }
+  @keyframes activeGlow {
+    0%, 100% { box-shadow: 0 0 10px rgba(255,0,0,0.1); }
+    50% { box-shadow: 0 0 22px rgba(255,0,0,0.25), inset 0 0 20px rgba(255,0,0,0.06); }
+  }
+  .row.future {
+    opacity: 0.7;
+  }
+
+  .row-time {
+    flex-shrink: 0;
+    width: 75px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.6rem; font-weight: 700;
+    color: #888;
+    padding-top: 2px;
+  }
+  .row.active .row-time { color: #ff4400; }
+
+  .row-dot {
+    flex-shrink: 0;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    margin-top: 5px;
+  }
+  .row.past .row-dot { background: #333; }
+  .row.active .row-dot { background: #ff0000; box-shadow: 0 0 8px rgba(255,0,0,0.6); animation: dotPulse 1.5s infinite; }
+  @keyframes dotPulse {
+    0%, 100% { box-shadow: 0 0 4px rgba(255,0,0,0.4); }
+    50% { box-shadow: 0 0 12px rgba(255,0,0,0.8); }
+  }
+  .row.future .row-dot { background: #ff440044; }
+
+  .row-name {
+    flex: 1;
+    color: #aaa;
+    line-height: 1.3;
+  }
+  .row.active .row-name { color: #fff; font-weight: 700; }
+  .row.past .row-name { color: #555; }
+
+  .row-badge {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.45rem; font-weight: 700;
+    letter-spacing: 1px; text-transform: uppercase;
+    padding: 2px 6px; border-radius: 3px;
+    flex-shrink: 0; margin-top: 2px;
+  }
+  .row.active .row-badge {
+    background: rgba(255,0,0,0.2); color: #ff3333;
+    border: 1px solid rgba(255,0,0,0.3);
+  }
+  .row.past .row-badge { display: none; }
+  .row.future .row-badge { display: none; }
+
+  /* ── Merch Sponsor ── */
+  .merch-bar {
+    margin-top: 14px;
+    padding: 10px 12px;
+    border: 1px solid #1a1a1a;
+    border-radius: 8px;
+    background: #0a0a0a;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-decoration: none;
+    transition: border-color 0.2s;
+  }
+  .merch-bar:hover { border-color: #ff440044; }
+  .merch-left {
+    display: flex; align-items: center; gap: 8px;
+  }
+  .merch-presented {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.45rem; font-weight: 700;
+    letter-spacing: 2px; color: #555;
+    text-transform: uppercase;
+  }
+  .merch-name {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.7rem; font-weight: 700;
+    color: #ff4400; letter-spacing: 1px;
+  }
+  .merch-shop {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.5rem; font-weight: 700;
+    letter-spacing: 1px; color: #888;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border: 1px solid #333;
+    border-radius: 4px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- Header -->
+  <div class="hdr">
+    <img src="https://res.cloudinary.com/dyq7rnjjw/image/upload/w_88,h_88,c_fill,q_auto,f_auto/v1780715540/9D3AB9D1-117E-48EF-8FAC-4B259B8A7E66_wkxfio.png" class="hdr-logo" alt="MotoMicX">
+    <div class="hdr-text">
+      <div class="hdr-brand">Presented by MotoMicX</div>
+      <div class="hdr-event">Hangtown MX</div>
+      <div class="hdr-loc">Rancho Cordova, CA &bull; Rd 2</div>
+    </div>
+    <div class="hdr-live" id="liveTag">LIVE</div>
+  </div>
+
+  <!-- Countdown -->
+  <div class="countdown" id="cdBox">
+    <div class="cd-label" id="cdLabel">Next Up</div>
+    <div class="cd-time" id="cdTime">--:--:--</div>
+    <div class="cd-next" id="cdNext"></div>
+  </div>
+
+  <div class="stripe"></div>
+
+  <!-- Schedule Container -->
+  <div id="schedWrap"></div>
+
+  <!-- Merch Sponsor -->
+  <a class="merch-bar" href="https://merchjockey.com" target="_blank">
+    <div class="merch-left">
+      <div>
+        <div class="merch-presented">Gear By</div>
+        <div class="merch-name">MerchJockey</div>
+      </div>
+    </div>
+    <div class="merch-shop">Shop Now</div>
+  </a>
+
+</div>
+
+<script>
+// All times in PDT (UTC-7) — Hangtown local time
+var SCHEDULE = [
+  { time: '2026-06-06T07:00:00-07:00', end: '2026-06-06T14:00:00-07:00', name: 'Rider Services / Will Call Opens' },
+  { time: '2026-06-06T07:15:00-07:00', end: '2026-06-06T07:30:00-07:00', name: 'Riders Meeting at AMA Semi' },
+  { time: '2026-06-06T07:30:00-07:00', end: '2026-06-06T07:45:00-07:00', name: 'Chapel Service at AMA Semi' },
+  { time: '2026-06-06T08:00:00-07:00', end: '2026-06-06T08:15:00-07:00', name: '250 Class Practice Grp B', cat: 'practice' },
+  { time: '2026-06-06T08:20:00-07:00', end: '2026-06-06T08:35:00-07:00', name: '250 Class Practice Grp A', cat: 'practice' },
+  { time: '2026-06-06T08:35:00-07:00', end: '2026-06-06T08:50:00-07:00', name: 'Track Maintenance' },
+  { time: '2026-06-06T08:50:00-07:00', end: '2026-06-06T09:05:00-07:00', name: '450 Class Practice Grp A', cat: 'practice' },
+  { time: '2026-06-06T09:10:00-07:00', end: '2026-06-06T09:25:00-07:00', name: '450 Class Practice Grp B', cat: 'practice' },
+  { time: '2026-06-06T09:30:00-07:00', end: '2026-06-06T09:45:00-07:00', name: 'Track Maintenance' },
+  { time: '2026-06-06T09:45:00-07:00', end: '2026-06-06T10:00:00-07:00', name: '250 Class Qualifying', cat: 'qualifying' },
+  { time: '2026-06-06T10:05:00-07:00', end: '2026-06-06T10:20:00-07:00', name: '450 Class Qualifying', cat: 'qualifying' },
+  { time: '2026-06-06T10:00:00-07:00', end: '2026-06-06T13:00:00-07:00', name: 'Race Day Live on Peacock', cat: 'broadcast' },
+  { time: '2026-06-06T10:30:00-07:00', end: '2026-06-06T11:00:00-07:00', name: 'WMX Moto', cat: 'race' },
+  { time: '2026-06-06T11:00:00-07:00', end: '2026-06-06T11:30:00-07:00', name: 'Track Prep / Fan Activities' },
+  { time: '2026-06-06T12:15:00-07:00', end: '2026-06-06T12:45:00-07:00', name: 'Opening Ceremonies', cat: 'ceremony' },
+  { time: '2026-06-06T13:00:00-07:00', end: '2026-06-06T13:35:00-07:00', name: '250 Moto 1', cat: 'race' },
+  { time: '2026-06-06T13:45:00-07:00', end: '2026-06-06T14:20:00-07:00', name: '450 Moto 1', cat: 'race' },
+  { time: '2026-06-06T14:20:00-07:00', end: '2026-06-06T14:50:00-07:00', name: 'Track Maintenance' },
+  { time: '2026-06-06T15:00:00-07:00', end: '2026-06-06T15:35:00-07:00', name: '250 Moto 2', cat: 'race' },
+  { time: '2026-06-06T15:45:00-07:00', end: '2026-06-06T16:20:00-07:00', name: '450 Moto 2', cat: 'race' }
+];
+
+function formatTime(iso) {
+  var d = new Date(iso);
+  var h = d.getHours(), m = d.getMinutes();
+  var ampm = h >= 12 ? 'PM' : 'AM';
+  h = h % 12 || 12;
+  return h + ':' + (m < 10 ? '0' : '') + m + ' ' + ampm;
+}
+
+function getLocalTimeLabel() {
+  try {
+    var tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    var parts = tz.split('/');
+    return parts[parts.length - 1].replace(/_/g, ' ');
+  } catch(e) { return 'Local'; }
+}
+
+function render() {
+  var now = new Date();
+  var wrap = document.getElementById('schedWrap');
+  var pastHTML = '', activeHTML = '', futureHTML = '';
+  var activeItem = null, nextItem = null;
+
+  for (var i = 0; i < SCHEDULE.length; i++) {
+    var s = SCHEDULE[i];
+    var start = new Date(s.time);
+    var end = new Date(s.end);
+    var localTime = formatTime(s.time);
+    var status;
+
+    if (now >= end) {
+      status = 'past';
+    } else if (now >= start && now < end) {
+      status = 'active';
+      activeItem = s;
+    } else {
+      status = 'future';
+      if (!nextItem) nextItem = s;
+    }
+
+    var badge = status === 'active' ? '<div class="row-badge">LIVE</div>' : '';
+    var row = '<div class="row ' + status + '">' +
+      '<div class="row-time">' + localTime + '</div>' +
+      '<div class="row-dot"></div>' +
+      '<div class="row-name">' + s.name + '</div>' +
+      badge +
+      '</div>';
+
+    if (status === 'past') pastHTML += row;
+    else if (status === 'active') activeHTML += row;
+    else futureHTML += row;
+  }
+
+  var html = '';
+  if (pastHTML) html += '<div class="sched-section"><div class="sched-label past">Completed</div>' + pastHTML + '</div>';
+  if (activeHTML) html += '<div class="sched-section"><div class="sched-label now">Happening Now</div>' + activeHTML + '</div>';
+  if (futureHTML) html += '<div class="sched-section"><div class="sched-label upcoming">Up Next</div>' + futureHTML + '</div>';
+
+  wrap.innerHTML = html;
+
+  // Countdown
+  var cdBox = document.getElementById('cdBox');
+  var cdLabel = document.getElementById('cdLabel');
+  var cdTime = document.getElementById('cdTime');
+  var cdNext = document.getElementById('cdNext');
+  var liveTag = document.getElementById('liveTag');
+
+  if (activeItem) {
+    var remaining = new Date(activeItem.end) - now;
+    var rm = Math.floor(remaining / 60000);
+    var rs = Math.floor((remaining % 60000) / 1000);
+    cdLabel.textContent = 'Live Now';
+    cdTime.textContent = rm + ':' + (rs < 10 ? '0' : '') + rs;
+    cdNext.textContent = activeItem.name + ' — remaining';
+    cdBox.style.borderColor = 'rgba(255,0,0,0.3)';
+    liveTag.style.display = '';
+  } else if (nextItem) {
+    var diff = new Date(nextItem.time) - now;
+    if (diff < 0) diff = 0;
+    var h = Math.floor(diff / 3600000);
+    var m = Math.floor((diff % 3600000) / 60000);
+    var s = Math.floor((diff % 60000) / 1000);
+    cdLabel.textContent = 'Next Up';
+    cdTime.textContent = (h > 0 ? h + ':' : '') + (m < 10 && h > 0 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
+    cdNext.textContent = nextItem.name + ' — ' + formatTime(nextItem.time) + ' ' + getLocalTimeLabel();
+    cdBox.style.borderColor = '#1a1a1a';
+    liveTag.style.display = 'none';
+  } else {
+    cdLabel.textContent = 'Race Complete';
+    cdTime.textContent = 'FINAL';
+    cdNext.textContent = 'Hangtown Motocross Classic — Results on RevMX.com';
+    cdBox.style.borderColor = '#1a1a1a';
+    liveTag.textContent = 'FINAL';
+    liveTag.style.animation = 'none';
+    liveTag.style.color = '#888';
+    liveTag.style.borderColor = '#333';
+  }
+
+  // Auto-scroll active into view
+  var activeRow = document.querySelector('.row.active');
+  if (activeRow) activeRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+render();
+setInterval(render, 5000);
+</script>
+</body>
+</html>
