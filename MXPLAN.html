@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>RevMX.com Build-Out Plan — Review</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;600;700&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Rajdhani', sans-serif;
+    background: #060606;
+    color: #fff;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: repeating-conic-gradient(#0a0a0a 0% 25%, transparent 0% 50%) 0 0 / 50px 50px;
+    opacity: 0.08;
+    z-index: 0;
+  }
+  .page {
+    position: relative; z-index: 1;
+    max-width: 440px; margin: 0 auto;
+    padding: 30px 16px 60px;
+  }
+  @media (min-width: 600px) { .page { max-width: 580px; } }
+
+  .logo { display: block; width: 160px; margin: 0 auto 16px; }
+  .page-title {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 900; font-size: 1.6rem;
+    text-align: center; letter-spacing: 2px;
+    background: linear-gradient(135deg, #ff0000, #ff4400, #ffaa00);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    margin-bottom: 4px;
+  }
+  .page-sub {
+    text-align: center; font-size: 0.85rem; color: #666;
+    font-family: 'Orbitron', sans-serif; letter-spacing: 2px; font-size: 0.6rem;
+    text-transform: uppercase; margin-bottom: 24px;
+  }
+
+  /* Section headers */
+  .section-head {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.65rem; font-weight: 700;
+    letter-spacing: 3px; text-transform: uppercase;
+    color: #ff4400; margin: 28px 0 12px;
+    padding-bottom: 6px; border-bottom: 1px solid #1a1a1a;
+  }
+
+  /* Cards */
+  .cards { display: flex; flex-direction: column; gap: 10px; }
+  .card {
+    background: linear-gradient(145deg, #111, #141414);
+    border: 1px solid #1e1e1e;
+    border-radius: 12px;
+    padding: 14px 14px 14px 52px;
+    position: relative;
+    overflow: visible;
+  }
+  .card:nth-child(odd) {
+    border-color: rgba(255,102,0,0.2);
+    box-shadow: 0 0 12px rgba(255,102,0,0.06);
+  }
+  .card:nth-child(even) {
+    border-color: rgba(255,0,0,0.15);
+    box-shadow: 0 0 12px rgba(255,0,0,0.06);
+  }
+  .card::before {
+    content: ''; position: absolute;
+    top: 0; left: 0; bottom: 0; width: 3px;
+    border-radius: 12px 0 0 12px;
+  }
+  .card:nth-child(odd)::before { background: #ff6600; }
+  .card:nth-child(even)::before { background: #ff0000; }
+
+  .card-num {
+    position: absolute; top: 50%; left: 14px;
+    transform: translateY(-50%);
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 900; font-size: 1.2rem; color: #ff440025;
+  }
+  .card-title {
+    font-weight: 700; font-size: 1.1rem; color: #fff;
+    line-height: 1.2; margin-bottom: 3px;
+  }
+  .card-desc {
+    font-size: 0.85rem; color: #aaa; line-height: 1.4;
+  }
+  .card-tag {
+    display: inline-block; margin-top: 6px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.55rem; font-weight: 700;
+    letter-spacing: 1px; text-transform: uppercase;
+    padding: 2px 7px; border-radius: 4px;
+  }
+  .tag-free { background: #00ff8815; color: #44ffaa; border: 1px solid #00ff8830; }
+  .tag-build { background: #00aaff15; color: #44bbff; border: 1px solid #00aaff30; }
+  .tag-money { background: #ffaa0015; color: #ffcc44; border: 1px solid #ffaa0030; }
+  .tag-growth { background: #ff440015; color: #ff6644; border: 1px solid #ff440030; }
+  .tag-future { background: #aa00ff15; color: #cc66ff; border: 1px solid #aa00ff30; }
+
+  /* Timeline */
+  .timeline { margin-top: 28px; }
+  .tl-phase {
+    padding: 14px 14px 14px 20px;
+    border-left: 2px solid #222;
+    margin-left: 10px;
+    margin-bottom: 0;
+    position: relative;
+  }
+  .tl-phase::before {
+    content: ''; position: absolute;
+    left: -6px; top: 16px;
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    border: 2px solid #ff4400;
+    background: #060606;
+  }
+  .tl-phase:last-child { border-left-color: transparent; }
+  .tl-label {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.6rem; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: #ff4400; margin-bottom: 6px;
+  }
+  .tl-items {
+    list-style: none; font-size: 0.85rem; color: #aaa; line-height: 1.7;
+  }
+  .tl-items li::before { content: '+ '; color: #ff440066; }
+
+  /* Revenue */
+  .rev-table {
+    width: 100%; border-collapse: collapse;
+    margin-top: 10px; font-size: 0.8rem;
+  }
+  .rev-table th {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.55rem; font-weight: 700;
+    letter-spacing: 1px; text-transform: uppercase;
+    color: #666; text-align: left;
+    padding: 6px 8px; border-bottom: 1px solid #222;
+  }
+  .rev-table td {
+    padding: 6px 8px; color: #aaa;
+    border-bottom: 1px solid #111;
+  }
+  .rev-table td:last-child { color: #ff4400; font-weight: 700; text-align: right; }
+  .rev-total td {
+    color: #fff !important; font-weight: 700;
+    border-top: 1px solid #ff440044;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.75rem;
+  }
+
+  .footer {
+    text-align: center; margin-top: 30px;
+    font-size: 0.6rem; color: #333;
+    font-family: 'Orbitron', sans-serif;
+    letter-spacing: 2px;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <img src="https://res.cloudinary.com/dyq7rnjjw/image/upload/w_300,q_auto,f_auto/v1780715540/9D3AB9D1-117E-48EF-8FAC-4B259B8A7E66_wkxfio.png" alt="MotoMicX" class="logo">
+  <div class="page-title">RevMX.com Build Plan</div>
+  <div class="page-sub">Platform Strategy &amp; Revenue Roadmap</div>
+
+  <!-- BRAND ARCHITECTURE -->
+  <div class="section-head">Brand Architecture</div>
+  <div class="cards">
+    <div class="card">
+      <div class="card-num">01</div>
+      <div class="card-title">RevMX = The Platform</div>
+      <div class="card-desc">Tools, predictions, standings, interactive features. The house. Never publishes articles &mdash; that's MotoMicX territory.</div>
+      <span class="card-tag tag-build">Platform</span>
+    </div>
+    <div class="card">
+      <div class="card-num">02</div>
+      <div class="card-title">MotoMicX = The Voice</div>
+      <div class="card-desc">YouTube, weekly top 10, hot takes, personality. The show that airs in the house. Never hosts interactive tools.</div>
+      <span class="card-tag tag-growth">Content</span>
+    </div>
+    <div class="card">
+      <div class="card-num">03</div>
+      <div class="card-title">Underground = The List</div>
+      <div class="card-desc">Email + SMS. Platform-proof. Nobody can exile you here. Email from RevMX, content from MotoMicX.</div>
+      <span class="card-tag tag-money">Owned Audience</span>
+    </div>
+  </div>
+
+  <!-- PAGES TO BUILD -->
+  <div class="section-head">Pages to Build on RevMX.com</div>
+  <div class="cards">
+    <div class="card">
+      <div class="card-num">01</div>
+      <div class="card-title">Race Results + Recap</div>
+      <div class="card-desc">Post results within hours of each race. #1 SEO traffic driver. Target: "[City] supercross results 2026"</div>
+      <span class="card-tag tag-free">$0 &bull; Week 1</span>
+    </div>
+    <div class="card">
+      <div class="card-num">02</div>
+      <div class="card-title">Season Standings Page</div>
+      <div class="card-desc">Auto-updating 450/250 points standings. Fans search this every week. Massive repeat traffic.</div>
+      <span class="card-tag tag-free">$0 &bull; Week 1</span>
+    </div>
+    <div class="card">
+      <div class="card-num">03</div>
+      <div class="card-title">Full Race Schedule + Countdowns</div>
+      <div class="card-desc">All 2026 dates with How to Watch links and your existing countdown timers. Add affiliate links to Peacock.</div>
+      <span class="card-tag tag-free">$0 &bull; Week 1</span>
+    </div>
+    <div class="card">
+      <div class="card-num">04</div>
+      <div class="card-title">Pick Your Winner Leaderboard</div>
+      <div class="card-desc">Season-long scoring. Streaks. Monthly "Top Predictor" callout. Turns a tool into a community.</div>
+      <span class="card-tag tag-build">$0 &bull; Week 2-3</span>
+    </div>
+    <div class="card">
+      <div class="card-num">05</div>
+      <div class="card-title">Rider Profiles (Top 10 Each Class)</div>
+      <div class="card-desc">Stats, team, bike, number. Massive long-tail SEO. "Jett Lawrence stats" = free traffic forever.</div>
+      <span class="card-tag tag-build">$0 &bull; Month 2</span>
+    </div>
+    <div class="card">
+      <div class="card-num">06</div>
+      <div class="card-title">Gear Guide with Affiliate Links</div>
+      <div class="card-desc">Helmets, boots, goggles with Rocky Mountain ATV/MC affiliate links. 5-8% commissions.</div>
+      <span class="card-tag tag-money">$0 &bull; Month 2</span>
+    </div>
+    <div class="card">
+      <div class="card-num">07</div>
+      <div class="card-title">"This Week with MotoMicX" Hub</div>
+      <div class="card-desc">Embedded YouTube, top 10 cards, and storylines. Bridge between platform and personality brands.</div>
+      <span class="card-tag tag-build">$0 &bull; Month 2</span>
+    </div>
+    <div class="card">
+      <div class="card-num">08</div>
+      <div class="card-title">Merch Shop (Print-on-Demand)</div>
+      <div class="card-desc">Printful storefront. RevMX logo tees, MotoMicX "Top 10" gear. Zero inventory risk.</div>
+      <span class="card-tag tag-money">$0 Until Sales</span>
+    </div>
+  </div>
+
+  <!-- REVENUE STREAMS -->
+  <div class="section-head">Revenue Streams (Year 1)</div>
+  <table class="rev-table">
+    <tr><th>Stream</th><th>Annual Est.</th></tr>
+    <tr><td>YouTube Ad Revenue (YPP)</td><td>$2,400-9,600</td></tr>
+    <tr><td>Affiliate Commissions</td><td>$1,200-4,800</td></tr>
+    <tr><td>Race Day Sponsors ($100/race)</td><td>$1,200-4,800</td></tr>
+    <tr><td>Fantasy/Pick'em Premium</td><td>$1,000-3,000</td></tr>
+    <tr><td>Merch (Print-on-Demand)</td><td>$600-2,400</td></tr>
+    <tr><td>Display Ads (at 25K+ visits)</td><td>$6,000-18,000</td></tr>
+    <tr class="rev-total"><td>Year 1 Range</td><td>$12K-42K</td></tr>
+  </table>
+
+  <!-- FAN ENGAGEMENT -->
+  <div class="section-head">Fan Engagement Tools to Build</div>
+  <div class="cards">
+    <div class="card">
+      <div class="card-num">01</div>
+      <div class="card-title">Pick'em League System</div>
+      <div class="card-desc">Private leagues with invite codes. Friend groups compete. Season leaderboards. This is why fans come back every week.</div>
+      <span class="card-tag tag-build">High Impact</span>
+    </div>
+    <div class="card">
+      <div class="card-num">02</div>
+      <div class="card-title">Bracket Challenge (A1, Daytona, RedBud)</div>
+      <div class="card-desc">March Madness style. Predict finishing orders. Shareable brackets drive viral social sharing.</div>
+      <span class="card-tag tag-growth">Viral</span>
+    </div>
+    <div class="card">
+      <div class="card-num">03</div>
+      <div class="card-title">Race Bingo Leaderboard</div>
+      <div class="card-desc">Already built. Add a screenshot-share feature and completion leaderboard.</div>
+      <span class="card-tag tag-free">Already Built</span>
+    </div>
+    <div class="card">
+      <div class="card-num">04</div>
+      <div class="card-title">Hot Take Polls</div>
+      <div class="card-desc">2-3 weekly polls. Zero dev cost. Results shared in Monday Moto Madness email. High engagement.</div>
+      <span class="card-tag tag-free">$0 &bull; Quick Win</span>
+    </div>
+    <div class="card">
+      <div class="card-num">05</div>
+      <div class="card-title">Discord Server</div>
+      <div class="card-desc">RevMX Discord: #race-day-chat, #picks, #moto-news, #gear-talk. Premium channels for VIP members.</div>
+      <span class="card-tag tag-free">$0 &bull; Week 1</span>
+    </div>
+  </div>
+
+  <!-- PARTNERSHIPS -->
+  <div class="section-head">Partnership Targets</div>
+  <div class="cards">
+    <div class="card">
+      <div class="card-num">Now</div>
+      <div class="card-title">Local Tracks + Small Gear Brands</div>
+      <div class="card-desc">Answer Racing, FXR, Seven MX, regional tracks. Cross-promo deals. They have $500-5K budgets big media ignores.</div>
+      <span class="card-tag tag-free">Pursue Now</span>
+    </div>
+    <div class="card">
+      <div class="card-num">5K+</div>
+      <div class="card-title">Rocky Mountain ATV/MC + Peacock</div>
+      <div class="card-desc">They already sponsor Vital MX and PulpMX. Apply for affiliate program. Pitch "How to Watch" content.</div>
+      <span class="card-tag tag-money">At 5K Email Subs</span>
+    </div>
+    <div class="card">
+      <div class="card-num">25K</div>
+      <div class="card-title">Media Credentials + Major Brands</div>
+      <div class="card-desc">Feld Entertainment, MX Sports credentials. Fox, Alpinestars, Troy Lee ambassador programs.</div>
+      <span class="card-tag tag-future">At 25K Visitors/Mo</span>
+    </div>
+  </div>
+
+  <!-- TIMELINE -->
+  <div class="section-head">90-Day Roadmap</div>
+  <div class="timeline">
+    <div class="tl-phase">
+      <div class="tl-label">Days 1-30 &mdash; $0</div>
+      <ul class="tl-items">
+        <li>Race Results + Standings pages</li>
+        <li>Google Search Console on RevMX.com</li>
+        <li>RevMX Discord server</li>
+        <li>Rocky Mountain ATV/MC affiliate application</li>
+        <li>Pick Your Winner user tracking + leaderboard</li>
+        <li>Printful account + 3 product designs</li>
+      </ul>
+    </div>
+    <div class="tl-phase">
+      <div class="tl-label">Days 31-60 &mdash; $0-20/mo</div>
+      <ul class="tl-items">
+        <li>"This Week with MotoMicX" section on RevMX</li>
+        <li>Gear Guide page with affiliate links</li>
+        <li>Full schedule page with countdown links</li>
+        <li>Rider profile pages (top 10 each class)</li>
+        <li>Pitch local tracks + small brands</li>
+      </ul>
+    </div>
+    <div class="tl-phase">
+      <div class="tl-label">Days 61-90 &mdash; $20-50/mo</div>
+      <ul class="tl-items">
+        <li>Private league feature for Pick'em</li>
+        <li>Merch shop live</li>
+        <li>First Race Day Sponsor ($100/race)</li>
+        <li>Bracket Challenge for next major event</li>
+        <li>Apply for media credentials</li>
+        <li>Evaluate Pit Pass membership viability</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- COMPETITIVE EDGE -->
+  <div class="section-head">Your Edge Over Everyone Else</div>
+  <div class="cards">
+    <div class="card">
+      <div class="card-num">&#9733;</div>
+      <div class="card-title">Original Music Tied to Race Drama</div>
+      <div class="card-desc">RevMX on Spotify/Apple Music. Nobody else has this. Racer X can't do it. PulpMX can't do it. It's your moat.</div>
+      <span class="card-tag tag-growth">Unique</span>
+    </div>
+    <div class="card">
+      <div class="card-num">&#9733;</div>
+      <div class="card-title">Interactive Pick Your Winner Tool</div>
+      <div class="card-desc">Already built, already functional, already collecting emails. Vital MX charges $10/season for their version. Yours is free.</div>
+      <span class="card-tag tag-build">Already Built</span>
+    </div>
+    <div class="card">
+      <div class="card-num">&#9733;</div>
+      <div class="card-title">Dual-Brand Architecture</div>
+      <div class="card-desc">RevMX (platform) + MotoMicX (personality) = ESPN + Stephen A. Smith. One feeds the other. Neither cannibalizes.</div>
+      <span class="card-tag tag-future">Strategic</span>
+    </div>
+  </div>
+
+  <div class="footer">RevMX &times; MotoMicX &mdash; Confidential Review &mdash; June 2026</div>
+
+</div>
+</body>
+</html>

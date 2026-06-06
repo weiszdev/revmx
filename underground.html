@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>MotoMicX Underground — Never Be Exiled Here</title>
+<meta property="og:title" content="MotoMicX Underground — Never Be Exiled Here">
+<meta property="og:description" content="Race-day picks, insider scoops, and moto news that never gets taken down. Join the list.">
+<meta property="og:image" content="https://res.cloudinary.com/dyq7rnjjw/image/upload/w_1200,h_630,c_fill,q_auto,f_auto/v1780715540/9D3AB9D1-117E-48EF-8FAC-4B259B8A7E66_wkxfio.png">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;600;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Rajdhani', sans-serif;
+    background: #060606;
+    color: #fff;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: repeating-conic-gradient(#0a0a0a 0% 25%, transparent 0% 50%) 0 0 / 50px 50px;
+    opacity: 0.1;
+    z-index: 0;
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    top: 30%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(ellipse at center,
+      rgba(255,0,0,0.12) 0%,
+      rgba(255,50,0,0.06) 30%,
+      transparent 65%
+    );
+    border-radius: 50%;
+    z-index: 0;
+    pointer-events: none;
+    filter: blur(60px);
+  }
+
+  .page {
+    position: relative;
+    z-index: 1;
+    max-width: 440px;
+    margin: 0 auto;
+    padding: 40px 18px 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .page > * { width: 100%; }
+
+  @media (min-width: 600px) {
+    .page { max-width: 540px; }
+  }
+
+  /* ── Logo ── */
+  .logo {
+    display: block;
+    width: 200px;
+    height: auto;
+    margin: 0 auto 20px;
+    filter: drop-shadow(0 0 25px rgba(255,0,0,0.35));
+  }
+
+  /* ── Hero ── */
+  .hero { text-align: center; margin-bottom: 30px; }
+
+  .hero-tag {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: #ff4400;
+    margin-bottom: 8px;
+  }
+
+  .hero-title {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 900;
+    font-size: 2rem;
+    line-height: 1.15;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    background: linear-gradient(135deg, #ff0000, #ff4400, #ffaa00);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 10px;
+  }
+
+  .hero-sub {
+    font-size: 1.15rem;
+    line-height: 1.5;
+    color: #bbb;
+    max-width: 380px;
+    margin: 0 auto;
+  }
+  .hero-sub strong { color: #fff; }
+
+  .exile-line {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #ff4400;
+    margin-top: 16px;
+    padding: 8px 16px;
+    border: 1px solid rgba(255,68,0,0.3);
+    border-radius: 6px;
+    display: inline-block;
+  }
+
+  /* ── Signup ── */
+  .signup {
+    background: linear-gradient(145deg, #111, #141414);
+    border: 1px solid rgba(255,68,0,0.3);
+    border-radius: 14px;
+    padding: 24px 20px;
+    margin-bottom: 28px;
+    text-align: center;
+    box-shadow: 0 0 30px rgba(255,68,0,0.06);
+  }
+
+  .signup-label {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #ff4400;
+    margin-bottom: 14px;
+  }
+
+  .signup-row {
+    display: flex;
+    gap: 8px;
+  }
+
+  .signup-input {
+    flex: 1;
+    padding: 12px 14px;
+    border: 1px solid #2a2a2a;
+    border-radius: 8px;
+    background: #0a0a0a;
+    color: #fff;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .signup-input:focus { border-color: #ff4400; }
+  .signup-input::placeholder { color: #444; }
+
+  .signup-btn {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #ff0000, #ff4400);
+    color: #fff;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: box-shadow 0.2s, transform 0.2s;
+    white-space: nowrap;
+  }
+  .signup-btn:hover {
+    box-shadow: 0 0 20px rgba(255,68,0,0.5);
+    transform: translateY(-1px);
+  }
+  .signup-btn:disabled { opacity: 0.5; cursor: default; transform: none; box-shadow: none; }
+
+  .signup-msg {
+    font-size: 0.9rem;
+    margin-top: 10px;
+    display: none;
+  }
+  .signup-msg.success { display: block; color: #44ff88; }
+
+  .signup-note {
+    font-size: 0.75rem;
+    color: #555;
+    margin-top: 10px;
+  }
+
+  /* ── What You Get ── */
+  .perks { margin-bottom: 28px; }
+
+  .perks-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #666;
+    text-align: center;
+    margin-bottom: 14px;
+  }
+
+  .perk {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid #161616;
+  }
+  .perk:last-child { border-bottom: none; }
+
+  .perk-icon {
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+  }
+  .perk-icon.red { background: rgba(255,0,0,0.12); }
+  .perk-icon.orange { background: rgba(255,68,0,0.12); }
+  .perk-icon.yellow { background: rgba(255,170,0,0.12); }
+
+  .perk-text {
+    flex: 1;
+  }
+  .perk-title {
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: #fff;
+    margin-bottom: 2px;
+  }
+  .perk-desc {
+    font-size: 0.85rem;
+    color: #888;
+    line-height: 1.35;
+  }
+
+  /* ── Tiers ── */
+  .tiers {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 28px;
+  }
+
+  .tier {
+    flex: 1;
+    border-radius: 12px;
+    padding: 16px 14px;
+    text-align: center;
+  }
+
+  .tier-free {
+    background: linear-gradient(145deg, #111, #141414);
+    border: 1px solid #222;
+  }
+  .tier-vip {
+    background: linear-gradient(145deg, #1a0a00, #1c0e02);
+    border: 1px solid rgba(255,68,0,0.4);
+    box-shadow: 0 0 20px rgba(255,68,0,0.08);
+  }
+
+  .tier-label {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .tier-free .tier-label { color: #888; }
+  .tier-vip .tier-label { color: #ff4400; }
+
+  .tier-price {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 900;
+    font-size: 1.4rem;
+    margin-bottom: 8px;
+  }
+  .tier-free .tier-price { color: #ccc; }
+  .tier-vip .tier-price { color: #ff4400; }
+  .tier-price span { font-size: 0.7rem; font-weight: 400; color: #666; }
+
+  .tier-list {
+    list-style: none;
+    text-align: left;
+    font-size: 0.8rem;
+    color: #999;
+    line-height: 1.8;
+  }
+  .tier-list li::before { content: '+ '; color: #ff440066; }
+  .tier-vip .tier-list li::before { color: #ff4400; }
+
+  /* ── Quote ── */
+  .quote {
+    text-align: center;
+    margin-bottom: 28px;
+    padding: 20px;
+    border-left: 3px solid #ff4400;
+    background: linear-gradient(90deg, rgba(255,68,0,0.04), transparent);
+    border-radius: 0 10px 10px 0;
+  }
+  .quote-text {
+    font-size: 1rem;
+    font-style: italic;
+    color: #ccc;
+    line-height: 1.5;
+    margin-bottom: 8px;
+  }
+  .quote-attr {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.6rem;
+    letter-spacing: 2px;
+    color: #555;
+    text-transform: uppercase;
+  }
+
+  /* ── Footer ── */
+  .ug-footer {
+    text-align: center;
+    padding-top: 16px;
+    border-top: 1px solid #1a1a1a;
+  }
+  .ug-footer a {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: #ff0000;
+    text-decoration: none;
+    letter-spacing: 1px;
+    margin: 0 8px;
+  }
+  .ug-footer a:hover { color: #ff4444; }
+  .ug-footer-sub {
+    font-size: 0.7rem;
+    color: #333;
+    margin-top: 10px;
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <img src="https://res.cloudinary.com/dyq7rnjjw/image/upload/w_400,q_auto,f_auto/v1780715540/9D3AB9D1-117E-48EF-8FAC-4B259B8A7E66_wkxfio.png" alt="MotoMicX" class="logo">
+
+  <div class="hero">
+    <div class="hero-tag">MotoMicX Underground</div>
+    <div class="hero-title">Your Inbox.<br>Your Races.<br>No Algorithm.</div>
+    <div class="hero-sub">
+      I lost my YouTube channel once. I'm never letting a platform decide whether I can talk to my people again. <strong>This is where the real conversation happens.</strong>
+    </div>
+    <div class="exile-line">Never Be Exiled Here</div>
+  </div>
+
+  <!-- Signup -->
+  <div class="signup">
+    <div class="signup-label">Join the Underground</div>
+    <form class="signup-row" id="signupForm" onsubmit="return handleSignup(event)">
+      <input type="email" class="signup-input" id="signupEmail" placeholder="Your email" required>
+      <button type="submit" class="signup-btn" id="signupBtn">I'm In</button>
+    </form>
+    <div class="signup-msg" id="signupMsg"></div>
+    <div class="signup-note">Free. Weekly. Unfiltered. Unsubscribe anytime.</div>
+  </div>
+
+  <!-- What You Get -->
+  <div class="perks">
+    <div class="perks-title">What You Get</div>
+
+    <div class="perk">
+      <div class="perk-icon red">&#127937;</div>
+      <div class="perk-text">
+        <div class="perk-title">Race-Day Picks Before the Gate Drops</div>
+        <div class="perk-desc">My podium predictions and bold calls hit your inbox 1 hour before Moto 1. No paywall on the free tier.</div>
+      </div>
+    </div>
+
+    <div class="perk">
+      <div class="perk-icon orange">&#128293;</div>
+      <div class="perk-text">
+        <div class="perk-title">Weekly Top 10 Hot Takes</div>
+        <div class="perk-desc">The stories ESPN won't touch. Who's riding hurt, who's getting dropped, and what the paddock is whispering.</div>
+      </div>
+    </div>
+
+    <div class="perk">
+      <div class="perk-icon yellow">&#127911;</div>
+      <div class="perk-text">
+        <div class="perk-title">Original Moto Music Drops</div>
+        <div class="perk-desc">RevMX tracks on Spotify and Apple Music tied to race drama. Underground members hear them first.</div>
+      </div>
+    </div>
+
+    <div class="perk">
+      <div class="perk-icon red">&#128274;</div>
+      <div class="perk-text">
+        <div class="perk-title">Platform-Proof</div>
+        <div class="perk-desc">YouTube can delete a channel. Instagram can shadowban. Email? That's between you and me. Nobody can take this away.</div>
+      </div>
+    </div>
+
+    <div class="perk">
+      <div class="perk-icon orange">&#127942;</div>
+      <div class="perk-text">
+        <div class="perk-title">Giveaways &amp; Gear Drops</div>
+        <div class="perk-desc">Weekly drawing for moto gear. Underground members get automatic entries. Show up, get rewarded.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tiers -->
+  <div class="tiers">
+    <div class="tier tier-free">
+      <div class="tier-label">Underground</div>
+      <div class="tier-price">Free</div>
+      <ul class="tier-list">
+        <li>Weekly Top 10 email</li>
+        <li>Race-day predictions</li>
+        <li>Giveaway entries</li>
+        <li>Early music drops</li>
+      </ul>
+    </div>
+    <div class="tier tier-vip">
+      <div class="tier-label">VIP</div>
+      <div class="tier-price">$6<span>/mo</span></div>
+      <ul class="tier-list">
+        <li>Everything in Free</li>
+        <li>SMS race-day alerts</li>
+        <li>Post-race deep dives</li>
+        <li>"What I'm hearing" scoops</li>
+        <li>Private Discord access</li>
+        <li>3x giveaway entries</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Quote -->
+  <div class="quote">
+    <div class="quote-text">"I built RevMX so fans could predict the races. I built MotoMicX so I could tell the stories nobody else will. The Underground is where both of those things live &mdash; without anyone's permission."</div>
+    <div class="quote-attr">&mdash; MotoMicX</div>
+  </div>
+
+  <!-- Second Signup -->
+  <div class="signup">
+    <div class="signup-label">Don't Get Exiled</div>
+    <form class="signup-row" onsubmit="return handleSignup(event)">
+      <input type="email" class="signup-input" placeholder="Your email" required id="signupEmail2">
+      <button type="submit" class="signup-btn" id="signupBtn2">Join</button>
+    </form>
+    <div class="signup-msg" id="signupMsg2"></div>
+  </div>
+
+  <!-- Footer -->
+  <div class="ug-footer">
+    <a href="https://youtube.com/@motomicX" target="_blank">YouTube</a>
+    <a href="https://open.spotify.com/artist/1SSQAeEUIZVMqX7izyDNVA" target="_blank">Spotify</a>
+    <a href="https://music.apple.com/us/artist/revmx/1769737562" target="_blank">Apple Music</a>
+    <div class="ug-footer-sub">MotoMicX Underground &times; RevMX &copy; 2026</div>
+  </div>
+
+</div>
+
+<script>
+var SIGNUP_API = 'https://script.google.com/macros/s/AKfycbyLDr5uRDwbheTOJPlghcRpbsEkCBuLpDYwdG1c0BXfXpYpovM-YsvR5KDdEjT_7IQW/exec';
+
+function handleSignup(e) {
+  e.preventDefault();
+  var form = e.target;
+  var emailInput = form.querySelector('input[type="email"]');
+  var btn = form.querySelector('button');
+  var msgId = emailInput.id === 'signupEmail' ? 'signupMsg' : 'signupMsg2';
+  var msg = document.getElementById(msgId);
+  var email = emailInput.value;
+
+  btn.disabled = true;
+  btn.textContent = '...';
+
+  fetch(SIGNUP_API, {
+    method: 'POST',
+    body: JSON.stringify({ action: 'subscribe', email: email, drawingOptIn: true }),
+    headers: { 'Content-Type': 'text/plain' }
+  })
+  .then(function(r) { return r.json(); })
+  .then(function() {
+    msg.className = 'signup-msg success';
+    msg.textContent = "Welcome to the Underground. Check your inbox.";
+    btn.textContent = 'Done';
+    localStorage.setItem('motomicx_underground', email);
+  })
+  .catch(function() {
+    msg.className = 'signup-msg success';
+    msg.textContent = "Welcome to the Underground. Check your inbox.";
+    btn.textContent = 'Done';
+    localStorage.setItem('motomicx_underground', email);
+  });
+
+  return false;
+}
+
+(function() {
+  var saved = localStorage.getItem('motomicx_underground');
+  if (saved) {
+    ['signupMsg','signupMsg2'].forEach(function(id) {
+      var m = document.getElementById(id);
+      if (m) { m.className = 'signup-msg success'; m.innerHTML = '&#10003; You\'re in as ' + saved; }
+    });
+  }
+})();
+</script>
+</body>
+</html>
