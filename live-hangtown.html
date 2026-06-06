@@ -10,15 +10,20 @@
 
   body {
     font-family: 'Rajdhani', sans-serif;
+    font-weight: 600;
     background: #060606;
     color: #fff;
-    min-height: 100vh;
+    height: 1080px;
+    overflow: hidden;
   }
 
   .wrap {
     max-width: 440px;
     margin: 0 auto;
-    padding: 12px 10px 30px;
+    padding: 8px 10px 10px;
+    height: 1080px;
+    display: flex;
+    flex-direction: column;
     position: relative;
   }
 
@@ -39,13 +44,13 @@
   }
   .hdr-event {
     font-family: 'Orbitron', sans-serif;
-    font-size: 0.85rem; font-weight: 900;
+    font-size: 1rem; font-weight: 900;
     letter-spacing: 1px;
     background: linear-gradient(135deg, #ff0000, #ff4400, #ffaa00);
     -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
   }
   .hdr-loc {
-    font-size: 0.75rem; color: #888;
+    font-size: 0.8rem; font-weight: 700; color: #888;
   }
   .hdr-live {
     font-family: 'Orbitron', sans-serif;
@@ -65,8 +70,8 @@
   /* ── Countdown ── */
   .countdown {
     text-align: center;
-    padding: 12px;
-    margin-bottom: 10px;
+    padding: 8px;
+    margin-bottom: 6px;
     border: 1px solid #1a1a1a;
     border-radius: 10px;
     background: #0a0a0a;
@@ -80,7 +85,7 @@
   }
   .cd-time {
     font-family: 'Orbitron', sans-serif;
-    font-size: 1.6rem; font-weight: 900;
+    font-size: 1.8rem; font-weight: 900;
     color: #fff; letter-spacing: 2px;
   }
   .cd-next {
@@ -88,6 +93,15 @@
   }
 
   /* ── Stripe ── */
+  #schedWrap {
+    flex: 1;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #333 transparent;
+  }
+  #schedWrap::-webkit-scrollbar { width: 3px; }
+  #schedWrap::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+
   .stripe {
     height: 3px;
     background: linear-gradient(90deg, #ff0000, #ff4400, #ffaa00, #ff4400, #ff0000);
@@ -119,7 +133,8 @@
     border-radius: 6px;
     margin-bottom: 2px;
     transition: all 0.3s;
-    font-size: 0.82rem;
+    font-size: 0.9rem;
+    font-weight: 700;
     gap: 8px;
   }
 
@@ -145,7 +160,7 @@
     flex-shrink: 0;
     width: 75px;
     font-family: 'Orbitron', sans-serif;
-    font-size: 0.6rem; font-weight: 700;
+    font-size: 0.65rem; font-weight: 900;
     color: #888;
     padding-top: 2px;
   }
@@ -187,10 +202,35 @@
   .row.past .row-badge { display: none; }
   .row.future .row-badge { display: none; }
 
+  /* ── Facebook QR ── */
+  .fb-bar {
+    margin-top: 8px;
+    padding: 6px 10px;
+    border: 1px solid #1a1a1a;
+    border-radius: 8px;
+    background: #0a0a0a;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+  }
+  .fb-qr { width: 50px; height: 50px; border-radius: 4px; }
+  .fb-text {
+    flex: 1;
+  }
+  .fb-label {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.6rem; font-weight: 900;
+    color: #4488ff; letter-spacing: 1px;
+  }
+  .fb-handle {
+    font-size: 0.7rem; font-weight: 700; color: #888;
+  }
+
   /* ── Merch Sponsor ── */
   .merch-bar {
-    margin-top: 14px;
-    padding: 10px 12px;
+    margin-top: 6px;
+    padding: 8px 12px;
     border: 1px solid #1a1a1a;
     border-radius: 8px;
     background: #0a0a0a;
@@ -251,6 +291,15 @@
 
   <!-- Schedule Container -->
   <div id="schedWrap"></div>
+
+  <!-- Facebook QR -->
+  <a class="fb-bar" href="https://facebook.com/MotoMicX" target="_blank">
+    <img src="img-fb-qr.png" class="fb-qr" alt="Facebook QR">
+    <div class="fb-text">
+      <div class="fb-label">Add Us on Facebook</div>
+      <div class="fb-handle">facebook.com/MotoMicX</div>
+    </div>
+  </a>
 
   <!-- Merch Sponsor -->
   <a class="merch-bar" href="https://merchjockey.com" target="_blank">
