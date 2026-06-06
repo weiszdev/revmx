@@ -329,7 +329,7 @@
     <div class="moto-cd-sub" id="motoSub">
       <button id="motoStartBtn" onclick="startMoto()" style="font-family:'Orbitron',sans-serif;font-size:0.6rem;font-weight:900;letter-spacing:1px;padding:6px 16px;border:2px solid #ff0000;border-radius:6px;background:rgba(255,0,0,0.15);color:#ff3333;cursor:pointer;text-transform:uppercase;">Gate Drop</button>
       <button id="motoNextBtn" onclick="nextMoto()" style="font-family:'Orbitron',sans-serif;font-size:0.5rem;font-weight:700;letter-spacing:1px;padding:5px 12px;border:1px solid #333;border-radius:6px;background:none;color:#888;cursor:pointer;text-transform:uppercase;margin-left:6px;">Next Moto</button>
-      <button id="motoResetBtn" onclick="resetMoto()" style="font-family:'Orbitron',sans-serif;font-size:0.5rem;font-weight:700;letter-spacing:1px;padding:5px 12px;border:1px solid #333;border-radius:6px;background:none;color:#555;cursor:pointer;text-transform:uppercase;margin-left:6px;">Reset</button>
+      <button id="motoResetBtn" onclick="resetMoto()" style="font-family:'Orbitron',sans-serif;font-size:0.5rem;font-weight:700;letter-spacing:1px;padding:5px 12px;border:1px solid #333;border-radius:6px;background:none;color:#555;cursor:pointer;text-transform:uppercase;margin-left:6px;">Redo</button>
     </div>
   </div>
 
@@ -530,9 +530,7 @@ function nextMoto() {
 }
 
 function resetMoto() {
-  currentMotoIdx = 0;
   motoDropTime = 0;
-  localStorage.setItem('mmx_motoIdx', '0');
   localStorage.setItem('mmx_motoDrop', '0');
   document.getElementById('motoStartBtn').style.display = '';
 }
