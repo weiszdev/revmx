@@ -322,11 +322,15 @@
     <div class="cd-next" id="cdNext"></div>
   </div>
 
-  <!-- 250 Moto 1 Countdown -->
+  <!-- Moto Timer (manual) -->
   <div class="moto-cd" id="motoCd">
-    <div class="moto-cd-label">250 Moto 1 Gate Drop</div>
-    <div class="moto-cd-time" id="motoCdTime">--:--:--</div>
-    <div class="moto-cd-sub">Racing Now</div>
+    <div class="moto-cd-label" id="motoLabel">Moto Timer</div>
+    <div class="moto-cd-time" id="motoCdTime">30:00+2</div>
+    <div class="moto-cd-sub" id="motoSub">
+      <button id="motoStartBtn" onclick="startMoto()" style="font-family:'Orbitron',sans-serif;font-size:0.6rem;font-weight:900;letter-spacing:1px;padding:6px 16px;border:2px solid #ff0000;border-radius:6px;background:rgba(255,0,0,0.15);color:#ff3333;cursor:pointer;text-transform:uppercase;">Gate Drop</button>
+      <button id="motoNextBtn" onclick="nextMoto()" style="font-family:'Orbitron',sans-serif;font-size:0.5rem;font-weight:700;letter-spacing:1px;padding:5px 12px;border:1px solid #333;border-radius:6px;background:none;color:#888;cursor:pointer;text-transform:uppercase;margin-left:6px;">Next Moto</button>
+      <button id="motoResetBtn" onclick="resetMoto()" style="font-family:'Orbitron',sans-serif;font-size:0.5rem;font-weight:700;letter-spacing:1px;padding:5px 12px;border:1px solid #333;border-radius:6px;background:none;color:#555;cursor:pointer;text-transform:uppercase;margin-left:6px;">Reset</button>
+    </div>
   </div>
 
   <div id="peacockBanner" style="text-align:center;padding:4px 8px;margin-bottom:6px;font-family:'Orbitron',sans-serif;font-size:0.55rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#888;background:#0a0a0a;border:1px solid #1a1a1a;border-radius:6px;display:none;">Race Day Live on Peacock</div>
@@ -488,26 +492,8 @@ function render() {
     liveTag.style.borderColor = '#333';
   }
 
-  // 250 Moto 1 countdown
-  var motoStart = new Date('2026-06-06T12:41:00-07:00');
-  var motoCdBox = document.getElementById('motoCd');
-  var motoCdTime = document.getElementById('motoCdTime');
-  var motoDiff = motoStart - now;
-  if (motoDiff > 0) {
-    var mh = Math.floor(motoDiff / 3600000);
-    var mm = Math.floor((motoDiff % 3600000) / 60000);
-    var ms = Math.floor((motoDiff % 60000) / 1000);
-    motoCdTime.textContent = (mh > 0 ? mh + ':' : '') + (mm < 10 && mh > 0 ? '0' : '') + mm + ':' + (ms < 10 ? '0' : '') + ms;
-    motoCdBox.style.display = '';
-  } else if (motoDiff > -2100000) {
-    // During the moto (35 min window)
-    motoCdBox.querySelector('.moto-cd-label').textContent = '250 Moto 1';
-    motoCdTime.textContent = 'RACING';
-    motoCdTime.style.color = '#ff0000';
-    motoCdBox.style.display = '';
-  } else {
-    motoCdBox.style.display = 'none';
-  }
+  // Manual moto timer
+  updateMotoTimer();
 
   // Peacock banner: show during broadcast window
   var peacockStart = new Date('2026-06-06T10:00:00-07:00');
@@ -520,8 +506,70 @@ function render() {
   if (activeRow) activeRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
 
+// ── Manual Moto Timer ──
+var MOTOS = [
+  '250 Moto 1', '450 Moto 1', '250 Moto 2', '450 Moto 2'
+];
+var MOTO_DURATION = 35 * 60 * 1000; // 35 minutes
+var currentMotoIdx = parseInt(localStorage.getItem('mmx_motoIdx') || '0');
+var motoDropTime = parseInt(localStorage.getItem('mmx_motoDrop') || '0');
+
+function startMoto() {
+  motoDropTime = Date.now();
+  localStorage.setItem('mmx_motoDrop', motoDropTime);
+  localStorage.setItem('mmx_motoIdx', currentMotoIdx);
+  document.getElementById('motoStartBtn').style.display = 'none';
+}
+
+function nextMoto() {
+  currentMotoIdx = Math.min(currentMotoIdx + 1, MOTOS.length - 1);
+  motoDropTime = 0;
+  localStorage.setItem('mmx_motoIdx', currentMotoIdx);
+  localStorage.setItem('mmx_motoDrop', '0');
+  document.getElementById('motoStartBtn').style.display = '';
+}
+
+function resetMoto() {
+  currentMotoIdx = 0;
+  motoDropTime = 0;
+  localStorage.setItem('mmx_motoIdx', '0');
+  localStorage.setItem('mmx_motoDrop', '0');
+  document.getElementById('motoStartBtn').style.display = '';
+}
+
+function updateMotoTimer() {
+  var label = document.getElementById('motoLabel');
+  var timer = document.getElementById('motoCdTime');
+  var startBtn = document.getElementById('motoStartBtn');
+
+  label.textContent = MOTOS[currentMotoIdx] || '450 Moto 2';
+
+  if (!motoDropTime) {
+    // Waiting for gate drop
+    timer.textContent = '30:00+2';
+    timer.style.color = '#ff3333';
+    startBtn.style.display = '';
+    return;
+  }
+
+  var elapsed = Date.now() - motoDropTime;
+  var remaining = MOTO_DURATION - elapsed;
+
+  if (remaining > 0) {
+    var m = Math.floor(remaining / 60000);
+    var s = Math.floor((remaining % 60000) / 1000);
+    timer.textContent = m + ':' + (s < 10 ? '0' : '') + s;
+    timer.style.color = m < 5 ? '#ff0000' : '#ff3333';
+    startBtn.style.display = 'none';
+  } else {
+    timer.textContent = 'CHECKERED';
+    timer.style.color = '#ffaa00';
+    startBtn.style.display = 'none';
+  }
+}
+
 render();
-setInterval(render, 5000);
+setInterval(render, 1000);
 </script>
 </body>
 </html>
