@@ -359,6 +359,7 @@
       <button class="moto-btn" onclick="dropGate(1)">450 M1</button>
       <button class="moto-btn" onclick="dropGate(2)">250 M2</button>
       <button class="moto-btn" onclick="dropGate(3)">450 M2</button>
+      <button class="moto-btn" onclick="resetTimer()" style="color:#555;border-color:#333;">Reset</button>
     </div>
     <div style="margin-top:8px;display:flex;gap:4px;align-items:center;justify-content:center;">
       <label style="font-family:'Orbitron',sans-serif;font-size:0.45rem;font-weight:700;color:#555;letter-spacing:1px;text-transform:uppercase;">Delay (min):</label>
@@ -554,6 +555,12 @@ var MOTOS = ['250 Moto 1', '450 Moto 1', '250 Moto 2', '450 Moto 2'];
 var MOTO_DURATION = 30 * 60 * 1000;
 var motoDropTime = 0;
 var currentMotoIdx = -1;
+
+function resetTimer() {
+  motoDropTime = 0;
+  currentMotoIdx = -1;
+  highlightBtns();
+}
 
 function dropGate(idx) {
   currentMotoIdx = idx;
