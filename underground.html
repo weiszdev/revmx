@@ -304,6 +304,124 @@
   .tier-list li::before { content: '+ '; color: #ff440066; }
   .tier-vip .tier-list li::before { color: #ff4400; }
 
+  /* ── Track Shirt ── */
+  .shirt-section {
+    border: 1px solid rgba(255,68,0,0.3);
+    border-radius: 14px;
+    padding: 20px;
+    margin-bottom: 28px;
+    background: linear-gradient(145deg, #111, #0e0800);
+    text-align: center;
+    box-shadow: 0 0 25px rgba(255,68,0,0.06);
+  }
+  .shirt-badge {
+    display: inline-block;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.55rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 4px;
+    background: rgba(255,68,0,0.15);
+    color: #ff6600;
+    border: 1px solid rgba(255,68,0,0.3);
+    margin-bottom: 10px;
+  }
+  .shirt-title {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 900;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+    color: #fff;
+    margin-bottom: 6px;
+  }
+  .shirt-track {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #ff0000, #ff4400, #ffaa00);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 10px;
+  }
+  .shirt-desc {
+    font-size: 0.9rem;
+    color: #aaa;
+    line-height: 1.4;
+    margin-bottom: 14px;
+  }
+  .shirt-cta {
+    display: inline-block;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 10px 20px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #ff4400, #ff6600);
+    color: #fff;
+    text-decoration: none;
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .shirt-cta:hover {
+    box-shadow: 0 0 18px rgba(255,68,0,0.45);
+    transform: translateY(-1px);
+  }
+  .shirt-gift {
+    font-size: 0.75rem;
+    color: #666;
+    margin-top: 10px;
+  }
+  .shirt-gift strong { color: #ff4400; }
+
+  /* ── MerchJockey ── */
+  .merch-deal {
+    border: 1px solid rgba(255,170,0,0.2);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 28px;
+    background: linear-gradient(145deg, #0e0d08, #111);
+    text-align: center;
+  }
+  .merch-deal-tag {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.55rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #ffaa00;
+    margin-bottom: 8px;
+  }
+  .merch-deal-title {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: #fff;
+    margin-bottom: 4px;
+  }
+  .merch-deal-desc {
+    font-size: 0.85rem;
+    color: #999;
+    line-height: 1.4;
+    margin-bottom: 10px;
+  }
+  .merch-deal-highlight {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, #ffaa00, #ff6600);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 4px;
+  }
+  .merch-deal-fine {
+    font-size: 0.7rem;
+    color: #555;
+  }
+
   /* ── Quote ── */
   .quote {
     text-align: center;
@@ -432,6 +550,7 @@
         <li>Race-day predictions</li>
         <li>Giveaway entries</li>
         <li>Early music drops</li>
+        <li>Track shirt notifications</li>
       </ul>
     </div>
     <div class="tier tier-vip">
@@ -444,8 +563,29 @@
         <li>"What I'm hearing" scoops</li>
         <li>Private Discord access</li>
         <li>3x giveaway entries</li>
+        <li>Early track shirt access</li>
+        <li>25% off at MerchJockey</li>
       </ul>
     </div>
+  </div>
+
+  <!-- Weekly Track Shirt -->
+  <div class="shirt-section">
+    <div class="shirt-badge">New Every Race Week</div>
+    <div class="shirt-title">Weekly Track Shirt Drop</div>
+    <div class="shirt-track">This Week: Hangtown MX</div>
+    <div class="shirt-desc">A new limited design for every round. Rep the track, rep the culture. Underground members get first access + the option to gift one to a moto fan.</div>
+    <a class="shirt-cta" href="#" target="_blank">Shop This Week's Drop</a>
+    <div class="shirt-gift"><strong>Gift a Moto Fan</strong> &mdash; buy one for a friend, both of you get entered in the weekly gear giveaway</div>
+  </div>
+
+  <!-- MerchJockey VIP Discount -->
+  <div class="merch-deal">
+    <div class="merch-deal-tag">VIP Exclusive</div>
+    <div class="merch-deal-title">MerchJockey Underground Discount</div>
+    <div class="merch-deal-desc">Underground VIP members get an exclusive discount at MerchJockey.com &mdash; the rider-first moto gear shop.</div>
+    <div class="merch-deal-highlight">25% Off Orders $35+</div>
+    <div class="merch-deal-fine">VIP members receive their discount code via email. Not a VIP yet? Join above.</div>
   </div>
 
   <!-- Quote -->
