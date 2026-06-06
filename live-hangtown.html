@@ -290,6 +290,8 @@
     <div class="cd-next" id="cdNext"></div>
   </div>
 
+  <div id="peacockBanner" style="text-align:center;padding:4px 8px;margin-bottom:6px;font-family:'Orbitron',sans-serif;font-size:0.55rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#888;background:#0a0a0a;border:1px solid #1a1a1a;border-radius:6px;display:none;">Race Day Live on Peacock</div>
+
   <div class="stripe"></div>
 
   <!-- Schedule Container -->
@@ -331,7 +333,6 @@ var SCHEDULE = [
   { time: '2026-06-06T09:30:00-07:00', end: '2026-06-06T09:45:00-07:00', name: 'Track Maintenance' },
   { time: '2026-06-06T09:45:00-07:00', end: '2026-06-06T10:00:00-07:00', name: '250 Class Qualifying', cat: 'qualifying' },
   { time: '2026-06-06T10:05:00-07:00', end: '2026-06-06T10:20:00-07:00', name: '450 Class Qualifying', cat: 'qualifying' },
-  { time: '2026-06-06T10:00:00-07:00', end: '2026-06-06T13:00:00-07:00', name: 'Race Day Live on Peacock', cat: 'broadcast' },
   { time: '2026-06-06T10:30:00-07:00', end: '2026-06-06T11:00:00-07:00', name: 'WMX Moto', cat: 'race' },
   { time: '2026-06-06T11:00:00-07:00', end: '2026-06-06T11:30:00-07:00', name: 'Track Prep / Fan Activities' },
   { time: '2026-06-06T12:15:00-07:00', end: '2026-06-06T12:45:00-07:00', name: 'Opening Ceremonies', cat: 'ceremony' },
@@ -447,6 +448,12 @@ function render() {
     liveTag.style.color = '#888';
     liveTag.style.borderColor = '#333';
   }
+
+  // Peacock banner: show during broadcast window
+  var peacockStart = new Date('2026-06-06T10:00:00-07:00');
+  var peacockEnd = new Date('2026-06-06T16:30:00-07:00');
+  var pb = document.getElementById('peacockBanner');
+  pb.style.display = (now >= peacockStart && now < peacockEnd) ? 'block' : 'none';
 
   // Auto-scroll active into view
   var activeRow = document.querySelector('.row.active');
