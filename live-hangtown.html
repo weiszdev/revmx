@@ -510,7 +510,7 @@ function render() {
 var MOTOS = [
   '250 Moto 1', '450 Moto 1', '250 Moto 2', '450 Moto 2'
 ];
-var MOTO_DURATION = 35 * 60 * 1000; // 35 minutes
+var MOTO_DURATION = 12 * 60 * 1000 + 30 * 1000; // 12:30
 var currentMotoIdx = parseInt(localStorage.getItem('mmx_motoIdx') || '0');
 var motoDropTime = parseInt(localStorage.getItem('mmx_motoDrop') || '0');
 
@@ -544,7 +544,7 @@ function updateMotoTimer() {
 
   if (!motoDropTime) {
     // Waiting for gate drop
-    timer.textContent = '30:00+2';
+    timer.textContent = '12:30';
     timer.style.color = '#ff3333';
     startBtn.style.display = '';
     return;
