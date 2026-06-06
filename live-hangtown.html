@@ -353,12 +353,17 @@
   <!-- Moto Timer (manual) -->
   <div class="moto-cd" id="motoCd">
     <div class="moto-cd-label" id="motoLabel">Moto Timer</div>
-    <div class="moto-cd-time" id="motoCdTime">12:30</div>
+    <div class="moto-cd-time" id="motoCdTime">--:--</div>
     <div style="display:flex;gap:4px;justify-content:center;flex-wrap:wrap;margin-top:8px;">
       <button class="moto-btn" onclick="dropGate(0)">250 M1</button>
       <button class="moto-btn" onclick="dropGate(1)">450 M1</button>
       <button class="moto-btn" onclick="dropGate(2)">250 M2</button>
       <button class="moto-btn" onclick="dropGate(3)">450 M2</button>
+    </div>
+    <div style="margin-top:8px;display:flex;gap:4px;align-items:center;justify-content:center;">
+      <label style="font-family:'Orbitron',sans-serif;font-size:0.45rem;font-weight:700;color:#555;letter-spacing:1px;text-transform:uppercase;">Delay (min):</label>
+      <input id="delayInput" type="number" value="0" min="-60" max="120" step="5" style="width:50px;padding:4px 6px;border:1px solid #333;border-radius:4px;background:#0a0a0a;color:#ff003c;font-family:'Orbitron',sans-serif;font-size:0.7rem;font-weight:900;text-align:center;outline:none;" onchange="applyDelay()">
+      <button onclick="applyDelay()" style="font-family:'Orbitron',sans-serif;font-size:0.45rem;font-weight:700;letter-spacing:1px;padding:4px 8px;border:1px solid #333;border-radius:4px;background:none;color:#888;cursor:pointer;text-transform:uppercase;">Apply</button>
     </div>
   </div>
 
@@ -440,8 +445,8 @@ function render() {
 
   for (var i = 0; i < SCHEDULE.length; i++) {
     var s = SCHEDULE[i];
-    var start = new Date(s.time);
-    var end = new Date(s.end);
+    var start = new Date(new Date(s.time).getTime() + getDelayMs());
+    var end = new Date(new Date(s.end).getTime() + getDelayMs());
     var localTime = formatTime(s.time);
     var status;
 
@@ -534,6 +539,18 @@ function render() {
   var activeRow = document.querySelector('.row.active');
   if (activeRow) activeRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
+
+// ── Delay Offset ──
+var delayMinutes = parseInt(localStorage.getItem('mmx_delay') || '0');
+document.getElementById('delayInput').value = delayMinutes;
+
+function applyDelay() {
+  delayMinutes = parseInt(document.getElementById('delayInput').value) || 0;
+  localStorage.setItem('mmx_delay', delayMinutes);
+  render();
+}
+
+function getDelayMs() { return delayMinutes * 60 * 1000; }
 
 // ── Manual Moto Timer ──
 var MOTOS = ['250 Moto 1', '450 Moto 1', '250 Moto 2', '450 Moto 2'];
