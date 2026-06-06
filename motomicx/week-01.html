@@ -49,7 +49,7 @@
   .menu-toggle {
     position: absolute;
     top: 24px;
-    left: 14px;
+    right: 14px;
     z-index: 100;
     background: none;
     border: none;
@@ -70,7 +70,7 @@
   .home-btn {
     position: absolute;
     top: 24px;
-    right: 14px;
+    left: 14px;
     z-index: 100;
     font-family: 'Orbitron', sans-serif;
     font-size: 0.55rem;
@@ -96,13 +96,13 @@
 
   .archive-menu {
     position: fixed;
-    top: 0; left: 0;
+    top: 0; right: 0;
     width: 280px;
     height: 100vh;
     background: #111;
-    border-right: 1px solid #2a2a2a;
+    border-left: 1px solid #2a2a2a;
     padding: 80px 20px 30px;
-    transform: translateX(-100%);
+    transform: translateX(100%);
     transition: transform 0.3s ease;
     z-index: 90;
     overflow-y: auto;
@@ -206,6 +206,47 @@
     color: #ff4400;
     text-transform: uppercase;
   }
+
+  /* ── Music Section ── */
+  .music-box {
+    border: 1px solid rgba(255,0,0,0.25);
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin: 14px 0 0;
+    background: linear-gradient(145deg, #131313, #161616);
+    text-align: center;
+  }
+  .music-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #ff4400;
+    margin-bottom: 10px;
+  }
+  .music-links {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .music-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #ccc;
+    text-decoration: none;
+    padding: 6px 12px;
+    border: 1px solid #2a2a2a;
+    border-radius: 8px;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .music-link:hover { color: #ff4400; border-color: #ff4400; }
+  .music-icon { font-size: 1rem; }
 
   /* ── Email Signup ── */
   .signup-box {
@@ -437,6 +478,16 @@
     <img src="https://res.cloudinary.com/dyq7rnjjw/image/upload/w_600,q_auto,f_auto/v1780696662/50AFC30A-D581-42AD-92DE-E057F93969D0_w2gfrm.png" alt="MotoMicX" class="logo-wide">
     <div class="racing-stripe"></div>
     <div class="week-label">Week 1 &mdash; June 1, 2026</div>
+  </div>
+
+  <!-- Music Links -->
+  <div class="music-box">
+    <div class="music-title">Latest Music</div>
+    <div class="music-links">
+      <a class="music-link" href="https://music.apple.com/us/artist/revmx/1769737562" target="_blank"><span class="music-icon">&#127925;</span> Apple Music</a>
+      <a class="music-link" href="https://open.spotify.com/artist/1SSQAeEUIZVMqX7izyDNVA" target="_blank"><span class="music-icon">&#127911;</span> Spotify</a>
+      <a class="music-link" href="https://youtube.com/@motomicX" target="_blank"><span class="music-icon">&#9654;</span> YouTube</a>
+    </div>
   </div>
 
   <!-- Email Signup -->
