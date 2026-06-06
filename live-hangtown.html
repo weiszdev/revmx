@@ -350,6 +350,12 @@
     <div class="cd-next" id="cdNext"></div>
   </div>
 
+  <!-- 450 Moto 2 Countdown -->
+  <div id="m2cd" style="text-align:center;padding:8px;margin-bottom:6px;">
+    <div style="font-family:'Orbitron',sans-serif;font-size:0.6rem;font-weight:900;letter-spacing:2px;color:#888;text-transform:uppercase;">450 Moto 2 Starts In</div>
+    <div id="m2cdTime" style="font-family:'Orbitron',sans-serif;font-size:2rem;font-weight:900;color:#ffffff;letter-spacing:2px;">--:--</div>
+  </div>
+
   <!-- Moto Timer (manual) -->
   <div class="moto-cd" id="motoCd">
     <div class="moto-cd-label" id="motoLabel">Moto Timer</div>
@@ -525,6 +531,22 @@ function render() {
     liveTag.style.animation = 'none';
     liveTag.style.color = '#888';
     liveTag.style.borderColor = '#333';
+  }
+
+  // 450 Moto 2 countdown
+  var m2target = new Date('2026-06-06T17:46:00-05:00'); // 5:46 PM CDT
+  var m2diff = m2target - now;
+  var m2el = document.getElementById('m2cdTime');
+  var m2box = document.getElementById('m2cd');
+  if (m2diff > 0) {
+    var m2m = Math.floor(m2diff / 60000);
+    var m2s = Math.floor((m2diff % 60000) / 1000);
+    m2el.textContent = m2m + ':' + (m2s < 10 ? '0' : '') + m2s;
+    m2el.style.color = '#ffffff';
+  } else {
+    m2el.textContent = 'GATE DROP SOON';
+    m2el.style.color = '#ff0000';
+    m2el.style.fontSize = '1.4rem';
   }
 
   // Manual moto timer
