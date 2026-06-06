@@ -126,6 +126,34 @@
     font-size: 0.7rem; font-weight: 700; color: #888; margin-top: 2px;
   }
   .moto-cd.done { display: none; }
+  .moto-btn {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.55rem; font-weight: 900;
+    letter-spacing: 1px; text-transform: uppercase;
+    padding: 6px 12px;
+    border: 1px solid #444;
+    border-radius: 6px;
+    background: none;
+    color: #888;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .moto-btn:hover {
+    border-color: #ff003c;
+    color: #ff003c;
+    box-shadow: 0 0 10px rgba(255,0,60,0.3);
+  }
+  .moto-btn.active {
+    border-color: #ff003c;
+    color: #ff003c;
+    background: rgba(255,0,60,0.12);
+    box-shadow: 0 0 16px rgba(255,0,60,0.4), inset 0 0 10px rgba(255,0,60,0.06);
+    animation: neonPulse 1.5s ease-in-out infinite;
+  }
+  @keyframes neonPulse {
+    0%, 100% { box-shadow: 0 0 10px rgba(255,0,60,0.3); }
+    50% { box-shadow: 0 0 24px rgba(255,0,60,0.6), inset 0 0 10px rgba(255,0,60,0.08); }
+  }
 
   /* ── Stripe ── */
   #schedWrap {
@@ -325,11 +353,12 @@
   <!-- Moto Timer (manual) -->
   <div class="moto-cd" id="motoCd">
     <div class="moto-cd-label" id="motoLabel">Moto Timer</div>
-    <div class="moto-cd-time" id="motoCdTime">30:00+2</div>
-    <div class="moto-cd-sub" id="motoSub">
-      <button id="motoStartBtn" onclick="startMoto()" style="font-family:'Orbitron',sans-serif;font-size:0.6rem;font-weight:900;letter-spacing:1px;padding:6px 16px;border:2px solid #ff0000;border-radius:6px;background:rgba(255,0,0,0.15);color:#ff3333;cursor:pointer;text-transform:uppercase;">Gate Drop</button>
-      <button id="motoNextBtn" onclick="nextMoto()" style="font-family:'Orbitron',sans-serif;font-size:0.5rem;font-weight:700;letter-spacing:1px;padding:5px 12px;border:1px solid #333;border-radius:6px;background:none;color:#888;cursor:pointer;text-transform:uppercase;margin-left:6px;">Next Moto</button>
-      <button id="motoResetBtn" onclick="resetMoto()" style="font-family:'Orbitron',sans-serif;font-size:0.5rem;font-weight:700;letter-spacing:1px;padding:5px 12px;border:1px solid #333;border-radius:6px;background:none;color:#555;cursor:pointer;text-transform:uppercase;margin-left:6px;">Redo</button>
+    <div class="moto-cd-time" id="motoCdTime">12:30</div>
+    <div style="display:flex;gap:4px;justify-content:center;flex-wrap:wrap;margin-top:8px;">
+      <button class="moto-btn" onclick="dropGate(0)">250 M1</button>
+      <button class="moto-btn" onclick="dropGate(1)">450 M1</button>
+      <button class="moto-btn" onclick="dropGate(2)">250 M2</button>
+      <button class="moto-btn" onclick="dropGate(3)">450 M2</button>
     </div>
   </div>
 
@@ -507,49 +536,38 @@ function render() {
 }
 
 // ── Manual Moto Timer ──
-var MOTOS = [
-  '250 Moto 1', '450 Moto 1', '250 Moto 2', '450 Moto 2'
-];
-var MOTO_DURATION = 12 * 60 * 1000 + 30 * 1000; // 12:30
-var currentMotoIdx = parseInt(localStorage.getItem('mmx_motoIdx') || '0');
+var MOTOS = ['250 Moto 1', '450 Moto 1', '250 Moto 2', '450 Moto 2'];
+var MOTO_DURATION = 12 * 60 * 1000 + 30 * 1000;
 var motoDropTime = parseInt(localStorage.getItem('mmx_motoDrop') || '0');
+var currentMotoIdx = parseInt(localStorage.getItem('mmx_motoIdx') || '-1');
 
-function startMoto() {
+function dropGate(idx) {
+  currentMotoIdx = idx;
   motoDropTime = Date.now();
+  localStorage.setItem('mmx_motoIdx', idx);
   localStorage.setItem('mmx_motoDrop', motoDropTime);
-  localStorage.setItem('mmx_motoIdx', currentMotoIdx);
-  document.getElementById('motoStartBtn').style.display = 'none';
+  highlightBtns();
 }
 
-function nextMoto() {
-  currentMotoIdx = Math.min(currentMotoIdx + 1, MOTOS.length - 1);
-  motoDropTime = 0;
-  localStorage.setItem('mmx_motoIdx', currentMotoIdx);
-  localStorage.setItem('mmx_motoDrop', '0');
-  document.getElementById('motoStartBtn').style.display = '';
-}
-
-function resetMoto() {
-  motoDropTime = 0;
-  localStorage.setItem('mmx_motoDrop', '0');
-  document.getElementById('motoStartBtn').style.display = '';
+function highlightBtns() {
+  var btns = document.querySelectorAll('.moto-btn');
+  btns.forEach(function(b, i) {
+    b.classList.toggle('active', i === currentMotoIdx);
+  });
 }
 
 function updateMotoTimer() {
   var label = document.getElementById('motoLabel');
   var timer = document.getElementById('motoCdTime');
-  var startBtn = document.getElementById('motoStartBtn');
 
-  label.textContent = MOTOS[currentMotoIdx] || '450 Moto 2';
-
-  if (!motoDropTime) {
-    // Waiting for gate drop
+  if (currentMotoIdx < 0 || !motoDropTime) {
+    label.textContent = 'Tap a Moto to Start';
     timer.textContent = '12:30';
-    timer.style.color = '#ff3333';
-    startBtn.style.display = '';
+    timer.style.color = '#ff003c';
     return;
   }
 
+  label.textContent = MOTOS[currentMotoIdx];
   var elapsed = Date.now() - motoDropTime;
   var remaining = MOTO_DURATION - elapsed;
 
@@ -557,14 +575,14 @@ function updateMotoTimer() {
     var m = Math.floor(remaining / 60000);
     var s = Math.floor((remaining % 60000) / 1000);
     timer.textContent = m + ':' + (s < 10 ? '0' : '') + s;
-    timer.style.color = m < 5 ? '#ff0000' : '#ff3333';
-    startBtn.style.display = 'none';
+    timer.style.color = m < 3 ? '#ff0000' : '#ff003c';
   } else {
     timer.textContent = 'CHECKERED';
     timer.style.color = '#ffaa00';
-    startBtn.style.display = 'none';
   }
 }
+
+highlightBtns();
 
 render();
 setInterval(render, 1000);
