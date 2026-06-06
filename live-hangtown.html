@@ -95,6 +95,38 @@
     font-size: 0.75rem; color: #888; margin-top: 4px;
   }
 
+  /* ── Moto Countdown ── */
+  .moto-cd {
+    text-align: center;
+    padding: 10px;
+    margin-bottom: 6px;
+    border: 2px solid rgba(255,0,0,0.5);
+    border-radius: 10px;
+    background: linear-gradient(145deg, #1a0000, #120000);
+    box-shadow: 0 0 20px rgba(255,0,0,0.1), inset 0 0 20px rgba(255,0,0,0.03);
+    animation: motoPulse 2.5s ease-in-out infinite;
+  }
+  @keyframes motoPulse {
+    0%, 100% { box-shadow: 0 0 15px rgba(255,0,0,0.08); }
+    50% { box-shadow: 0 0 30px rgba(255,0,0,0.2), inset 0 0 20px rgba(255,0,0,0.05); }
+  }
+  .moto-cd-label {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.6rem; font-weight: 900;
+    letter-spacing: 2px; color: #ff0000;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+  }
+  .moto-cd-time {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.8rem; font-weight: 900;
+    color: #ff3333; letter-spacing: 2px;
+  }
+  .moto-cd-sub {
+    font-size: 0.7rem; font-weight: 700; color: #888; margin-top: 2px;
+  }
+  .moto-cd.done { display: none; }
+
   /* ── Stripe ── */
   #schedWrap {
     flex: 1;
@@ -290,6 +322,13 @@
     <div class="cd-next" id="cdNext"></div>
   </div>
 
+  <!-- 250 Moto 1 Countdown -->
+  <div class="moto-cd" id="motoCd">
+    <div class="moto-cd-label">250 Moto 1 Gate Drop</div>
+    <div class="moto-cd-time" id="motoCdTime">--:--:--</div>
+    <div class="moto-cd-sub">1:00 PM PT &bull; 4:00 PM ET</div>
+  </div>
+
   <div id="peacockBanner" style="text-align:center;padding:4px 8px;margin-bottom:6px;font-family:'Orbitron',sans-serif;font-size:0.55rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#888;background:#0a0a0a;border:1px solid #1a1a1a;border-radius:6px;display:none;">Race Day Live on Peacock</div>
 
   <div class="stripe"></div>
@@ -447,6 +486,27 @@ function render() {
     liveTag.style.animation = 'none';
     liveTag.style.color = '#888';
     liveTag.style.borderColor = '#333';
+  }
+
+  // 250 Moto 1 countdown
+  var motoStart = new Date('2026-06-06T13:00:00-07:00');
+  var motoCdBox = document.getElementById('motoCd');
+  var motoCdTime = document.getElementById('motoCdTime');
+  var motoDiff = motoStart - now;
+  if (motoDiff > 0) {
+    var mh = Math.floor(motoDiff / 3600000);
+    var mm = Math.floor((motoDiff % 3600000) / 60000);
+    var ms = Math.floor((motoDiff % 60000) / 1000);
+    motoCdTime.textContent = (mh > 0 ? mh + ':' : '') + (mm < 10 && mh > 0 ? '0' : '') + mm + ':' + (ms < 10 ? '0' : '') + ms;
+    motoCdBox.style.display = '';
+  } else if (motoDiff > -2100000) {
+    // During the moto (35 min window)
+    motoCdBox.querySelector('.moto-cd-label').textContent = '250 Moto 1';
+    motoCdTime.textContent = 'RACING';
+    motoCdTime.style.color = '#ff0000';
+    motoCdBox.style.display = '';
+  } else {
+    motoCdBox.style.display = 'none';
   }
 
   // Peacock banner: show during broadcast window
