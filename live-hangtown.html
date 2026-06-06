@@ -593,7 +593,7 @@ function updateMotoTimer() {
     var m = Math.floor(remaining / 60000);
     var s = Math.floor((remaining % 60000) / 1000);
     timer.textContent = m + ':' + (s < 10 ? '0' : '') + s;
-    timer.style.color = m < 3 ? '#ff0000' : '#ff003c';
+    timer.style.color = m < 3 ? '#ff0000' : '#ffffff';
   } else {
     // Past zero — show negative time (+ 2 laps)
     var over = Math.abs(remaining);
