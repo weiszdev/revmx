@@ -535,9 +535,6 @@ function render() {
   var pb = document.getElementById('peacockBanner');
   pb.style.display = (now >= peacockStart && now < peacockEnd) ? 'block' : 'none';
 
-  // Auto-scroll active into view
-  var activeRow = document.querySelector('.row.active');
-  if (activeRow) activeRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
 
 // ── Delay Offset ──
