@@ -326,7 +326,7 @@
   <div class="moto-cd" id="motoCd">
     <div class="moto-cd-label">250 Moto 1 Gate Drop</div>
     <div class="moto-cd-time" id="motoCdTime">--:--:--</div>
-    <div class="moto-cd-sub">1:00 PM PT &bull; 4:00 PM ET</div>
+    <div class="moto-cd-sub">Racing Now</div>
   </div>
 
   <div id="peacockBanner" style="text-align:center;padding:4px 8px;margin-bottom:6px;font-family:'Orbitron',sans-serif;font-size:0.55rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#888;background:#0a0a0a;border:1px solid #1a1a1a;border-radius:6px;display:none;">Race Day Live on Peacock</div>
@@ -374,12 +374,12 @@ var SCHEDULE = [
   { time: '2026-06-06T10:05:00-07:00', end: '2026-06-06T10:20:00-07:00', name: '450 Class Qualifying', cat: 'qualifying' },
   { time: '2026-06-06T10:30:00-07:00', end: '2026-06-06T11:00:00-07:00', name: 'WMX Moto', cat: 'race' },
   { time: '2026-06-06T11:00:00-07:00', end: '2026-06-06T11:30:00-07:00', name: 'Track Prep / Fan Activities' },
-  { time: '2026-06-06T12:15:00-07:00', end: '2026-06-06T12:45:00-07:00', name: 'Opening Ceremonies', cat: 'ceremony' },
-  { time: '2026-06-06T13:00:00-07:00', end: '2026-06-06T13:35:00-07:00', name: '250 Moto 1', cat: 'race' },
-  { time: '2026-06-06T13:45:00-07:00', end: '2026-06-06T14:20:00-07:00', name: '450 Moto 1', cat: 'race' },
-  { time: '2026-06-06T14:20:00-07:00', end: '2026-06-06T14:50:00-07:00', name: 'Track Maintenance' },
-  { time: '2026-06-06T15:00:00-07:00', end: '2026-06-06T15:35:00-07:00', name: '250 Moto 2', cat: 'race' },
-  { time: '2026-06-06T15:45:00-07:00', end: '2026-06-06T16:20:00-07:00', name: '450 Moto 2', cat: 'race' }
+  { time: '2026-06-06T11:55:00-07:00', end: '2026-06-06T12:25:00-07:00', name: 'Opening Ceremonies', cat: 'ceremony' },
+  { time: '2026-06-06T12:41:00-07:00', end: '2026-06-06T13:41:00-07:00', name: '250 Moto 1', cat: 'race' },
+  { time: '2026-06-06T13:50:00-07:00', end: '2026-06-06T14:25:00-07:00', name: '450 Moto 1', cat: 'race' },
+  { time: '2026-06-06T14:25:00-07:00', end: '2026-06-06T14:50:00-07:00', name: 'Track Maintenance' },
+  { time: '2026-06-06T14:50:00-07:00', end: '2026-06-06T15:25:00-07:00', name: '250 Moto 2', cat: 'race' },
+  { time: '2026-06-06T15:35:00-07:00', end: '2026-06-06T16:10:00-07:00', name: '450 Moto 2', cat: 'race' }
 ];
 
 function formatTime(iso) {
@@ -489,7 +489,7 @@ function render() {
   }
 
   // 250 Moto 1 countdown
-  var motoStart = new Date('2026-06-06T13:00:00-07:00');
+  var motoStart = new Date('2026-06-06T12:41:00-07:00');
   var motoCdBox = document.getElementById('motoCd');
   var motoCdTime = document.getElementById('motoCdTime');
   var motoDiff = motoStart - now;
