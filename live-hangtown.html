@@ -21,7 +21,7 @@
     max-width: 440px;
     margin: 0 auto;
     padding: 14px 10px 10px;
-    min-height: 100vh;
+    max-height: 750px;
     display: flex;
     flex-direction: column;
     position: relative;
@@ -397,7 +397,7 @@ function render() {
 
     if (status === 'past') pastRows.push(row);
     else if (status === 'active') activeHTML = row;
-    else { futureCount++; if (futureCount <= 6) futureHTML += row; }
+    else { futureCount++; if (futureCount <= 3) futureHTML += row; }
   }
 
   // Only show last 2 completed events
@@ -406,7 +406,7 @@ function render() {
   var html = '';
   if (recentPast) html += '<div class="sched-section"><div class="sched-label past">Completed</div>' + recentPast + '</div>';
   if (activeHTML) html += '<div class="sched-section"><div class="sched-label now">Happening Now</div>' + activeHTML + '</div>';
-  if (futureHTML) html += '<div class="sched-section"><div class="sched-label upcoming">Up Next' + (futureCount > 6 ? ' (+' + (futureCount - 6) + ' more)' : '') + '</div>' + futureHTML + '</div>';
+  if (futureHTML) html += '<div class="sched-section"><div class="sched-label upcoming">Up Next' + (futureCount > 3 ? ' (+' + (futureCount - 3) + ' more)' : '') + '</div>' + futureHTML + '</div>';
 
   wrap.innerHTML = html;
 
