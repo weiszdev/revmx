@@ -338,7 +338,7 @@
       <div class="hdr-brand">Presented by MotoMicX</div>
       <div class="hdr-event">Hangtown MX</div>
       <div class="hdr-loc">Rancho Cordova, CA &bull; Rd 2</div>
-      <div class="hdr-live" id="liveTag">LIVE</div>
+      <div class="hdr-live" id="liveTag" style="color:#888;border-color:#333;animation:none;">FINAL</div>
     </div>
     <img src="https://res.cloudinary.com/dyq7rnjjw/image/upload/w_400,q_auto,f_auto/v1780715540/9D3AB9D1-117E-48EF-8FAC-4B259B8A7E66_wkxfio.png" class="hdr-logo" alt="MotoMicX">
   </div>
@@ -350,36 +350,23 @@
     <div class="cd-next" id="cdNext"></div>
   </div>
 
-  <!-- 450 Moto 2 Countdown -->
-  <div id="m2cd" style="text-align:center;padding:8px;margin-bottom:6px;">
-    <div style="font-family:'Orbitron',sans-serif;font-size:0.6rem;font-weight:900;letter-spacing:2px;color:#888;text-transform:uppercase;">450 Moto 2 Starts In</div>
-    <div id="m2cdTime" style="font-family:'Orbitron',sans-serif;font-size:2rem;font-weight:900;color:#ffffff;letter-spacing:2px;">--:--</div>
-  </div>
-
-  <!-- Moto Timer (manual) -->
-  <div class="moto-cd" id="motoCd">
-    <div class="moto-cd-label" id="motoLabel">Moto Timer</div>
-    <div class="moto-cd-time" id="motoCdTime">--:--</div>
-    <div style="display:flex;gap:4px;justify-content:center;flex-wrap:wrap;margin-top:8px;">
-      <button class="moto-btn" onclick="dropGate(0)">250 M1</button>
-      <button class="moto-btn" onclick="dropGate(1)">450 M1</button>
-      <button class="moto-btn" onclick="dropGate(2)">250 M2</button>
-      <button class="moto-btn" onclick="dropGate(3)">450 M2</button>
-      <button class="moto-btn" onclick="resetTimer()" style="color:#555;border-color:#333;">Reset</button>
-    </div>
-    <div style="margin-top:8px;display:flex;gap:4px;align-items:center;justify-content:center;">
-      <label style="font-family:'Orbitron',sans-serif;font-size:0.45rem;font-weight:700;color:#555;letter-spacing:1px;text-transform:uppercase;">Delay (min):</label>
-      <input id="delayInput" type="number" value="0" min="-60" max="120" step="5" style="width:50px;padding:4px 6px;border:1px solid #333;border-radius:4px;background:#0a0a0a;color:#ff003c;font-family:'Orbitron',sans-serif;font-size:0.7rem;font-weight:900;text-align:center;outline:none;" onchange="applyDelay()">
-      <button onclick="applyDelay()" style="font-family:'Orbitron',sans-serif;font-size:0.45rem;font-weight:700;letter-spacing:1px;padding:4px 8px;border:1px solid #333;border-radius:4px;background:none;color:#888;cursor:pointer;text-transform:uppercase;">Apply</button>
+  <!-- Race Complete -->
+  <div style="text-align:center;padding:20px 10px;margin-bottom:10px;">
+    <div style="font-family:'Orbitron',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:3px;color:#888;text-transform:uppercase;margin-bottom:8px;">Round 2 Complete</div>
+    <div style="font-family:'Orbitron',sans-serif;font-size:1.6rem;font-weight:900;letter-spacing:2px;background:linear-gradient(135deg,#ff0000,#ff4400,#ffaa00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:8px;">Hangtown in the Books</div>
+    <div style="font-size:1.1rem;font-weight:700;color:#ccc;line-height:1.5;margin-bottom:16px;">Thanks for joining us today.<br>Results dropping soon on RevMX.com</div>
+    <div class="stripe" style="margin-bottom:16px;"></div>
+    <div style="font-family:'Orbitron',sans-serif;font-size:0.55rem;font-weight:700;letter-spacing:2px;color:#ff4400;text-transform:uppercase;margin-bottom:12px;">Don't Miss Next Week</div>
+    <a href="underground.html" style="display:inline-block;font-family:'Orbitron',sans-serif;font-size:0.7rem;font-weight:900;letter-spacing:1px;text-transform:uppercase;padding:10px 20px;border:2px solid #ff0000;border-radius:8px;background:rgba(255,0,0,0.1);color:#ff3333;text-decoration:none;animation:neonPulse 1.5s ease-in-out infinite;">Join the Underground</a>
+    <div style="font-size:0.8rem;color:#666;margin-top:8px;">Never Be Exiled Here</div>
+    <div style="margin-top:20px;padding:12px;border:1px solid #1a1a1a;border-radius:10px;background:#0a0a0a;">
+      <div style="font-family:'Orbitron',sans-serif;font-size:0.5rem;font-weight:700;letter-spacing:2px;color:#555;text-transform:uppercase;margin-bottom:4px;">Next Round</div>
+      <div style="font-family:'Orbitron',sans-serif;font-size:0.9rem;font-weight:900;color:#fff;">Thunder Valley MX</div>
+      <div style="font-size:0.8rem;font-weight:700;color:#888;">Lakewood, CO &bull; June 13 &bull; Rd 3</div>
     </div>
   </div>
-
-  <div id="peacockBanner" style="text-align:center;padding:4px 8px;margin-bottom:6px;font-family:'Orbitron',sans-serif;font-size:0.55rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#888;background:#0a0a0a;border:1px solid #1a1a1a;border-radius:6px;display:none;">Race Day Live on Peacock</div>
 
   <div class="stripe"></div>
-
-  <!-- Schedule Container -->
-  <div id="schedWrap"></div>
 
   <!-- Facebook QR -->
   <a class="fb-bar" href="https://facebook.com/MotoMicX" target="_blank">
