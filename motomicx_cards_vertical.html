@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MotoMicX — This Week in Moto (Vertical)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Oswald:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0a0a; --panel:#121212; --panel2:#181818; --line:#262626;
+    --accent:#ff4400; --accent2:#ff7a00; --text:#ffffff; --muted:#cfcfcf; --dim:#8a8a8a;
+    --gold:#ffd24a; --silver:#cfd3d6; --bronze:#d08a52;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--text);font-family:'Rajdhani',sans-serif;
+    -webkit-font-smoothing:antialiased;line-height:1.25;padding:24px 16px 120px;
+    background-image:radial-gradient(circle at 20% -10%,rgba(255,68,0,.10),transparent 45%),
+                     radial-gradient(circle at 100% 0%,rgba(255,122,0,.06),transparent 40%);}
+  .wrap{margin:0 auto}
+  body[data-variant="wide"] .wrap{max-width:1180px}
+  body[data-variant="vertical"] .wrap{max-width:460px}
+
+  /* ---------- header ---------- */
+  header.masthead{border:1px solid var(--line);background:linear-gradient(180deg,#141414,#0d0d0d);
+    border-radius:16px;padding:22px 24px;position:relative;overflow:hidden}
+  header.masthead::before{content:"";position:absolute;left:0;top:0;bottom:0;width:8px;background:var(--accent)}
+  .brand{font-family:'Oswald',sans-serif;font-weight:700;letter-spacing:1px;font-size:14px;color:var(--dim);text-transform:uppercase}
+  .brand b{color:var(--accent)}
+  h1.kick{font-family:'Oswald',sans-serif;font-weight:700;text-transform:uppercase;line-height:.95;margin:6px 0 8px}
+  body[data-variant="wide"] h1.kick{font-size:54px}
+  body[data-variant="vertical"] h1.kick{font-size:34px}
+  h1.kick em{color:var(--accent);font-style:normal}
+  .sub{color:var(--muted);font-weight:600;font-size:17px;max-width:760px}
+  .statusrow{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;align-items:center}
+  .pill{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;
+    padding:5px 10px;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
+  .pill.live{color:#7CFFB0;border-color:#1e5638;background:rgba(40,200,120,.08)}
+  .pill.offline{color:#ffb86b;border-color:#5a3a16;background:rgba(255,140,0,.08)}
+
+  /* ---------- cards ---------- */
+  .deck{margin-top:22px;display:grid;gap:16px}
+  body[data-variant="wide"] .deck{grid-template-columns:repeat(2,1fr)}
+  body[data-variant="vertical"] .deck{grid-template-columns:1fr}
+
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;overflow:hidden;
+    position:relative;display:flex;flex-direction:column;transition:transform .15s ease,border-color .15s ease,box-shadow .15s ease}
+  .card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:6px;background:var(--accent)}
+  .card:hover{transform:translateY(-3px);border-color:#3a2a1f;box-shadow:0 14px 40px rgba(255,68,0,.10)}
+  .card.topstory{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent),0 14px 50px rgba(255,68,0,.22)}
+  .card.topstory::after{content:"🏆 TOP STORY";position:absolute;top:12px;right:12px;background:var(--accent);
+    color:#150700;font-weight:700;font-size:12px;letter-spacing:.5px;padding:5px 9px;border-radius:8px;font-family:'Oswald',sans-serif}
+
+  .card-body{padding:18px 18px 14px 22px}
+  .badge{display:inline-block;font-family:'Oswald',sans-serif;font-weight:700;font-size:12px;letter-spacing:1px;
+    text-transform:uppercase;color:var(--accent2);border:1px solid #3a2a1f;background:rgba(255,68,0,.07);
+    padding:4px 9px;border-radius:6px;margin-bottom:10px}
+  .card h2{font-family:'Oswald',sans-serif;font-weight:700;text-transform:uppercase;line-height:.98;color:var(--text)}
+  body[data-variant="wide"] .card h2{font-size:27px}
+  body[data-variant="vertical"] .card h2{font-size:23px}
+  .hook{color:var(--muted);font-weight:600;font-size:16.5px;margin-top:9px}
+
+  .toggle{margin-top:12px;display:inline-flex;align-items:center;gap:7px;cursor:pointer;user-select:none;
+    background:var(--panel2);border:1px solid var(--line);color:var(--text);font-family:'Rajdhani',sans-serif;
+    font-weight:700;font-size:14px;letter-spacing:.4px;text-transform:uppercase;padding:8px 12px;border-radius:9px;transition:border-color .15s}
+  .toggle:hover{border-color:var(--accent)}
+  .toggle .chev{transition:transform .2s;color:var(--accent)}
+  .card.open .toggle .chev{transform:rotate(180deg)}
+
+  .details{max-height:0;overflow:hidden;transition:max-height .35s ease}
+  .details-inner{padding-top:14px}
+  .details p{color:var(--muted);font-size:15.5px;font-weight:500;margin-bottom:10px;padding-left:14px;position:relative}
+  .details p::before{content:"";position:absolute;left:0;top:9px;width:6px;height:6px;background:var(--accent);border-radius:50%}
+  .song{margin-top:6px;background:linear-gradient(180deg,rgba(255,68,0,.10),rgba(255,68,0,.03));
+    border:1px dashed #4a3320;border-radius:12px;padding:12px 14px}
+  .song .lab{font-family:'Oswald',sans-serif;font-weight:700;text-transform:uppercase;font-size:12px;letter-spacing:1px;color:var(--accent2)}
+  .song .lyr{margin-top:6px;font-size:16px;font-style:italic;color:#ffe9da;font-weight:600}
+
+  /* ---------- footer of card: voting ---------- */
+  .card-foot{margin-top:auto;border-top:1px solid var(--line);background:var(--panel2);
+    display:flex;align-items:center;justify-content:space-between;padding:12px 18px 12px 22px;gap:12px}
+  .vote{display:inline-flex;align-items:center;gap:9px;cursor:pointer;background:transparent;
+    border:1px solid var(--line);border-radius:999px;padding:8px 14px;color:var(--text);
+    font-family:'Oswald',sans-serif;font-weight:700;letter-spacing:.5px;font-size:15px;text-transform:uppercase;transition:.15s}
+  .vote:hover{border-color:var(--accent)}
+  .vote .arrow{font-size:16px;line-height:1}
+  .vote.voted{background:var(--accent);border-color:var(--accent);color:#160700}
+  .vote .count{min-width:18px;text-align:center}
+  .rankhint{font-size:13px;color:var(--dim);font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+
+  /* ---------- email / leaderboard bar ---------- */
+  .voterbar{position:fixed;left:0;right:0;bottom:0;background:#0c0c0c;border-top:2px solid var(--accent);
+    padding:12px 16px;z-index:50;backdrop-filter:blur(6px)}
+  .voterbar .inner{max-width:1180px;margin:0 auto;display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:center}
+  .voterbar .msg{font-weight:700;color:var(--muted);font-size:15px}
+  .voterbar input{font-family:'Rajdhani',sans-serif;font-weight:600;font-size:15px;background:#161616;
+    color:#fff;border:1px solid var(--line);border-radius:9px;padding:10px 12px;min-width:210px}
+  .voterbar input:focus{outline:none;border-color:var(--accent)}
+  .btn{font-family:'Oswald',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.5px;
+    background:var(--accent);color:#160700;border:none;border-radius:9px;padding:11px 16px;cursor:pointer;font-size:15px}
+  .btn.ghost{background:transparent;color:var(--accent);border:1px solid var(--accent)}
+  .btn:active{transform:translateY(1px)}
+  .note{font-size:12.5px;color:var(--dim);width:100%;text-align:center;margin-top:2px}
+
+  /* leaderboard modal */
+  .scrim{position:fixed;inset:0;background:rgba(0,0,0,.72);display:none;z-index:80;align-items:center;justify-content:center;padding:18px}
+  .scrim.show{display:flex}
+  .modal{background:var(--panel);border:1px solid var(--accent);border-radius:16px;max-width:520px;width:100%;padding:22px}
+  .modal h3{font-family:'Oswald',sans-serif;font-weight:700;text-transform:uppercase;font-size:24px;margin-bottom:4px}
+  .modal .lede{color:var(--muted);font-weight:600;margin-bottom:14px;font-size:15px}
+  .lb-row{display:flex;align-items:center;gap:12px;padding:11px 12px;border:1px solid var(--line);
+    border-radius:11px;margin-bottom:9px;background:var(--panel2)}
+  .lb-row .rk{font-family:'Oswald',sans-serif;font-weight:700;font-size:22px;width:30px;text-align:center}
+  .lb-row.r1 .rk{color:var(--gold)} .lb-row.r2 .rk{color:var(--silver)} .lb-row.r3 .rk{color:var(--bronze)}
+  .lb-row .nm{flex:1;font-weight:700;font-size:15px;line-height:1.1}
+  .lb-row .vt{font-family:'Oswald',sans-serif;font-weight:700;color:var(--accent2);font-size:18px}
+  .modal .x{margin-top:8px;text-align:right}
+  .hidden{display:none!important}
+  .err{color:#ff8a6b;font-weight:700;font-size:13.5px}
+  footer.fin{margin-top:26px;text-align:center;color:var(--dim);font-size:13px;font-weight:600}
+  footer.fin b{color:var(--accent)}
+</style>
+</head>
+<body data-variant="vertical">
+<div class="wrap">
+  <header class="masthead">
+    <div class="brand"><b>MotoMicX</b> &nbsp;•&nbsp; This Week in Moto</div>
+    <h1 class="kick">PALA → HANGTOWN → <em>THUNDER VALLEY</em></h1>
+    <div class="sub">The savage roundup: two rounds down, four motos of receipts, a brewing brother war, a rising Deegan, and a Belgian invasion landing at altitude for Round 3.</div>
+    <div class="statusrow">
+      <span class="pill">Rd 1 • Pala (May 30)</span>
+      <span class="pill">Rd 2 • Hangtown (Jun 6)</span>
+      <span class="pill">Rd 3 • Thunder Valley (Jun 13)</span>
+      <span class="pill" id="connpill">connecting…</span>
+    </div>
+  </header>
+
+  <div class="deck" id="deck"></div>
+
+  <footer class="fin">Tap <b>▲ a story</b> to crown your Top Story • verify your email to see the live leaderboard • <b>MotoMicX</b></footer>
+</div>
+
+<!-- email / vote bar -->
+<div class="voterbar">
+  <div class="inner" id="voterInner">
+    <span class="msg">Want the live Top Story results?</span>
+    <input id="emailInput" type="email" placeholder="you@email.com" autocomplete="email">
+    <button class="btn" id="signupBtn">Get my code</button>
+    <button class="btn ghost hidden" id="showLbBtn">View leaderboard</button>
+    <div class="note" id="barNote"></div>
+  </div>
+</div>
+
+<!-- leaderboard modal -->
+<div class="scrim" id="scrim">
+  <div class="modal">
+    <h3>🏆 Top Story Leaderboard</h3>
+    <div class="lede" id="lbLede">Live reader votes across the roundup.</div>
+    <div id="lbList"></div>
+    <div class="x"><button class="btn ghost" id="closeLb">Close</button></div>
+  </div>
+</div>
+
+<script>
+const STORIES = [{"id": "brother-war", "badge": "450 • BROTHER WAR", "title": "THE LAWRENCE BROTHERS ARE FIGHTING OVER THE LAST POP-TART", "hook": "Hunter opened the season 1-1 like he pays the family mortgage. Two weeks later Jett swept Hangtown just to remind everyone whose name is on the trophy.", "details": ["PALA (Rd 1): Hunter Lawrence goes 1-1 for the overall win. Jorge Prado 2-2 for second, Jett 4-3 for third.", "HANGTOWN (Rd 2): Jett answers with a 1-1 sweep — the 19th 450 win of his career — Hunter 2-2 for second, Deegan 3rd.", "STANDINGS AFTER RD 2: Hunter 94, Jett 88. Six points between two brothers in the same garage. Thanksgiving's gonna be real quiet."], "song_genre": "Country bloodline anthem", "song": "“Six points and a bloodline / one garage, two thrones / Mama said share the championship, boys / but Honda don’t make clones.”"}, {"id": "deegan-rising", "badge": "450 • DEEGAN RISING", "title": "DEEGAN BROUGHT A 450 TO A KNIFE FIGHT AND STARTED WINNING ANYWAY", "hook": "The 250 brat grew up, skipped the line, and declared himself the ‘new beast mode.’ Then he actually backed it up with a rookie podium.", "details": ["Haiden Deegan moved up to the 450 class for 2026, still under the Monster Energy Star Racing Yamaha tent.", "PALA debut: 5th overall (5-4) — called it a solid ‘rookie debut.’ HANGTOWN: first-ever 450 podium, 3rd overall.", "Quote of the season: he wants to ‘line up to Tomac and be like… this is the new beast mode.’ Two rounds in, he’s the only non-Lawrence crashing the podium party."], "song_genre": "Hip-hop diss track", "song": "“Came up off the two-fifty, brothers gettin’ blurry / Pops did the backflips, son just does the podiums / call it beast mode — call the Lawrences the audience.”"}, {"id": "coenen-invasion", "badge": "RD 3 • THE INTERRUPTION", "title": "THE BELGIANS ARE COMING — THEY DIDN’T BRING WAFFLES, THEY BROUGHT RECEIPTS", "hook": "Round 3 just got crashed. Two KTM teenagers from Belgium fly in, fresh off sweeping Latvia, to hand the locals some European homework.", "details": ["Red Bull KTM wildcards: Lucas Coenen (#104, 450) and Sacha Coenen (#109, 250) make their U.S. debut at Thunder Valley on June 13.", "It’s the first of three rounds for the twins — also Southwick (Jul 11) and the Ironman finale (Aug 29) — while they keep racing the MXGP World Championship overseas.", "They land having just SWEPT the MXGP of Latvia. Lucas leads the MXGP title chase; Sacha sits 2nd in MX2. (Yes, the ‘Cohen brothers’ — it’s the Coenen twins, and they did not come to make friends.)"], "song_genre": "Oompah polka stomp", "song": "“Oom-pah-pah, here come the twins / one-oh-four and one-oh-nine / your podium’s now a crime scene / auf wiedersehen, see you at the line.”"}, {"id": "kitchen-heist", "badge": "250 • THE HEIST", "title": "HAMMAKER WON THE OPENER — LEVI KITCHEN STOLE THE LEAD WITHOUT WINNING A THING", "hook": "Seth Hammaker takes Pala, then Kitchen goes 2-2 — the most boring, most lethal scorecard in the paddock — and strolls off with the red plate.", "details": ["PALA (Rd 1): Seth Hammaker grabs the 250 overall. Levi Kitchen 2nd, Julien Beaumer 3rd.", "HANGTOWN (Rd 2): Kitchen goes 2-2 for the overall AND the points lead — now up by 13.", "Beaumer, Hammaker and rookie Cole Davies are all still lurking. Consistency is just a heist in slow motion."], "song_genre": "Smooth heist-jazz", "song": "“Didn’t win a moto, baby, took the whole bank / two-two, two-two, that’s the safecracker’s dance / Hammaker popped the champagne, Levi popped the lock.”"}, {"id": "first-four-motos", "badge": "DATA • THE OUTLIERS", "title": "THE DATA NOBODY ASKED FOR: FOUR MOTOS, A FEW LIARS, ONE GHOST", "hook": "Crunch the first four 450 motos and the points trajectory rats out everyone. Spoiler: Prado was here… then he wasn’t.", "details": ["450 MOTO-BY-MOTO — Pala: Hunter 1-1, Prado 2-2, Jett 4-3, Cooper 3-6, Deegan 5-4. Hangtown: Jett 1-1, Hunter 2-2, Deegan 3rd, Ferrandis 4th (season-best), Marchbanks 6-5.", "THE OUTLIERS: Jorge Prado — runner-up at Pala, then a no-show in the Hangtown top five (our ghost). Justin Cooper’s 3-6 split screams pace-without-stamina. Dylan Ferrandis quietly logged his best result. Deegan is the lone non-Lawrence to threaten the podium both weeks.", "TRAJECTORY: Hunter 94 (leads) vs Jett 88 (a full 1-1 swing in two weeks). Extend that slope and Jett’s line crosses Hunter’s around Rd 3–4 — if Hunter so much as blinks."], "song_genre": "Nerdy robo-synth (Daft Punk-ish)", "song": "“Da-ta, da-ta — four motos don’t lie / Prado-was-here-then-gone / Cooper-ran-out-of-fuel / six-point-gap-and-clo…sing.”"}, {"id": "thunder-altitude", "badge": "RD 3 • THUNDER VALLEY", "title": "THUNDER VALLEY: 5,800 FEET OF ‘GOOD LUCK BREATHING’", "hook": "Round 3 is at altitude in Colorado — thin air, bikes down on ponies, and we’re about to learn whether Belgian jet lag floats.", "details": ["Thunder Valley Motocross Park, Lakewood, CO — June 13, round 3 of 11. Famous for elevation that robs rider lungs AND engine horsepower.", "Colliding storylines: Hunter (94) defending the red plate from a charging Jett (88); Deegan hunting a maiden 450 win; Kitchen guarding the 250 lead; and the Coenen twins parachuting in cold.", "Everyone’s gasping at altitude. The difference is who actually trained for it — and who just got off a flight from Latvia."], "song_genre": "Arena rock power ballad", "song": "“Thiiin air tonight / fifty-eight-hundred feeeet / lungs on fire, throttle dyin’ / but the red plate’s mine to keeeep.”"}];
+const API = "http://localhost:8765";
+
+// per-browser identity + local fallback store
+const voterId = (()=>{let v=localStorage.getItem('mmx_voter');if(!v){v='v_'+Math.random().toString(36).slice(2)+Date.now().toString(36);localStorage.setItem('mmx_voter',v);}return v;})();
+let ONLINE=false;
+let tallies = {};
+let myVotes = new Set(JSON.parse(localStorage.getItem('mmx_myvotes')||'[]'));
+function saveMy(){localStorage.setItem('mmx_myvotes',JSON.stringify([...myVotes]));}
+function localTallies(){let t=JSON.parse(localStorage.getItem('mmx_localtallies')||'null');if(!t){t={};STORIES.forEach(s=>t[s.id]=0);}return t;}
+function saveLocalTallies(t){localStorage.setItem('mmx_localtallies',JSON.stringify(t));}
+
+async function api(path,opts){const r=await fetch(API+path,Object.assign({headers:{'Content-Type':'application/json'}},opts));if(!r.ok){let e;try{e=await r.json();}catch(_){e={error:'error'}}throw new Error(e.error||'error');}return r.json();}
+
+function topId(){let best=null,bv=-1;for(const s of STORIES){const n=tallies[s.id]||0;if(n>bv){bv=n;best=s.id;}}return bv>0?best:null;}
+
+function render(){
+  const deck=document.getElementById('deck');
+  deck.innerHTML='';
+  const top=topId();
+  STORIES.forEach(s=>{
+    const voted=myVotes.has(s.id);
+    const n=tallies[s.id]||0;
+    const card=document.createElement('article');
+    card.className='card'+(s.id===top?' topstory':'');
+    card.innerHTML=`
+      <div class="card-body">
+        <span class="badge">${s.badge}</span>
+        <h2>${s.title}</h2>
+        <p class="hook">${s.hook}</p>
+        <button class="toggle" aria-expanded="false">DROP THE DETAILS <span class="chev">▾</span></button>
+        <div class="details">
+          <div class="details-inner">
+            ${s.details.map(d=>`<p>${d}</p>`).join('')}
+            <div class="song">
+              <div class="lab">🎤 Song hook • ${s.song_genre}</div>
+              <div class="lyr">🎵 ${s.song}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-foot">
+        <button class="vote${voted?' voted':''}" data-id="${s.id}">
+          <span class="arrow">▲</span> UPVOTE <span class="count">${n}</span>
+        </button>
+        <span class="rankhint">${s.id===top?'Current #1':'Crown it'}</span>
+      </div>`;
+    // expand toggle
+    const tog=card.querySelector('.toggle');
+    const det=card.querySelector('.details');
+    tog.addEventListener('click',()=>{
+      const open=card.classList.toggle('open');
+      tog.setAttribute('aria-expanded',open);
+      det.style.maxHeight=open?det.scrollHeight+'px':'0';
+    });
+    // vote
+    card.querySelector('.vote').addEventListener('click',()=>vote(s.id));
+    deck.appendChild(card);
+  });
+}
+
+async function vote(id){
+  if(ONLINE){
+    try{const r=await api('/api/vote',{method:'POST',body:JSON.stringify({storyId:id,voterId})});
+      tallies=r.tallies; if(r.voted)myVotes.add(id);else myVotes.delete(id); saveMy(); render(); return;
+    }catch(e){/* fall through to local */}
+  }
+  // local fallback (toggle)
+  const t=localTallies();
+  if(myVotes.has(id)){myVotes.delete(id);t[id]=Math.max(0,(t[id]||0)-1);}
+  else{myVotes.add(id);t[id]=(t[id]||0)+1;}
+  saveMy();saveLocalTallies(t);tallies=t;render();
+}
+
+function setConn(){
+  const p=document.getElementById('connpill');
+  if(ONLINE){p.textContent='● live votes';p.className='pill live';}
+  else{p.textContent='● demo mode (start server for shared votes)';p.className='pill offline';}
+}
+
+async function init(){
+  try{
+    const r=await api('/api/state',{method:'GET'});
+    ONLINE=true; tallies=r.tallies||{};
+  }catch(e){
+    ONLINE=false; tallies=localTallies();
+  }
+  setConn(); render();
+}
+
+/* ---------- email capture + verify ---------- */
+let pendingEmail=null, codeMode=false;
+const inner=document.getElementById('voterInner');
+const emailInput=document.getElementById('emailInput');
+const signupBtn=document.getElementById('signupBtn');
+const barNote=document.getElementById('barNote');
+const showLbBtn=document.getElementById('showLbBtn');
+
+signupBtn.addEventListener('click',async()=>{
+  if(!codeMode){
+    const email=(emailInput.value||'').trim();
+    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){barNote.innerHTML='<span class="err">Enter a valid email.</span>';return;}
+    pendingEmail=email;
+    if(ONLINE){
+      try{const r=await api('/api/signup',{method:'POST',body:JSON.stringify({email})});
+        barNote.textContent=r.message||'Code sent — check the server terminal window.';
+      }catch(e){barNote.innerHTML='<span class="err">'+e.message+'</span>';return;}
+    }else{
+      // demo: deterministic-ish local code
+      const code=(''+Math.floor(100000+Math.random()*900000));
+      sessionStorage.setItem('mmx_democode',code);
+      barNote.innerHTML='Demo mode — your code is <b style="color:#fff">'+code+'</b> (start the server to email real codes).';
+    }
+    emailInput.value='';emailInput.placeholder='6-digit code';emailInput.type='text';
+    signupBtn.textContent='Verify';codeMode=true;
+  }else{
+    const code=(emailInput.value||'').trim();
+    if(ONLINE){
+      try{const r=await api('/api/verify',{method:'POST',body:JSON.stringify({email:pendingEmail,code})});
+        onVerified(r.leaderboard);
+      }catch(e){barNote.innerHTML='<span class="err">'+e.message+'</span>';return;}
+    }else{
+      if(code===sessionStorage.getItem('mmx_democode')){onVerified(null);}
+      else{barNote.innerHTML='<span class="err">Wrong code. Try again.</span>';return;}
+    }
+  }
+});
+
+function onVerified(lb){
+  codeMode=false;
+  document.querySelector('.voterbar .msg').textContent='✔ Verified! You’re on the list.';
+  emailInput.classList.add('hidden');signupBtn.classList.add('hidden');
+  showLbBtn.classList.remove('hidden');
+  barNote.textContent='Thanks — we’ll report Top Story results to '+(pendingEmail||'you')+'.';
+  openLeaderboard(lb);
+}
+
+function buildLeaderboard(lb){
+  // lb is array [{id,votes}] from server, or null -> derive from tallies
+  if(!lb){lb=STORIES.map(s=>({id:s.id,votes:tallies[s.id]||0})).sort((a,b)=>b.votes-a.votes);}
+  const list=document.getElementById('lbList');
+  const titleById=Object.fromEntries(STORIES.map(s=>[s.id,s.title]));
+  list.innerHTML=lb.map((row,i)=>`
+    <div class="lb-row r${i+1}">
+      <div class="rk">${i===0?'🥇':i===1?'🥈':i===2?'🥉':'#'+(i+1)}</div>
+      <div class="nm">${titleById[row.id]||row.id}</div>
+      <div class="vt">${row.votes}▲</div>
+    </div>`).join('');
+}
+async function openLeaderboard(lb){
+  if(ONLINE && !lb){try{const r=await api('/api/leaderboard',{method:'GET'});lb=r.leaderboard;}catch(e){}}
+  buildLeaderboard(lb);
+  document.getElementById('scrim').classList.add('show');
+}
+showLbBtn.addEventListener('click',()=>openLeaderboard(null));
+document.getElementById('closeLb').addEventListener('click',()=>document.getElementById('scrim').classList.remove('show'));
+document.getElementById('scrim').addEventListener('click',e=>{if(e.target.id==='scrim')document.getElementById('scrim').classList.remove('show');});
+
+init();
+</script>
+</body>
+</html>
