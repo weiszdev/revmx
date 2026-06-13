@@ -51,19 +51,27 @@
     animation: livePulse 1.5s ease-in-out infinite;
     margin-top: 4px; display: inline-block;
   }
-  .hdr-live.final {
-    color: #888; border-color: #333; animation: none;
-  }
+  .hdr-live.final { color: #888; border-color: #333; animation: none; }
   @keyframes livePulse {
     0%, 100% { box-shadow: 0 0 4px rgba(255,0,0,0.3); }
     50% { box-shadow: 0 0 14px rgba(255,0,0,0.7); }
   }
 
-  /* ── Stripe ── */
   .stripe {
     height: 3px;
     background: linear-gradient(90deg, #ff0000, #ff4400, #ffaa00, #ff4400, #ff0000);
     border-radius: 2px; margin: 8px 0;
+  }
+
+  /* ── Status Bar ── */
+  .status-bar {
+    text-align: center; padding: 6px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.55rem; font-weight: 700;
+    letter-spacing: 2px; color: #888;
+    text-transform: uppercase;
+    background: #0a0a0a; border: 1px solid #1a1a1a;
+    border-radius: 6px; margin-bottom: 8px;
   }
 
   /* ── Moto Timer ── */
@@ -113,18 +121,15 @@
     50% { box-shadow: 0 0 24px rgba(255,0,60,0.6); }
   }
 
-  /* ── Status Bar ── */
-  .status-bar {
-    text-align: center; padding: 6px;
+  /* ── Note: 450 first this week ── */
+  .moto-note {
     font-family: 'Orbitron', sans-serif;
-    font-size: 0.55rem; font-weight: 700;
-    letter-spacing: 2px; color: #888;
-    text-transform: uppercase;
-    background: #0a0a0a; border: 1px solid #1a1a1a;
-    border-radius: 6px; margin-bottom: 8px;
+    font-size: 0.5rem; font-weight: 700;
+    letter-spacing: 1px; color: #ffaa00;
+    text-transform: uppercase; margin-top: 6px;
   }
 
-  /* ── Today's Schedule (static reference) ── */
+  /* ── Schedule ── */
   .sched-ref { margin-bottom: 8px; }
   .sched-ref-title {
     font-family: 'Orbitron', sans-serif;
@@ -137,7 +142,7 @@
     border-bottom: 1px solid #111; font-size: 0.85rem; font-weight: 700;
   }
   .sched-time {
-    width: 75px; flex-shrink: 0;
+    width: 80px; flex-shrink: 0;
     font-family: 'Orbitron', sans-serif;
     font-size: 0.55rem; font-weight: 900; color: #555;
   }
@@ -149,47 +154,43 @@
   .race-complete { text-align: center; padding: 20px 10px; display: none; }
   .rc-round {
     font-family: 'Orbitron', sans-serif;
-    font-size: 0.9rem; font-weight: 900;
-    letter-spacing: 3px; color: #888; text-transform: uppercase;
-    margin-bottom: 10px;
+    font-size: 1.2rem; font-weight: 900;
+    letter-spacing: 3px; color: #888; text-transform: uppercase; margin-bottom: 10px;
   }
   .rc-title {
     font-family: 'Orbitron', sans-serif;
-    font-size: 2.2rem; font-weight: 900; letter-spacing: 2px;
+    font-size: 2.8rem; font-weight: 900; letter-spacing: 2px;
     background: linear-gradient(135deg, #ff0000, #ff4400, #ffaa00);
     -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    background-clip: text; margin-bottom: 12px;
+    background-clip: text; margin-bottom: 14px;
   }
   .rc-msg {
-    font-size: 1.4rem; font-weight: 700; color: #ccc;
-    line-height: 1.4; margin-bottom: 20px;
+    font-size: 1.8rem; font-weight: 700; color: #ccc;
+    line-height: 1.4; margin-bottom: 24px;
   }
   .rc-cta {
     display: inline-block; font-family: 'Orbitron', sans-serif;
-    font-size: 0.9rem; font-weight: 900; letter-spacing: 1px;
-    text-transform: uppercase; padding: 14px 28px;
-    border: 2px solid #ff0000; border-radius: 8px;
-    background: rgba(255,0,0,0.1); color: #ff3333;
-    text-decoration: none; animation: neonPulse 1.5s ease-in-out infinite;
+    font-size: 1.6rem; font-weight: 900; letter-spacing: 3px;
+    text-transform: uppercase; padding: 18px 0;
+    border: none; background: none;
+    color: #ff003c; text-decoration: none;
+    text-shadow: 0 0 10px #ff003c, 0 0 30px #ff003c, 0 0 60px rgba(255,0,60,0.6), 0 0 100px rgba(255,0,60,0.3);
   }
-  .rc-exile {
-    font-size: 1.1rem; font-weight: 700; color: #666; margin-top: 10px;
-  }
+  .rc-exile { font-size: 1.4rem; font-weight: 900; color: #666; margin-top: 10px; }
   .rc-next {
-    margin-top: 24px; padding: 16px;
+    margin-top: 28px; padding: 20px;
     border: 1px solid #1a1a1a; border-radius: 10px; background: #0a0a0a;
   }
   .rc-next-label {
     font-family: 'Orbitron', sans-serif;
-    font-size: 0.7rem; font-weight: 900;
-    letter-spacing: 2px; color: #555; text-transform: uppercase;
-    margin-bottom: 6px;
+    font-size: 0.9rem; font-weight: 900;
+    letter-spacing: 2px; color: #555; text-transform: uppercase; margin-bottom: 8px;
   }
   .rc-next-name {
     font-family: 'Orbitron', sans-serif;
-    font-size: 1.3rem; font-weight: 900; color: #fff;
+    font-size: 1.8rem; font-weight: 900; color: #fff;
   }
-  .rc-next-loc { font-size: 1.1rem; font-weight: 700; color: #888; }
+  .rc-next-loc { font-size: 1.4rem; font-weight: 900; color: #888; }
 
   /* ── Facebook QR ── */
   .fb-bar {
@@ -204,6 +205,21 @@
     font-size: 1.2rem; font-weight: 900; color: #4488ff;
   }
   .fb-handle { font-size: 1.1rem; font-weight: 700; color: #888; }
+
+  /* ── Underground QR ── */
+  .ug-bar {
+    margin-top: 8px; padding: 10px;
+    border: 1px solid #1a1a1a; border-radius: 8px;
+    background: #0a0a0a; display: flex;
+    align-items: center; gap: 10px; text-decoration: none;
+  }
+  .ug-qr { height: 120px; width: auto; border-radius: 4px; }
+  .ug-label {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1rem; font-weight: 900; color: #ff003c;
+    text-shadow: 0 0 8px rgba(255,0,60,0.4);
+  }
+  .ug-handle { font-size: 0.9rem; font-weight: 700; color: #888; }
 
   /* ── Merch ── */
   .merch-bar {
@@ -235,11 +251,6 @@
 <body>
 <div class="wrap">
 
-  <!-- ═══════════════════════════════════════ -->
-  <!--  EDIT THIS SECTION EACH WEEK           -->
-  <!--  Track, location, round, next round    -->
-  <!-- ═══════════════════════════════════════ -->
-
   <!-- Header -->
   <div class="hdr">
     <div class="hdr-text">
@@ -253,54 +264,49 @@
 
   <div class="stripe"></div>
 
-  <!-- Status Bar (manually update or hide) -->
-  <div class="status-bar" id="statusBar">Race Day Live on Peacock</div>
+  <!-- Status -->
+  <div class="status-bar">Race Day Live on Peacock &bull; 450 Class First Today</div>
 
-  <!-- ═══════════════════════════════════════ -->
-  <!--  MOTO TIMER — fully manual, tap to go  -->
-  <!-- ═══════════════════════════════════════ -->
+  <!-- Moto Timer -->
   <div class="moto-cd" id="motoCd">
     <div class="moto-cd-label" id="motoLabel">Tap a Moto to Start</div>
     <div class="moto-cd-time" id="motoCdTime">30:00</div>
     <div class="moto-btns">
-      <button class="moto-btn" onclick="dropGate(0)">250 M1</button>
-      <button class="moto-btn" onclick="dropGate(1)">450 M1</button>
-      <button class="moto-btn" onclick="dropGate(2)">250 M2</button>
-      <button class="moto-btn" onclick="dropGate(3)">450 M2</button>
+      <button class="moto-btn" onclick="dropGate(0)">450 M1</button>
+      <button class="moto-btn" onclick="dropGate(1)">250 M1</button>
+      <button class="moto-btn" onclick="dropGate(2)">450 M2</button>
+      <button class="moto-btn" onclick="dropGate(3)">250 M2</button>
       <button class="moto-btn reset" onclick="resetTimer()">Reset</button>
     </div>
+    <div class="moto-note">450 races first at Thunder Valley</div>
   </div>
 
-  <!-- ═══════════════════════════════════════ -->
-  <!--  STATIC SCHEDULE — reference only      -->
-  <!--  Update times each week from           -->
-  <!--  promotocross.com schedule page        -->
-  <!-- ═══════════════════════════════════════ -->
+  <!-- Schedule -->
   <div class="sched-ref">
-    <div class="sched-ref-title">Today's Schedule (PT / ET)</div>
-    <div class="sched-item"><div class="sched-time">8:00 / 11:00</div><div class="sched-name">Practice &amp; Qualifying</div></div>
-    <div class="sched-item"><div class="sched-time">10:00 / 1:00</div><div class="sched-name">Race Day Live — Peacock</div></div>
-    <div class="sched-item"><div class="sched-time">10:30 / 1:30</div><div class="sched-name">WMX Moto</div></div>
-    <div class="sched-item"><div class="sched-time">12:15 / 3:15</div><div class="sched-name">Opening Ceremonies</div></div>
-    <div class="sched-item race"><div class="sched-time">1:00 / 4:00</div><div class="sched-name">250 Moto 1</div></div>
-    <div class="sched-item race"><div class="sched-time">1:50 / 4:50</div><div class="sched-name">450 Moto 1</div></div>
-    <div class="sched-item"><div class="sched-time">2:30 / 5:30</div><div class="sched-name">Track Maintenance</div></div>
-    <div class="sched-item race"><div class="sched-time">3:00 / 6:00</div><div class="sched-name">250 Moto 2</div></div>
-    <div class="sched-item race"><div class="sched-time">3:50 / 6:50</div><div class="sched-name">450 Moto 2</div></div>
+    <div class="sched-ref-title">Today's Schedule (MT / ET)</div>
+    <div class="sched-item"><div class="sched-time">8:00 / 10:00</div><div class="sched-name">450 Qualifying</div></div>
+    <div class="sched-item"><div class="sched-time">8:50 / 10:50</div><div class="sched-name">250 Qualifying</div></div>
+    <div class="sched-item"><div class="sched-time">11:35 / 1:35</div><div class="sched-name">Consolation Races</div></div>
+    <div class="sched-item"><div class="sched-time">12:15 / 2:15</div><div class="sched-name">Opening Ceremonies</div></div>
+    <div class="sched-item race"><div class="sched-time">1:15 / 3:15</div><div class="sched-name">450 Moto 1</div></div>
+    <div class="sched-item race"><div class="sched-time">2:15 / 4:15</div><div class="sched-name">250 Moto 1</div></div>
+    <div class="sched-item race"><div class="sched-time">3:15 / 5:15</div><div class="sched-name">450 Moto 2</div></div>
+    <div class="sched-item race"><div class="sched-time">4:15 / 6:15</div><div class="sched-name">250 Moto 2</div></div>
+    <div class="sched-item"><div class="sched-time">5:05 / 7:05</div><div class="sched-name">WMX Moto 2</div></div>
   </div>
 
-  <!-- ═══════════════════════════════════════ -->
-  <!--  RACE COMPLETE — unhide when done      -->
-  <!--  Change id to show: style="display:block" -->
-  <!-- ═══════════════════════════════════════ -->
+  <!-- Race Complete (unhide when done) -->
   <div class="race-complete" id="raceComplete">
     <div class="rc-round">Round 3 Complete</div>
     <div class="rc-title">Thunder Valley in the Books</div>
     <div class="rc-msg">Thanks for joining us today.<br>Results showing soon on <strong style="color:#ff4400;">MotoMicX.com</strong></div>
     <div class="stripe"></div>
-    <div style="font-family:'Orbitron',sans-serif;font-size:0.8rem;font-weight:900;letter-spacing:2px;color:#ff4400;text-transform:uppercase;margin:14px 0;">Don't Miss Next Week</div>
     <a href="underground.html" class="rc-cta">Join the Underground</a>
     <div class="rc-exile">Never Be Exiled Here</div>
+    <div style="margin-top:16px;">
+      <img src="img-underground-qr.png" alt="Scan to Join" style="width:200px;height:200px;border-radius:8px;border:2px solid #333;">
+    </div>
+    <div style="font-size:1.1rem;font-weight:900;color:#888;margin-top:8px;">Scan to Join</div>
     <div class="rc-next">
       <div class="rc-next-label">Next Round</div>
       <div class="rc-next-name">High Point MX</div>
@@ -310,10 +316,19 @@
 
   <div class="stripe"></div>
 
+  <!-- Underground QR -->
+  <a class="ug-bar" href="underground.html">
+    <img src="img-underground-qr.png" class="ug-qr" alt="Underground QR">
+    <div>
+      <div class="ug-label">Join the Underground</div>
+      <div class="ug-handle">Never Be Exiled Here</div>
+    </div>
+  </a>
+
   <!-- Facebook QR -->
   <a class="fb-bar" href="https://facebook.com/MotoMicX" target="_blank">
     <img src="img-fb-qr.png" class="fb-qr" alt="Facebook QR">
-    <div style="flex:1;">
+    <div>
       <div class="fb-label">Add Us on Facebook</div>
       <div class="fb-handle">facebook.com/MotoMicX</div>
     </div>
@@ -332,15 +347,8 @@
 </div>
 
 <script>
-// ═══════════════════════════════════════
-//  MOTO TIMER — 30 min countdown
-//  Tap button = gate drop = timer starts
-//  Goes negative for +2 laps
-//  Reset clears everything
-//  NO auto-start, NO localStorage
-// ═══════════════════════════════════════
-
-var MOTOS = ['250 Moto 1', '450 Moto 1', '250 Moto 2', '450 Moto 2'];
+// ── Moto Timer — fully manual, no auto-start, no localStorage ──
+var MOTOS = ['450 Moto 1', '250 Moto 1', '450 Moto 2', '250 Moto 2'];
 var MOTO_DURATION = 30 * 60 * 1000;
 var motoDropTime = 0;
 var currentMotoIdx = -1;
@@ -394,17 +402,11 @@ function updateTimer() {
   }
 }
 
-// ═══════════════════════════════════════
-//  RACE COMPLETE — call this when done
-//  or manually set display:block on
-//  #raceComplete and display:none on
-//  #motoCd and .sched-ref
-// ═══════════════════════════════════════
-
+// Race complete toggle — run showRaceComplete() when done
 function showRaceComplete() {
   document.getElementById('raceComplete').style.display = 'block';
   document.getElementById('motoCd').style.display = 'none';
-  document.getElementById('statusBar').style.display = 'none';
+  document.querySelector('.status-bar').style.display = 'none';
   document.querySelector('.sched-ref').style.display = 'none';
   document.getElementById('liveTag').className = 'hdr-live final';
   document.getElementById('liveTag').textContent = 'FINAL';
