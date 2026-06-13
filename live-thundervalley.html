@@ -133,20 +133,21 @@
   .sched-ref { margin-bottom: 8px; }
   .sched-ref-title {
     font-family: 'Orbitron', sans-serif;
-    font-size: 0.5rem; font-weight: 700;
+    font-size: 0.65rem; font-weight: 900;
     letter-spacing: 2px; color: #555;
     text-transform: uppercase; margin-bottom: 6px;
   }
   .sched-item {
-    display: flex; gap: 8px; padding: 4px 0;
-    border-bottom: 1px solid #111; font-size: 0.85rem; font-weight: 700;
+    display: flex; gap: 8px; padding: 6px 0;
+    border-bottom: 1px solid #111; font-size: 1.1rem; font-weight: 700;
   }
   .sched-time {
-    width: 80px; flex-shrink: 0;
+    width: 90px; flex-shrink: 0;
     font-family: 'Orbitron', sans-serif;
-    font-size: 0.55rem; font-weight: 900; color: #555;
+    font-size: 0.75rem; font-weight: 900; color: #555;
+    padding-top: 3px;
   }
-  .sched-name { color: #666; }
+  .sched-name { color: #777; }
   .sched-item.race .sched-name { color: #aaa; }
   .sched-item.race .sched-time { color: #ff4400; }
 
@@ -191,6 +192,51 @@
     font-size: 1.8rem; font-weight: 900; color: #fff;
   }
   .rc-next-loc { font-size: 1.4rem; font-weight: 900; color: #888; }
+
+  /* ── Countdown Timer ── */
+  .cd-box {
+    text-align: center; padding: 12px;
+    border: 2px solid rgba(30,155,255,0.4); border-radius: 10px;
+    background: linear-gradient(145deg, #001428, #000a14);
+    box-shadow: 0 0 20px rgba(30,155,255,0.08);
+    margin-bottom: 8px;
+  }
+  .cd-label {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.65rem; font-weight: 900;
+    letter-spacing: 2px; color: #1E9BFF; text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .cd-event {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.1rem; font-weight: 700; color: #ccc;
+    margin-bottom: 2px;
+  }
+  .cd-time {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2.8rem; font-weight: 900;
+    color: #ffffff; letter-spacing: 2px;
+  }
+  .cd-tz {
+    font-size: 0.75rem; font-weight: 700; color: #555; margin-top: 4px;
+  }
+
+  /* ── Toggle ── */
+  .toggle-row {
+    display: flex; justify-content: center; gap: 6px; margin-bottom: 8px;
+  }
+  .toggle-btn {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.55rem; font-weight: 900;
+    letter-spacing: 1px; text-transform: uppercase;
+    padding: 6px 14px; border: 1px solid #333;
+    border-radius: 6px; background: none;
+    color: #555; cursor: pointer; transition: all 0.2s;
+  }
+  .toggle-btn.active {
+    border-color: #1E9BFF; color: #1E9BFF;
+    background: rgba(30,155,255,0.1);
+  }
 
   /* ── Facebook QR ── */
   .fb-bar {
@@ -267,8 +313,22 @@
   <!-- Status -->
   <div class="status-bar">Race Day Live on Peacock &bull; 450 Class First Today</div>
 
+  <!-- Toggle -->
+  <div class="toggle-row">
+    <button class="toggle-btn active" id="togCD" onclick="showMode('cd')">Countdown</button>
+    <button class="toggle-btn" id="togMoto" onclick="showMode('moto')">Moto Timer</button>
+  </div>
+
+  <!-- Countdown Timer -->
+  <div class="cd-box" id="cdBox">
+    <div class="cd-label" id="cdLabel">Next Up</div>
+    <div class="cd-event" id="cdEvent">--</div>
+    <div class="cd-time" id="cdTime">--:--:--</div>
+    <div class="cd-tz" id="cdTz"></div>
+  </div>
+
   <!-- Moto Timer -->
-  <div class="moto-cd" id="motoCd">
+  <div class="moto-cd" id="motoCd" style="display:none;">
     <div class="moto-cd-label" id="motoLabel">Tap a Moto to Start</div>
     <div class="moto-cd-time" id="motoCdTime">30:00</div>
     <div class="moto-btns">
@@ -347,6 +407,75 @@
 </div>
 
 <script>
+// ── Toggle ──
+function showMode(mode) {
+  document.getElementById('cdBox').style.display = mode === 'cd' ? '' : 'none';
+  document.getElementById('motoCd').style.display = mode === 'moto' ? '' : 'none';
+  document.getElementById('togCD').classList.toggle('active', mode === 'cd');
+  document.getElementById('togMoto').classList.toggle('active', mode === 'moto');
+}
+
+// ── Countdown Schedule (MDT = UTC-6) ──
+var CD_EVENTS = [
+  { time: '2026-06-13T08:00:00-06:00', name: '450 Qualifying Grp B' },
+  { time: '2026-06-13T08:20:00-06:00', name: '450 Qualifying Grp A' },
+  { time: '2026-06-13T08:50:00-06:00', name: '250 Qualifying Grp A' },
+  { time: '2026-06-13T09:10:00-06:00', name: '250 Qualifying Grp B' },
+  { time: '2026-06-13T09:50:00-06:00', name: '450 Qualifying 2 Grp B' },
+  { time: '2026-06-13T10:10:00-06:00', name: '450 Qualifying 2 Grp A' },
+  { time: '2026-06-13T10:30:00-06:00', name: '250 Qualifying 2 Grp A' },
+  { time: '2026-06-13T10:50:00-06:00', name: '250 Qualifying 2 Grp B' },
+  { time: '2026-06-13T11:35:00-06:00', name: '450 Consolation Race' },
+  { time: '2026-06-13T11:50:00-06:00', name: '250 Consolation Race' },
+  { time: '2026-06-13T12:15:00-06:00', name: 'Opening Ceremonies' },
+  { time: '2026-06-13T13:15:00-06:00', name: '450 Moto 1' },
+  { time: '2026-06-13T14:15:00-06:00', name: '250 Moto 1' },
+  { time: '2026-06-13T15:15:00-06:00', name: '450 Moto 2' },
+  { time: '2026-06-13T16:15:00-06:00', name: '250 Moto 2' },
+  { time: '2026-06-13T17:05:00-06:00', name: 'WMX Moto 2' }
+];
+
+function updateCountdown() {
+  var now = new Date();
+  var label = document.getElementById('cdLabel');
+  var event = document.getElementById('cdEvent');
+  var timer = document.getElementById('cdTime');
+  var tz = document.getElementById('cdTz');
+
+  var next = null;
+  for (var i = 0; i < CD_EVENTS.length; i++) {
+    if (now < new Date(CD_EVENTS[i].time)) { next = CD_EVENTS[i]; break; }
+  }
+
+  if (!next) {
+    label.textContent = 'Race Day';
+    event.textContent = 'All Sessions Complete';
+    timer.textContent = 'DONE';
+    timer.style.color = '#ffaa00';
+    return;
+  }
+
+  var diff = new Date(next.time) - now;
+  var h = Math.floor(diff / 3600000);
+  var m = Math.floor((diff % 3600000) / 60000);
+  var s = Math.floor((diff % 60000) / 1000);
+
+  label.textContent = 'Next Up';
+  event.textContent = next.name;
+
+  if (h > 0) timer.textContent = h + ':' + (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
+  else timer.textContent = m + ':' + (s < 10 ? '0' : '') + s;
+
+  timer.style.color = diff < 60000 ? '#ff0000' : '#ffffff';
+
+  // Show local time of next event
+  var d = new Date(next.time);
+  var lh = d.getHours(), lm = d.getMinutes();
+  var ap = lh >= 12 ? 'PM' : 'AM';
+  lh = lh % 12 || 12;
+  tz.textContent = next.name + ' at ' + lh + ':' + (lm < 10 ? '0' : '') + lm + ' ' + ap + ' your time';
+}
+
 // ── Moto Timer — fully manual, no auto-start, no localStorage ──
 var MOTOS = ['450 Moto 1', '250 Moto 1', '450 Moto 2', '250 Moto 2'];
 var MOTO_DURATION = 30 * 60 * 1000;
@@ -412,7 +541,8 @@ function showRaceComplete() {
   document.getElementById('liveTag').textContent = 'FINAL';
 }
 
-setInterval(updateTimer, 1000);
+updateCountdown();
+setInterval(function() { updateTimer(); updateCountdown(); }, 1000);
 </script>
 </body>
 </html>
