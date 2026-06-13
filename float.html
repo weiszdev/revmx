@@ -5,34 +5,33 @@
 <title>Float Image</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { background: #000 !important; }
-  body { background: #000 !important; overflow: hidden; min-height: 100vh; }
+  html, body { background: #000 !important; width: 100%; height: 100%; overflow: hidden; }
 
   .float-box {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100vw; height: 100vh;
+    width: 100%; height: 100%;
     background: #000;
-    overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
   }
 
   .float-box img {
-    max-width: 100%;
-    max-height: 100%;
+    width: 100%;
+    height: 100%;
     object-fit: contain;
     display: block;
-    pointer-events: none;
   }
 
   .controls {
     position: fixed;
-    bottom: 10px; left: 10px;
+    bottom: 10px; left: 50%;
+    transform: translateX(-50%);
     display: flex; gap: 6px;
     z-index: 100;
-    flex-wrap: wrap;
+    background: rgba(0,0,0,0.9);
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid #333;
   }
 
   .ctrl-btn {
@@ -41,7 +40,7 @@
     padding: 6px 12px;
     border: 1px solid #444;
     border-radius: 6px;
-    background: rgba(0,0,0,0.85);
+    background: none;
     color: #ccc;
     cursor: pointer;
   }
@@ -49,88 +48,87 @@
 
   .drop-zone {
     position: fixed; inset: 0;
-    display: flex; align-items: center; justify-content: center;
-    font-family: system-ui; font-size: 18px; font-weight: 700;
-    color: #666; letter-spacing: 2px;
-    border: 3px dashed #333;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    font-family: system-ui; font-weight: 700;
+    color: #666;
     background: #000;
     z-index: 200;
   }
+  .drop-zone .drop-main { font-size: 18px; letter-spacing: 2px; margin-bottom: 10px; }
+  .drop-zone .drop-hint { font-size: 12px; color: #444; }
   .drop-zone.hidden { display: none; }
 
   .url-input {
-    position: fixed; top: 10px; left: 10px;
+    position: fixed; top: 10px; left: 50%;
+    transform: translateX(-50%);
     z-index: 100;
     display: flex; gap: 4px;
+    background: rgba(0,0,0,0.9);
+    padding: 6px 10px;
+    border-radius: 8px;
+    border: 1px solid #333;
   }
   .url-input input {
     width: 260px; padding: 6px 10px;
     border: 1px solid #333; border-radius: 6px;
-    background: rgba(0,0,0,0.9); color: #fff;
+    background: #111; color: #fff;
     font-family: system-ui; font-size: 12px;
     outline: none;
   }
   .url-input input:focus { border-color: #ff4400; }
   .url-input button {
     padding: 6px 10px; border: 1px solid #444;
-    border-radius: 6px; background: rgba(0,0,0,0.9);
+    border-radius: 6px; background: none;
     color: #ccc; font-size: 12px; cursor: pointer;
   }
   .url-input.hidden { display: none; }
+
+  /* Hint that fades out */
+  .ui-hint {
+    position: fixed;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: system-ui; font-size: 14px; font-weight: 700;
+    color: rgba(255,255,255,0.4);
+    background: rgba(0,0,0,0.8);
+    padding: 10px 20px;
+    border-radius: 8px;
+    z-index: 150;
+    pointer-events: none;
+    transition: opacity 1s;
+  }
 </style>
 </head>
 <body>
 
-<!-- Drop zone (shown until image loaded) -->
 <div class="drop-zone" id="dropZone">
-  Drop an image here, paste from clipboard, or click to browse
+  <div class="drop-main">Drop image, paste, or click to browse</div>
+  <div class="drop-hint">Also accepts image URLs</div>
   <input type="file" accept="image/*" style="position:absolute;inset:0;opacity:0;cursor:pointer;" onchange="loadFile(this.files[0])">
 </div>
 
-<!-- URL input -->
 <div class="url-input hidden" id="urlInput">
   <input type="text" id="imgUrl" placeholder="Paste image URL..." onkeydown="if(event.key==='Enter')loadUrl()">
   <button onclick="loadUrl()">Load</button>
 </div>
 
-<!-- Float box -->
 <div class="float-box" id="floatBox" style="display:none;">
   <img id="floatImg" alt="">
 </div>
 
-<!-- Controls -->
 <div class="controls" id="controls" style="display:none;">
-  <button class="ctrl-btn" onclick="toggleBorder()">Border</button>
-  <button class="ctrl-btn" onclick="toggleBg()">BG</button>
-  <button class="ctrl-btn" onclick="resetSize()">Reset Size</button>
   <button class="ctrl-btn" onclick="document.getElementById('urlInput').classList.toggle('hidden')">URL</button>
-  <button class="ctrl-btn" onclick="newImage()">New Image</button>
-  <button class="ctrl-btn" onclick="toggleControls()">Hide UI</button>
+  <button class="ctrl-btn" onclick="newImage()">New</button>
+  <button class="ctrl-btn" onclick="hideUI()">Hide UI</button>
 </div>
 
+<div class="ui-hint" id="uiHint" style="display:none;">Double-click to show controls</div>
+
 <script>
-var box = document.getElementById('floatBox');
 var img = document.getElementById('floatImg');
-var isDragging = false, dragX, dragY, startLeft, startTop;
-var borderOn = true, bgBlack = true;
-var origW = 300;
+var uiVisible = true;
 
-// Drag
-box.addEventListener('mousedown', function(e) {
-  if (e.offsetX > box.clientWidth - 18 && e.offsetY > box.clientHeight - 18) return; // resize handle
-  isDragging = true;
-  dragX = e.clientX; dragY = e.clientY;
-  startLeft = box.offsetLeft; startTop = box.offsetTop;
-  e.preventDefault();
-});
-document.addEventListener('mousemove', function(e) {
-  if (!isDragging) return;
-  box.style.left = (startLeft + e.clientX - dragX) + 'px';
-  box.style.top = (startTop + e.clientY - dragY) + 'px';
-});
-document.addEventListener('mouseup', function() { isDragging = false; });
-
-// Load from file
 function loadFile(file) {
   if (!file) return;
   var reader = new FileReader();
@@ -138,13 +136,11 @@ function loadFile(file) {
   reader.readAsDataURL(file);
 }
 
-// Load from URL
 function loadUrl() {
   var url = document.getElementById('imgUrl').value.trim();
   if (url) showImage(url);
 }
 
-// Paste from clipboard
 document.addEventListener('paste', function(e) {
   var items = e.clipboardData.items;
   for (var i = 0; i < items.length; i++) {
@@ -153,14 +149,10 @@ document.addEventListener('paste', function(e) {
       return;
     }
   }
-  // Check for text URL
   var text = e.clipboardData.getData('text');
-  if (text && (text.startsWith('http') || text.startsWith('data:'))) {
-    showImage(text);
-  }
+  if (text && (text.startsWith('http') || text.startsWith('data:'))) showImage(text);
 });
 
-// Drop
 document.getElementById('dropZone').addEventListener('dragover', function(e) { e.preventDefault(); });
 document.getElementById('dropZone').addEventListener('drop', function(e) {
   e.preventDefault();
@@ -169,48 +161,37 @@ document.getElementById('dropZone').addEventListener('drop', function(e) {
 
 function showImage(src) {
   img.src = src;
-  img.onload = function() {
-    origW = Math.min(img.naturalWidth, 500);
-    box.style.width = origW + 'px';
-    box.style.height = 'auto';
-  };
-  box.style.display = 'block';
+  document.getElementById('floatBox').style.display = 'flex';
   document.getElementById('dropZone').classList.add('hidden');
   document.getElementById('controls').style.display = '';
-}
-
-function toggleBorder() {
-  borderOn = !borderOn;
-  box.style.border = borderOn ? '2px solid rgba(255,68,0,0.5)' : 'none';
-}
-
-function toggleBg() {
-  bgBlack = !bgBlack;
-  box.style.background = bgBlack ? '#000' : 'transparent';
-}
-
-function resetSize() {
-  box.style.width = origW + 'px';
-  box.style.height = 'auto';
+  uiVisible = true;
 }
 
 function newImage() {
   img.src = '';
-  box.style.display = 'none';
+  document.getElementById('floatBox').style.display = 'none';
   document.getElementById('dropZone').classList.remove('hidden');
   document.getElementById('controls').style.display = 'none';
+  document.getElementById('urlInput').classList.add('hidden');
 }
 
-function toggleControls() {
+function hideUI() {
   document.getElementById('controls').style.display = 'none';
   document.getElementById('urlInput').classList.add('hidden');
-  // Double-click to bring controls back
+  uiVisible = false;
+  // Show hint briefly
+  var hint = document.getElementById('uiHint');
+  hint.style.display = 'block';
+  hint.style.opacity = '1';
+  setTimeout(function() { hint.style.opacity = '0'; }, 2000);
+  setTimeout(function() { hint.style.display = 'none'; }, 3000);
 }
 
-// Double-click to show/hide controls
 document.addEventListener('dblclick', function() {
-  var c = document.getElementById('controls');
-  c.style.display = c.style.display === 'none' ? '' : 'none';
+  if (!uiVisible && document.getElementById('floatBox').style.display !== 'none') {
+    document.getElementById('controls').style.display = '';
+    uiVisible = true;
+  }
 });
 </script>
 </body>
