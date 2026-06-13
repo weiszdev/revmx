@@ -737,6 +737,33 @@ function handleSignup(e) {
   return false;
 }
 
+// Track QR scans
+var REF = new URLSearchParams(window.location.search).get('ref') || 'direct';
+if (REF === 'qr') {
+  fetch(SIGNUP_API, {
+    method: 'POST',
+    body: JSON.stringify({ action: 'qr_scan', source: 'underground', ts: new Date().toISOString(), ua: navigator.userAgent }),
+    headers: { 'Content-Type': 'text/plain' }
+  }).catch(function(){});
+}
+
+// Include ref source in all signups
+var _origSignup = handleSignup;
+handleSignup = function(e) {
+  // Patch the fetch to include ref source
+  var origFetch = window.fetch;
+  window.fetch = function(url, opts) {
+    if (url === SIGNUP_API && opts && opts.body) {
+      var data = JSON.parse(opts.body);
+      data.source = REF;
+      opts.body = JSON.stringify(data);
+    }
+    window.fetch = origFetch;
+    return origFetch(url, opts);
+  };
+  return _origSignup(e);
+};
+
 (function() {
   var saved = localStorage.getItem('motomicx_underground');
   if (saved) {
