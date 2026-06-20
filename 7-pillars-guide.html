@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The 7 Pillars of Root Cause Thinking — by Jonathan Weisz (NotDrWise)</title>
+<style>
+  /* ============================================
+     PRINT-FIRST DESIGN
+     ============================================ */
+  @page {
+    size: letter;
+    margin: 0.75in 0.85in;
+  }
+
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  :root {
+    --amber: #a06b3f;
+    --amber-light: #c9985c;
+    --amber-bg: #faf5ee;
+    --sage: #3d7a4a;
+    --sage-light: #e8f0e5;
+    --navy: #2c2418;
+    --body-text: #3a3127;
+    --subtle: #7a6e60;
+    --cream: #fdfbf7;
+    --rule: #d4c8b8;
+    --white: #ffffff;
+  }
+
+  html {
+    font-size: 11.5pt;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  body {
+    font-family: Georgia, 'Times New Roman', serif;
+    color: var(--body-text);
+    background: var(--white);
+    line-height: 1.7;
+    max-width: 7in;
+    margin: 0 auto;
+    padding: 0.5in 0;
+  }
+
+  /* ---- TYPOGRAPHY ---- */
+  h1, h2, h3, h4 {
+    font-family: 'Trebuchet MS', 'Segoe UI', Helvetica, Arial, sans-serif;
+    color: var(--navy);
+    line-height: 1.25;
+  }
+
+  h1 { font-size: 2.2rem; }
+  h2 { font-size: 1.55rem; margin-bottom: 0.4em; }
+  h3 { font-size: 1.15rem; margin-bottom: 0.3em; color: var(--amber); }
+  h4 { font-size: 1rem; margin-bottom: 0.25em; }
+
+  p { margin-bottom: 0.85em; }
+
+  blockquote {
+    border-left: 3px solid var(--amber);
+    padding: 0.5em 1em;
+    margin: 1em 0;
+    font-style: italic;
+    color: var(--subtle);
+    background: var(--amber-bg);
+  }
+
+  blockquote cite {
+    display: block;
+    font-size: 0.85rem;
+    margin-top: 0.3em;
+    font-style: normal;
+    color: var(--amber);
+  }
+
+  ul, ol {
+    margin: 0.5em 0 1em 1.4em;
+  }
+
+  li {
+    margin-bottom: 0.35em;
+  }
+
+  strong { color: var(--navy); }
+
+  a { color: var(--sage); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  /* ---- PAGE BREAKS ---- */
+  .page-break {
+    page-break-after: always;
+    break-after: page;
+    height: 0;
+  }
+
+  .avoid-break {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  .start-page {
+    page-break-before: always;
+    break-before: page;
+  }
+
+  /* ---- COVER PAGE ---- */
+  .cover {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 9in;
+    text-align: center;
+    padding: 1in 0;
+  }
+
+  .cover-badge {
+    display: inline-block;
+    font-family: 'Trebuchet MS', 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--sage);
+    border: 1.5px solid var(--sage);
+    padding: 0.3em 1.2em;
+    border-radius: 2px;
+    margin-bottom: 2em;
+  }
+
+  .cover h1 {
+    font-size: 2.8rem;
+    color: var(--navy);
+    margin-bottom: 0.15em;
+    line-height: 1.15;
+  }
+
+  .cover .subtitle {
+    font-size: 1.3rem;
+    color: var(--amber);
+    font-family: Georgia, serif;
+    font-style: italic;
+    margin-bottom: 2.5em;
+    line-height: 1.4;
+  }
+
+  .cover-rule {
+    width: 3in;
+    height: 1.5px;
+    background: var(--rule);
+    margin: 0 auto 2em;
+  }
+
+  .cover .author-name {
+    font-family: 'Trebuchet MS', 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 1.1rem;
+    color: var(--navy);
+    letter-spacing: 0.05em;
+    margin-bottom: 0.2em;
+  }
+
+  .cover .author-title {
+    font-size: 0.85rem;
+    color: var(--subtle);
+    font-style: italic;
+  }
+
+  .cover .brand {
+    margin-top: 2.5em;
+    font-family: 'Trebuchet MS', 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--amber);
+  }
+
+  /* ---- SECTION / PILLAR HEADER ---- */
+  .pillar-header {
+    border-top: 3px solid var(--amber);
+    padding-top: 0.6em;
+    margin-bottom: 1.2em;
+  }
+
+  .pillar-number {
+    font-family: 'Trebuchet MS', 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    color: var(--sage);
+    display: block;
+    margin-bottom: 0.25em;
+  }
+
+  .pillar-header h2 {
+    font-size: 1.6rem;
+  }
+
+  /* ---- CALLOUT BOX ---- */
+  .callout {
+    background: var(--sage-light);
+    border-left: 4px solid var(--sage);
+    padding: 1em 1.2em;
+    margin: 1.2em 0;
+    border-radius: 0 4px 4px 0;
+    page-break-inside: avoid;
+  }
+
+  .callout h4 {
+    color: var(--sage);
+    font-family: 'Trebuchet MS', 'Segoe UI', Helvetica, Arial, sans-serif;
+    margin-bottom: 0.4em;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .callout p, .callout li {
+    font-size: 0.92rem;
+    margin-bottom: 0.4em;
+  }
+
+  .callout-amber {
+    background: var(--amber-bg);
+    border-left-color: var(--amber);
+  }
+
+  .callout-amber h4 {
+    color: var(--amber);
+  }
+
+  /* ---- ACTION BOX ---- */
+  .action-box {
+    border: 2px solid var(--amber);
+    padding: 1em 1.2em;
+    margin: 1.2em 0;
+    border-radius: 4px;
+    page-break-inside: avoid;
+  }
+
+  .action-box h4 {
+    color: var(--amber);
+    font-family: 'Trebuchet MS', 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.4em;
+  }
+
+  .action-box p, .action-box li {
+    font-size: 0.92rem;
+  }
+
+  /* ---- CHAIN DIAGRAM ---- */
+  .chain {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0.1em;
+    margin: 1em 0 1.3em;
+    font-family: 'Trebuchet MS', 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 0.82rem;
+    page-break-inside: avoid;
+  }
+
+  .chain-item {
+    background: var(--amber-bg);
+    border: 1px solid var(--rule);
+    padding: 0.35em 0.65em;
+    border-radius: 3px;
+    color: var(--navy);
+    text-align: center;
+  }
+
+  .chain-arrow {
+    color: var(--amber);
+    font-size: 1.1rem;
+    font-weight: bold;
+    padding: 0 0.15em;
+  }
+
+  /* ---- PERSONAL NOTE ---- */
+  .personal-note {
+    background: var(--cream);
+    border: 1px solid var(--rule);
+    padding: 1.5em 1.6em;
+    margin: 0 0 1em;
+    border-radius: 4px;
+  }
+
+  .personal-note .greeting {
+    font-family: 'Trebuchet MS', 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 1.15rem;
+    color: var(--navy);
+    margin-bottom: 0.6em;
+  }
+
+  .personal-note .signature {
+    margin-top: 1em;
+    font-style: italic;
+    color: var(--amber);
+  }
+
+  /* ---- FASTING SIDEBAR ---- */
+  .fasting-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0.8em 0;
+    font-size: 0.88rem;
+  }
+
+  .fasting-table th {
+    font-family: 'Trebuchet MS', 'Segoe UI', Helvetica, Arial, sans-serif;
+    text-align: left;
+    padding: 0.5em 0.6em;
+    background: var(--sage);
+    color: var(--white);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .fasting-table td {
+    padding: 0.45em 0.6em;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .fasting-table tr:nth-child(even) td {
+    background: var(--cream);
+  }
+
+  /* ---- CTA SECTION ---- */
+  .cta-section {
+    text-align: center;
+    padding: 1.8em 1em;
+    border: 2px solid var(--sage);
+    border-radius: 6px;
+    margin: 1.5em 0;
+    background: var(--sage-light);
+    page-break-inside: avoid;
+  }
+
+  .cta-section h2 {
+    color: var(--sage);
+    font-size: 1.4rem;
+    margin-bottom: 0.5em;
+  }
+
+  .cta-section .price {
+    font-family: 'Trebuchet MS', 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--navy);
+    margin: 0.3em 0;
+  }
+
+  .cta-section .cta-link {
+    display: inline-block;
+    font-family: 'Trebuchet MS', 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 1rem;
+    background: var(--sage);
+    color: var(--white);
+    padding: 0.6em 2em;
+    border-radius: 4px;
+    margin-top: 0.8em;
+    text-decoration: none;
+    letter-spacing: 0.03em;
+  }
+
+  /* ---- DISCLAIMER ---- */
+  .disclaimer {
+    font-size: 0.78rem;
+    color: var(--subtle);
+    border-top: 1px solid var(--rule);
+    padding-top: 1em;
+    margin-top: 2em;
+    line-height: 1.55;
+  }
+
+  /* ---- FOOTER / PAGE FOOTER ---- */
+  .guide-footer {
+    text-align: center;
+    font-size: 0.75rem;
+    color: var(--subtle);
+    border-top: 1px solid var(--rule);
+    padding-top: 0.8em;
+    margin-top: 2em;
+  }
+
+  /* ---- SEPARATOR ---- */
+  .section-sep {
+    width: 2in;
+    height: 1px;
+    background: var(--rule);
+    margin: 1.5em auto;
+    border: none;
+  }
+
+  /* ---- PRINT BUTTON (screen only) ---- */
+  .print-btn-wrap {
+    position: fixed;
+    bottom: 1.5em;
+    right: 1.5em;
+    z-index: 9999;
+  }
+
+  .print-btn {
+    font-family: 'Trebuchet MS', 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 0.9rem;
+    background: var(--sage);
+    color: #fff;
+    border: none;
+    padding: 0.7em 1.6em;
+    border-radius: 4px;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    letter-spacing: 0.03em;
+  }
+
+  .print-btn:hover {
+    background: #2d5e38;
+  }
+
+  /* ---- READING LIST ---- */
+  .reading-list li {
+    margin-bottom: 0.55em;
+  }
+
+  .reading-list .book-title {
+    font-style: italic;
+  }
+
+  .reading-list .book-author {
+    font-size: 0.88rem;
+    color: var(--subtle);
+  }
+
+  /* ============================================
+     PRINT OVERRIDES
+     ============================================ */
+  @media print {
+    html { font-size: 11pt; }
+
+    body {
+      max-width: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .print-btn-wrap { display: none !important; }
+
+    a { color: var(--sage) !important; }
+
+    .cover { min-height: 8.5in; }
+
+    .cta-section .cta-link {
+      background: var(--white) !important;
+      color: var(--sage) !important;
+      border: 2px solid var(--sage);
+    }
+
+    h2, h3 {
+      page-break-after: avoid;
+      break-after: avoid;
+    }
+
+    .callout, .action-box, blockquote, .chain {
+      page-break-inside: avoid;
+      break-inside: avoid;
+    }
+  }
+
+  /* ---- SCREEN SPACING ---- */
+  @media screen {
+    body {
+      padding: 0.5in 0.4in 2in;
+    }
+
+    .page-break {
+      border-bottom: 1px dashed var(--rule);
+      margin: 2em 0;
+      height: 0;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- =============================================
+     SAVE AS PDF BUTTON (screen only)
+     ============================================= -->
+<div class="print-btn-wrap">
+  <button class="print-btn" onclick="window.print()">Save as PDF</button>
+</div>
+
+<!-- =============================================
+     COVER PAGE
+     ============================================= -->
+<section class="cover">
+  <div class="cover-badge">Free Guide</div>
+  <h1>The 7 Pillars of<br>Root Cause Thinking</h1>
+  <p class="subtitle">A Strategic Framework for Complex Health Cases<br>When Conventional Medicine Isn't Enough</p>
+  <div class="cover-rule"></div>
+  <p class="author-name">Jonathan Weisz</p>
+  <p class="author-title">Complex Case Strategist &bull; Survivor &bull; Educator</p>
+  <p class="brand">NotDrWise</p>
+</section>
+
+<div class="page-break"></div>
+
+<!-- =============================================
+     PERSONAL NOTE
+     ============================================= -->
+<section class="personal-note">
+  <p class="greeting">A Note Before We Begin</p>
+  <p>If you're reading this, chances are you're exhausted. Not just physically -- though I know that feeling intimately -- but exhausted from being told that your labs are "normal," that it's "all in your head," or that there's nothing left to try.</p>
+  <p>I've been there. I've sat in the doctor's office hearing the words "we don't know what's wrong with you" while my body was falling apart from the inside out. I've had Lyme disease, a traumatic brain injury, Stage III cancer of the salivary glands, hormone collapse, gut destruction, five bouts of shingles before most people get their first, and more surgeries than I can count on one hand.</p>
+  <p>At 22, I was told my spine looked like a 50-year-old's. At 35, I was told I needed a full knee replacement. Today, at 46, my back is healthy and both knees work fine. Not because of a miracle drug. Because I stopped outsourcing my health and started <em>thinking differently</em> about what was really going on.</p>
+  <p>This guide is the framework I wish someone had handed me twenty years ago. It won't diagnose you. It won't prescribe anything. But it will change the way you think about your body, your symptoms, and your path forward.</p>
+  <p>That shift in thinking is where healing begins.</p>
+  <p class="signature">Jonathan Weisz<br>NotDrWise.com</p>
+</section>
+
+<div class="page-break"></div>
+
+<!-- =============================================
+     PILLAR 1
+     ============================================= -->
+<section>
+  <div class="pillar-header">
+    <span class="pillar-number">Pillar One</span>
+    <h2>Stop Treating Symptoms &mdash; Start Mapping Systems</h2>
+  </div>
+
+  <p>Here is the uncomfortable truth about modern medicine: it is built to treat symptoms, not solve problems. You walk in with fatigue, you walk out with a prescription for a stimulant. You report brain fog, you get referred to a neurologist who orders an MRI and tells you everything looks fine. You mention digestive issues, you get an acid blocker. Each specialist sees <em>their</em> piece. Nobody sees the whole board.</p>
+
+  <p>But your body is not fifteen departments. It is one interconnected system. And in complex cases -- the kind where you've seen six doctors, run dozens of labs, and still don't have answers -- the problem is almost never a single broken part. It's a <strong>cascade</strong>. One upstream failure that creates a chain of downstream dysfunction, each link generating its own set of symptoms and its own specialist visit.</p>
+
+  <h3>The Cascade That Almost Killed Me</h3>
+
+  <p>Let me show you what this looked like in my own body. When my gut collapsed from SIBO and Candida overgrowth, it didn't just cause bloating and digestive pain. It destroyed my ability to absorb nutrients. That single upstream problem created a cascade that looked like five separate conditions:</p>
+
+  <div class="chain">
+    <span class="chain-item">Gut Collapse<br>(SIBO + Candida)</span>
+    <span class="chain-arrow">&rarr;</span>
+    <span class="chain-item">Malabsorption<br>(B12, Iron, Nutrients)</span>
+    <span class="chain-arrow">&rarr;</span>
+    <span class="chain-item">Low Testosterone<br>+ Anemia</span>
+    <span class="chain-arrow">&rarr;</span>
+    <span class="chain-item">Poor Thyroid<br>Conversion</span>
+    <span class="chain-arrow">&rarr;</span>
+    <span class="chain-item">Chronic Fatigue<br>+ Brain Fog</span>
+  </div>
+
+  <p>In the conventional model, I would have seen a gastroenterologist for the gut, a hematologist for the anemia, an endocrinologist for the testosterone, another endocrinologist for the thyroid, and a general practitioner for the fatigue. Five doctors, five diagnoses, five treatment plans -- none of them talking to each other, and none of them asking the question that matters most:</p>
+
+  <p><strong>What came first?</strong></p>
+
+  <p>That question is the beginning of root cause thinking. Instead of treating each symptom as an isolated event, you map the chain. You look for the domino that started the fall. And then you address <em>that</em> -- knowing that when the upstream problem resolves, the downstream symptoms often resolve with it.</p>
+
+  <h3>Why Doctors Miss This</h3>
+
+  <p>This is not a criticism of individual doctors. Most are brilliant, hard-working people operating inside a broken system. The problem is structural. Medical training is organized by specialty. Insurance billing rewards short appointments and single-diagnosis coding. A 12-minute office visit doesn't allow time to map a patient's entire symptom history and look for connections across body systems.</p>
+
+  <p>That means the burden falls on <em>you</em>. Not to become your own doctor -- but to become your own strategist. To look at your health the way a detective looks at a case: gathering evidence, mapping timelines, and asking "what connects these things?"</p>
+
+  <div class="action-box">
+    <h4>Your Action Step</h4>
+    <p>Get a blank piece of paper. Write down every symptom, diagnosis, and health event you can remember, in chronological order. Then draw arrows between the ones that might be connected. Ask yourself:</p>
+    <ul>
+      <li>What was the <strong>first</strong> thing that went wrong?</li>
+      <li>What appeared <strong>after</strong> that -- weeks, months, or years later?</li>
+      <li>Which symptoms always seem to show up <strong>together</strong>?</li>
+      <li>Has any treatment ever improved <strong>multiple</strong> symptoms at once? (That's a clue to a shared root.)</li>
+    </ul>
+    <p>This is your personal health map. Bring it to your next appointment. Any practitioner worth seeing will be grateful you did the work.</p>
+  </div>
+</section>
+
+<div class="page-break"></div>
+
+<!-- =============================================
+     PILLAR 2
+     ============================================= -->
+<section>
+  <div class="pillar-header">
+    <span class="pillar-number">Pillar Two</span>
+    <h2>Inflammation Is the Root of Almost Everything</h2>
+  </div>
+
+  <p>If there is one concept that ties together nearly every chronic illness -- cancer, autoimmune disease, neurodegeneration, gut dysfunction, hormonal disruption, cardiovascular disease, metabolic syndrome -- it is <strong>chronic inflammation</strong>.</p>
+
+  <p>Acute inflammation is healthy. You cut your finger, the area swells, immune cells rush in, and healing happens. That's inflammation doing its job. But when inflammation becomes <em>chronic</em> -- when the alarm never turns off -- it stops being a repair signal and starts becoming the disease itself.</p>
+
+  <p>Chronic inflammation damages tissues, disrupts hormone signaling, impairs gut lining integrity, crosses the blood-brain barrier and contributes to cognitive decline, and creates the kind of immune dysfunction where your body starts attacking its own tissues (autoimmunity). It is the common thread in an astonishing number of conditions that conventional medicine treats as separate problems.</p>
+
+  <blockquote>
+    "By His stripes we are healed."
+    <cite>Isaiah 53:5</cite>
+  </blockquote>
+
+  <p>Your body was designed to heal. Inflammation is not the enemy -- it is the <em>signal</em> that something is blocking the healing your body is trying to do. Our job is not to suppress the signal. It is to find and remove whatever is causing the alarm to stay on.</p>
+
+  <h3>The Markers That Tell the Story</h3>
+
+  <p>One of the most frustrating things about chronic inflammation is that standard blood panels often miss it entirely. Your CBC might look fine. Your metabolic panel might be "within range." But inflammation can be silently driving disease for years before it shows up on the tests your doctor typically orders.</p>
+
+  <p>These are the markers I recommend requesting. Most can be added to a standard blood draw:</p>
+
+  <div class="callout avoid-break">
+    <h4>Key Inflammatory Markers to Test</h4>
+    <ul>
+      <li><strong>hs-CRP (high-sensitivity C-Reactive Protein)</strong> -- A general marker of systemic inflammation. Optimal is below 1.0 mg/L, not just "within range."</li>
+      <li><strong>ESR (Erythrocyte Sedimentation Rate)</strong> -- Measures how quickly red blood cells settle. Elevated ESR indicates inflammation somewhere in the body.</li>
+      <li><strong>Homocysteine</strong> -- Elevated levels indicate methylation problems, B-vitamin deficiency, and cardiovascular inflammation risk. Optimal is 6-8 &mu;mol/L.</li>
+      <li><strong>Ferritin</strong> -- Often thought of as just an iron marker, but ferritin is also an acute-phase reactant. Very high levels can indicate inflammation, even if iron levels look normal.</li>
+      <li><strong>IL-6 (Interleukin-6)</strong> -- A pro-inflammatory cytokine. Harder to get ordered, but extremely useful in complex cases. Elevated IL-6 is linked to autoimmunity, cancer progression, and chronic fatigue.</li>
+    </ul>
+  </div>
+
+  <h3>Calming the Fire Naturally</h3>
+
+  <p>While identifying and removing the <em>source</em> of inflammation is always the priority (gut infections, food sensitivities, toxic exposures, chronic stress), targeted supplementation can help calm the inflammatory cascade while you do the detective work:</p>
+
+  <ul>
+    <li><strong>Curcumin</strong> (the active compound in turmeric) -- One of the most studied natural anti-inflammatories on the planet. Look for formulations with enhanced bioavailability (liposomal or with piperine).</li>
+    <li><strong>Omega-3 fatty acids (EPA/DHA)</strong> -- From high-quality fish oil or algae-based sources. EPA in particular has strong anti-inflammatory properties. Aim for a combined 2,000-3,000mg of EPA+DHA daily.</li>
+    <li><strong>Glutathione</strong> -- Your body's master antioxidant and detoxifier. Chronic inflammation depletes glutathione stores. Liposomal forms offer the best oral absorption.</li>
+    <li><strong>NAC (N-Acetyl Cysteine)</strong> -- A precursor to glutathione. Supports liver detoxification, reduces oxidative stress, and has mucolytic properties that benefit respiratory and gut health.</li>
+  </ul>
+
+  <div class="callout-amber callout avoid-break">
+    <h4>Professional-Grade Supplements</h4>
+    <p>Not all supplements are created equal. Retail-grade products often contain fillers, inadequate doses, or poorly absorbed forms. I use and recommend professional-grade supplements through my Fullscript dispensary, where you'll also receive practitioner pricing.</p>
+    <p><strong>NotDrWise.Fullscript.com</strong></p>
+  </div>
+
+  <div class="action-box">
+    <h4>Your Action Step</h4>
+    <p>At your next blood draw, request hs-CRP, ESR, homocysteine, and ferritin at minimum. Write down the <em>actual numbers</em> -- don't just accept "normal." Compare them to <strong>optimal</strong> ranges, not just lab reference ranges. The difference between "not sick" and "actually healthy" lives in that gap.</p>
+  </div>
+</section>
+
+<div class="page-break"></div>
+
+<!-- =============================================
+     PILLAR 3
+     ============================================= -->
+<section>
+  <div class="pillar-header">
+    <span class="pillar-number">Pillar Three</span>
+    <h2>The Gut Is the Gateway</h2>
+  </div>
+
+  <p>If I could go back and tell my younger self one thing about health, it would be this: <strong>fix the gut first</strong>. Before you chase hormones. Before you fight infections. Before you optimize brain function. If the gut is broken, nothing else you do will hold.</p>
+
+  <p>This is not hyperbole. Seventy to eighty percent of your immune system resides in the gut-associated lymphoid tissue (GALT). Your gut lining is where nutrients get absorbed -- or don't. The gut produces roughly 90% of your body's serotonin and is a primary site for neurotransmitter production. It is where estrogen gets cleared from the body through the estrobolome. It is the barrier between the outside world (everything you swallow) and your bloodstream.</p>
+
+  <p>When that barrier breaks down -- a condition commonly called "leaky gut" or intestinal permeability -- undigested food particles, bacterial endotoxins, and inflammatory molecules slip through into the bloodstream. The immune system responds. Inflammation rises. Autoimmune cascades begin. And every downstream system that depends on proper nutrient absorption starts to starve.</p>
+
+  <h3>How My Gut Destroyed Everything Downstream</h3>
+
+  <p>My gut collapse was the domino that started a chain reaction across my entire body. SIBO (small intestinal bacterial overgrowth) created a bacterial population in my small intestine that was fermenting food before I could absorb it. Candida overgrowth was thriving because my immune system was too compromised to keep it in check -- thanks in part to Lyme disease and the antibiotics used to treat it.</p>
+
+  <p>The result: severe malabsorption. My body couldn't extract B12, iron, zinc, magnesium, or fat-soluble vitamins from food. Without adequate B12 and iron, I developed anemia. Without adequate cholesterol absorption (and yes, you <em>need</em> cholesterol), my body couldn't manufacture sufficient hormones. Testosterone dropped. Thyroid conversion suffered because the enzymes and cofactors required for T4-to-T3 conversion depend on nutrients I wasn't absorbing. Cortisol dysregulation followed, because the adrenals were trying to compensate for a system in crisis.</p>
+
+  <p>Every one of those problems had a name. Every one of those names had a specialist. But the root was the gut.</p>
+
+  <h3>The Gut-Healing Sequence</h3>
+
+  <p>Gut healing is not random supplementation. It follows a logical sequence, often described by functional medicine practitioners as the "4R" or "5R" protocol:</p>
+
+  <ol>
+    <li><strong>Remove</strong> -- Eliminate what's damaging the gut: inflammatory foods (gluten, dairy, sugar, processed seed oils, alcohol), infections (SIBO, Candida, parasites), and medications that harm the lining (unnecessary NSAIDs, PPIs).</li>
+    <li><strong>Replace</strong> -- Restore what's missing for proper digestion: digestive enzymes (especially if you feel heavy or bloated after meals), hydrochloric acid (HCl) if stomach acid is low, bile salts if fat digestion is impaired.</li>
+    <li><strong>Reinoculate</strong> -- Repopulate with beneficial bacteria through targeted probiotics and prebiotic-rich foods (cooked and cooled starches, garlic, onion, asparagus). Strain selection matters -- work with someone who understands which strains serve your specific situation.</li>
+    <li><strong>Repair</strong> -- Heal the gut lining with nutrients that support mucosal integrity: L-glutamine (the primary fuel for enterocytes), zinc carnosine, aloe vera, DGL licorice, collagen, and bone broth.</li>
+    <li><strong>Rebalance</strong> -- Address the lifestyle factors that affect gut health: sleep, stress management, movement, and eating hygiene (chewing thoroughly, not eating in a rushed or stressed state).</li>
+  </ol>
+
+  <div class="callout avoid-break">
+    <h4>Bone Broth: The Unsung Hero</h4>
+    <p>I am a huge advocate for homemade bone broth. Slow-simmered for 24-48 hours, it provides gelatin, collagen, glycine, proline, and easily absorbed minerals. It soothes the gut lining, supports joint health, and provides amino acids that support liver detoxification. It is one of the oldest healing foods on earth, and it costs almost nothing to make.</p>
+    <p>If you do nothing else from this chapter, start drinking 8-16 oz of bone broth daily.</p>
+  </div>
+
+  <div class="action-box">
+    <h4>Your Action Step</h4>
+    <p>Before you spend another dollar on hormone optimization or specialty treatments, answer this question honestly: <strong>Is my gut healthy?</strong> If you experience bloating, gas, constipation, diarrhea, acid reflux, or food sensitivities, the answer is likely no. Consider a comprehensive stool analysis (like the GI-MAP) through a functional medicine practitioner. Then follow the 5R sequence above. Fix the gateway first.</p>
+  </div>
+</section>
+
+<div class="page-break"></div>
+
+<!-- =============================================
+     PILLAR 4
+     ============================================= -->
+<section>
+  <div class="pillar-header">
+    <span class="pillar-number">Pillar Four</span>
+    <h2>The Brain Runs the Body &mdash; Protect It</h2>
+  </div>
+
+  <p>On the outside, a traumatic brain injury can be invisible. No cast. No stitches. No scar for people to point to and understand why you're not yourself. But on the inside, a TBI can rewire everything -- your nervous system, your hormones, your mood, your digestion, your ability to regulate temperature, heart rate, and blood pressure.</p>
+
+  <p>My TBI changed the trajectory of my health. The concussive trauma I sustained during my years as an elite pro motocross athlete contributed to the development of POTS (Postural Orthostatic Tachycardia Syndrome), a form of dysautonomia where the autonomic nervous system can no longer properly regulate blood pressure and heart rate when you change position. Standing up too fast meant near-blackouts. Exercise became unpredictable. My body's thermostat was broken.</p>
+
+  <p>But the TBI didn't just affect my cardiovascular regulation. It affected my cognitive function -- processing speed, short-term memory, word recall. It affected my emotional regulation -- mood swings, irritability, anxiety that had no external trigger. And because the brain and the gut are connected through the vagus nerve in a constant bidirectional conversation (the gut-brain axis), my brain injury was making my gut worse, and my gut dysfunction was making my brain worse.</p>
+
+  <h3>The Gut-Brain Axis</h3>
+
+  <p>The vagus nerve is the longest cranial nerve in your body, running from your brainstem down to your gut. It carries signals in both directions. When your gut is inflamed, it sends distress signals to the brain via the vagus nerve, contributing to anxiety, depression, and cognitive decline. When your brain is injured or chronically stressed, it sends dysfunctional signals back down to the gut, impairing motility, secretion, and immune function.</p>
+
+  <p>This is why people with chronic gut issues often have anxiety or depression. This is why people with brain injuries or chronic stress often develop digestive problems. It is not "all in your head" -- it is literally a nerve connecting two organs that are in constant communication.</p>
+
+  <blockquote>
+    "Be transformed by the renewing of your mind."
+    <cite>Romans 12:2</cite>
+  </blockquote>
+
+  <p>There is a biological reality behind this verse that I find remarkable. Neuroplasticity -- the brain's ability to form new neural pathways and essentially rewire itself -- is not a theory. It is established science. The brain <em>can</em> heal. It can form new connections around damaged areas. It can be "renewed." But it requires intentional input: the right nutrients, the right stimulation, the right rest, and the removal of things that are interfering with the process.</p>
+
+  <h3>Supporting Brain Health</h3>
+
+  <ul>
+    <li><strong>Lion's Mane Mushroom</strong> -- One of the only natural compounds shown to stimulate Nerve Growth Factor (NGF), which supports the growth and repair of neurons. Particularly valuable after brain injury or in neurodegenerative conditions.</li>
+    <li><strong>Magnesium L-Threonate</strong> -- The only form of magnesium clinically shown to cross the blood-brain barrier effectively. Supports synaptic density, memory, and cognitive function. Most other forms of magnesium are valuable for muscles, sleep, and bowels, but L-threonate is specifically for the brain.</li>
+    <li><strong>B-Complex (methylated forms)</strong> -- B-vitamins are essential cofactors for neurotransmitter production, myelin sheath maintenance, and methylation. Look for methylfolate (not folic acid) and methylcobalamin (not cyanocobalamin), especially if you have MTHFR variations.</li>
+    <li><strong>Omega-3 (DHA)</strong> -- While EPA is more anti-inflammatory, DHA is the structural fat of the brain. Your brain is roughly 60% fat, and DHA is the most abundant fatty acid in brain tissue.</li>
+    <li><strong>Vagus nerve stimulation</strong> -- Cold exposure (cold showers, cold plunges), gargling, humming, singing, and deep diaphragmatic breathing all stimulate vagal tone and improve the gut-brain communication pathway.</li>
+  </ul>
+
+  <div class="action-box">
+    <h4>Your Action Step</h4>
+    <p>If you have a history of concussion, head trauma, chronic stress, or any neurodegenerative concerns, do not ignore the brain-gut connection. Start with magnesium L-threonate before bed, a quality fish oil high in DHA, and 5 minutes of intentional deep breathing each morning (inhale for 4 counts, hold for 4, exhale for 8). These three simple interventions begin to restore vagal tone and support neuroplasticity.</p>
+  </div>
+</section>
+
+<div class="page-break"></div>
+
+<!-- =============================================
+     PILLAR 5
+     ============================================= -->
+<section>
+  <div class="pillar-header">
+    <span class="pillar-number">Pillar Five</span>
+    <h2>Hormones Are Downstream &mdash; Fix What's Upstream</h2>
+  </div>
+
+  <p>This pillar might be the one that saves you the most money, frustration, and wasted years. Because in the world of men's and women's health, hormones have become the shiny object. Low testosterone? Here's a prescription for TRT. Thyroid sluggish? Here's levothyroxine. Estrogen dominance? Here's DIM and progesterone cream.</p>
+
+  <p>And sometimes those interventions are necessary. I am not anti-medication. But here is what most hormone-focused practitioners miss: <strong>hormones are almost always downstream of something else.</strong> They are the effect, not the cause. And if you treat the effect without addressing the cause, you become dependent on the treatment forever -- and you never actually heal.</p>
+
+  <h3>The Upstream Problems That Wreck Hormones</h3>
+
+  <p><strong>Low cholesterol.</strong> This one shocks people. We have been told for decades that cholesterol is the enemy. But cholesterol is the raw material from which your body manufactures pregnenolone, which is the precursor to <em>all</em> steroid hormones: cortisol, DHEA, testosterone, estrogen, progesterone, and aldosterone. If your total cholesterol is too low (below 150-160), your body literally does not have enough building material to produce adequate hormones. I experienced this firsthand. My cholesterol was chronically low due to malabsorption, and no amount of herbal testosterone boosters was going to fix a supply problem.</p>
+
+  <p><strong>Gut dysfunction and estrogen clearance.</strong> Your liver metabolizes estrogen, and a healthy gut microbiome (specifically the estrobolome) assists in excreting it. When the gut is dysbiotic, estrogen gets recirculated instead of eliminated. In men, this leads to estrogen dominance, which suppresses testosterone. In women, it can drive estrogen-dominant conditions like fibroids, endometriosis, and PMS. The fix isn't an estrogen blocker. The fix is a healthy gut and a functioning liver.</p>
+
+  <p><strong>Adrenal dysfunction (the "cortisol steal").</strong> When your body is under chronic stress -- physical, emotional, or inflammatory -- it prioritizes survival over reproduction. Pregnenolone, that master precursor hormone, gets shunted toward cortisol production at the expense of testosterone and progesterone. This is sometimes called the "pregnenolone steal" or "cortisol steal." You cannot supplement your way out of this. You have to reduce the stress load, address the inflammation, and restore adrenal resilience.</p>
+
+  <p><strong>Poor thyroid conversion.</strong> Your thyroid gland produces mostly T4, which is the inactive storage form of thyroid hormone. It must be converted to T3 (the active form) in the liver and gut. This conversion requires selenium, zinc, iron, and adequate cortisol. If any of those are deficient -- often because of gut malabsorption or adrenal dysfunction -- you can have "normal" TSH and T4 but still feel hypothyroid because T3 is low. Hashimoto's autoimmunity adds another layer, as the immune system attacks the thyroid gland itself, often triggered by gut permeability and molecular mimicry with gluten.</p>
+
+  <div class="chain">
+    <span class="chain-item">Gut Dysfunction</span>
+    <span class="chain-arrow">&rarr;</span>
+    <span class="chain-item">Malabsorption +<br>Poor Estrogen Clearance</span>
+    <span class="chain-arrow">&rarr;</span>
+    <span class="chain-item">Low Cholesterol +<br>Nutrient Deficiencies</span>
+    <span class="chain-arrow">&rarr;</span>
+    <span class="chain-item">Hormonal<br>Collapse</span>
+  </div>
+
+  <p>Do you see the pattern? Gut and inflammation keep showing up as the upstream culprits. That is not a coincidence. It is the architecture of human physiology.</p>
+
+  <div class="action-box">
+    <h4>Your Action Step</h4>
+    <p>If you are currently on hormone replacement therapy or considering it, ask your practitioner these questions:</p>
+    <ul>
+      <li>Have we tested my gut health and nutrient absorption?</li>
+      <li>What is my total cholesterol -- and is it <em>too low</em> for hormone production?</li>
+      <li>Have we assessed my adrenal function (4-point salivary cortisol or DUTCH test)?</li>
+      <li>Are we looking at free T3 and reverse T3, not just TSH and T4?</li>
+    </ul>
+    <p>If the answer to any of these is "no," you may be treating downstream symptoms while the upstream fire continues to burn.</p>
+  </div>
+</section>
+
+<div class="page-break"></div>
+
+<!-- =============================================
+     PILLAR 6
+     ============================================= -->
+<section>
+  <div class="pillar-header">
+    <span class="pillar-number">Pillar Six</span>
+    <h2>Your Body Was Designed to Heal &mdash; Remove What's Blocking It</h2>
+  </div>
+
+  <p>At 35 years old, an orthopedic surgeon looked at the X-ray of my knee -- a 6mm indentation in the femur with severe arthritis -- and told me I needed a full knee replacement. He said it matter-of-factly, the way someone might tell you that your car needs new brakes. Inevitable. Mechanical. Nothing to be done but replace the part.</p>
+
+  <p>I'm 46 now. I have both original knees. They work fine. No surgery. No replacement.</p>
+
+  <p>At 22, a doctor reviewed my spinal imaging and told me I had the degenerative disk disease of a 50-year-old. Multiple disks were compromised. He told me to "manage it" and expect progressive decline. Instead, I dove into Gerson Therapy -- an intensive nutritional protocol built around fresh juices, clean whole foods, coffee enemas for liver detoxification, and the systematic removal of processed and toxic inputs. My disks healed. Not managed. <em>Healed.</em></p>
+
+  <p>I am not telling you these stories to impress you. I am telling you because they illustrate a principle that most of medicine has forgotten: <strong>the human body has an extraordinary capacity to regenerate and repair itself when you remove what's blocking it.</strong></p>
+
+  <h3>What Blocks Healing</h3>
+
+  <p>The obstacles to healing are remarkably consistent across complex cases:</p>
+
+  <ul>
+    <li><strong>Processed food</strong> -- Refined sugar, industrial seed oils (canola, soybean, corn), artificial additives, and chemical preservatives drive inflammation, gut dysbiosis, and metabolic dysfunction.</li>
+    <li><strong>Chronic stress</strong> -- Emotional, relational, financial, spiritual. Stress is not just a feeling. It is a biochemical state that elevates cortisol, suppresses immune function, impairs digestion, and blocks healing.</li>
+    <li><strong>Toxic load</strong> -- Environmental toxins (mold, heavy metals, pesticides), medications that burden the liver, personal care products loaded with endocrine disruptors.</li>
+    <li><strong>Nutritional deficiency</strong> -- You cannot build a healthy body with an empty toolbox. The raw materials for cellular repair -- amino acids, minerals, vitamins, essential fatty acids -- must be present in sufficient quantities.</li>
+    <li><strong>Unresolved infections</strong> -- Chronic viral loads (EBV, CMV), tick-borne infections (Lyme, Babesia), parasites, and fungal overgrowth (Candida) keep the immune system in a state of perpetual war.</li>
+  </ul>
+
+  <blockquote>
+    "Do you not know that your body is a temple of the Holy Spirit who is in you, whom you have received from God?"
+    <cite>1 Corinthians 6:19</cite>
+  </blockquote>
+
+  <p>Treat it like one. You would not pour contaminated fuel into a sacred vessel and then wonder why it doesn't function properly. The same principle applies to your body. The quality of what you put in, on, and around your body directly determines the quality of the output.</p>
+
+  <h3>The Power of Fasting</h3>
+
+  <p>Fasting is one of the most powerful tools for removing interference and activating your body's innate healing mechanisms. It is also one of the oldest -- practiced for millennia across every major spiritual tradition and now validated by modern science.</p>
+
+  <p>When you fast, your body shifts from growth mode to repair mode. Autophagy -- the cellular recycling process where your body breaks down damaged cells and uses the components to build new ones -- kicks in after approximately 18-24 hours of fasting. Stem cell regeneration accelerates after 48-72 hours. Inflammatory markers drop. Insulin sensitivity improves. The gut lining gets a chance to rest and repair.</p>
+
+  <p>Jesus fasted 40 days in the wilderness (Matthew 4:2). Moses fasted 40 days on Mount Sinai (Exodus 34:28). Elijah fasted 40 days on his journey to Horeb (1 Kings 19:8). Fasting is not just a health strategy. It is a spiritual discipline that aligns the body, mind, and spirit.</p>
+</section>
+
+<div class="page-break"></div>
+
+<!-- =============================================
+     FASTING JOURNEY SIDEBAR
+     ============================================= -->
+<section>
+  <div class="callout-amber callout">
+    <h4>Jonathan's Fasting Journey</h4>
+    <p>Fasting has been a cornerstone of my healing. Here is a summary of the major fasts I have completed:</p>
+  </div>
+
+  <table class="fasting-table">
+    <thead>
+      <tr>
+        <th>Fast Type</th>
+        <th>Duration</th>
+        <th>Purpose / Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Water-only fast</td>
+        <td>25 days</td>
+        <td>Deep cellular reset, autophagy activation, immune system regeneration. The most challenging and most transformative fast I've done.</td>
+      </tr>
+      <tr>
+        <td>Liquid fast (juices, broth)</td>
+        <td>44 days</td>
+        <td>Extended healing protocol during cancer recovery. Juicing provided micronutrient density while keeping the digestive system at rest.</td>
+      </tr>
+      <tr>
+        <td>7-day water fasts</td>
+        <td>Multiple</td>
+        <td>Periodic deep resets for inflammation reduction and gut healing. Usually done quarterly or when symptoms flare.</td>
+      </tr>
+      <tr>
+        <td>5-day water fasts</td>
+        <td>Multiple</td>
+        <td>Stem cell regeneration window. Research by Valter Longo shows significant stem cell activation occurs around day 4-5 of water fasting.</td>
+      </tr>
+      <tr>
+        <td>3-day water fasts</td>
+        <td>Multiple</td>
+        <td>Regular maintenance fasts for autophagy, metabolic flexibility, and mental clarity.</td>
+      </tr>
+      <tr>
+        <td>Intermittent fasting</td>
+        <td>Daily practice</td>
+        <td>16:8 or 18:6 eating windows as a baseline lifestyle practice. Supports insulin sensitivity and digestive rest.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout avoid-break">
+    <h4>Important Note on Fasting</h4>
+    <p>Extended fasting is a powerful tool, but it is not appropriate for everyone, and it should not be undertaken casually. If you are on medications, have diabetes, are pregnant or nursing, or have a history of eating disorders, consult with a qualified practitioner before attempting any fast beyond intermittent fasting. Start small. A 24-hour fast. Then 48 hours. Build up gradually. Listen to your body. And always reintroduce food slowly and gently.</p>
+  </div>
+
+  <div class="action-box">
+    <h4>Your Action Step</h4>
+    <p>Start with the simplest version of "removing interference." For the next 30 days, eliminate these four things:</p>
+    <ol>
+      <li>Refined sugar and artificial sweeteners</li>
+      <li>Industrial seed oils (canola, soybean, corn, safflower, sunflower)</li>
+      <li>Processed and packaged foods</li>
+      <li>Alcohol</li>
+    </ol>
+    <p>Replace them with whole, single-ingredient foods: pasture-raised meats, wild-caught fish, organic vegetables, healthy fats (olive oil, avocado, coconut oil, grass-fed butter), and bone broth. After 30 days, assess how you feel. Most people are stunned by the difference.</p>
+  </div>
+</section>
+
+<div class="page-break"></div>
+
+<!-- =============================================
+     PILLAR 7
+     ============================================= -->
+<section>
+  <div class="pillar-header">
+    <span class="pillar-number">Pillar Seven</span>
+    <h2>Faith Without Works Is Dead &mdash; Take Strategic Action</h2>
+  </div>
+
+  <blockquote>
+    "For as the body without the spirit is dead, so faith without works is dead also."
+    <cite>James 2:26</cite>
+  </blockquote>
+
+  <p>I believe in the power of prayer. I believe God heals. I have experienced it in my own life in ways that I cannot explain through science alone. But I also believe that prayer was never meant to replace action. And action was never meant to replace prayer. <strong>Both together</strong> -- faith married to strategic, informed, persistent action -- is the combination that moves mountains.</p>
+
+  <p>I have watched people pray for healing while eating food that is poisoning them. I have watched people take every supplement on the shelf but refuse to address the spiritual and emotional roots of their stress. Neither approach works in isolation. The biblical model is clear: <em>trust God and do the work.</em></p>
+
+  <h3>The NotDrWise Approach</h3>
+
+  <p>Here is the strategic framework I use with every complex case, and the one I use in my own life:</p>
+
+  <ol>
+    <li><strong>Research.</strong> Don't guess. Read. Study. Understand the mechanisms. Know why you're doing what you're doing. "My people are destroyed for lack of knowledge" (Hosea 4:6). Ignorance is not bliss -- it's dangerous.</li>
+    <li><strong>Test.</strong> Run the labs. Get the imaging. Measure the biomarkers. You cannot manage what you do not measure. Feelings are real, but data is actionable.</li>
+    <li><strong>Implement.</strong> Based on your research and your data, create a protocol. Start with the biggest upstream lever (almost always gut and inflammation). Execute consistently for a defined period.</li>
+    <li><strong>Measure.</strong> After 60-90 days, retest. Did the markers improve? Did symptoms shift? Data tells you whether your protocol is working or whether you need to adjust.</li>
+    <li><strong>Adjust.</strong> Healing is not linear. It is iterative. What worked in phase one may not be what you need in phase two. Stay flexible. Stay curious. Stay humble enough to change course when the evidence demands it.</li>
+  </ol>
+
+  <h3>Build Your Team</h3>
+
+  <p>No one heals alone. And no single practitioner has all the answers. The most successful outcomes I have seen -- both in my own life and in the people I work with -- come from assembling a team of practitioners who each bring a different lens:</p>
+
+  <ul>
+    <li><strong>Functional medicine doctor</strong> -- Looks at root causes, runs advanced labs, understands the interconnection between body systems.</li>
+    <li><strong>Naturopathic doctor</strong> -- Trained in natural therapeutics, herbal medicine, nutrition, and the body's innate healing capacity.</li>
+    <li><strong>Nutritionist or dietitian</strong> -- Ideally one trained in functional or clinical nutrition, not just calorie counting.</li>
+    <li><strong>Health coach or strategist</strong> -- Someone who helps you implement, stay accountable, navigate the overwhelm, and think strategically about your case. (This is what I do at NotDrWise.)</li>
+  </ul>
+
+  <p>And here is the part nobody tells you: <strong>you have the right to fire practitioners who don't listen.</strong> If your doctor dismisses your concerns, interrupts you, refuses to order the labs you're requesting, or tells you "it's just stress" without investigating further, that is not a partnership. That is a dictatorship. Find someone who treats you like a collaborator, not a number.</p>
+
+  <blockquote>
+    "Prove all things; hold fast to what is good."
+    <cite>1 Thessalonians 5:21</cite>
+  </blockquote>
+
+  <p>Question everything. Test everything. Keep what works. Discard what doesn't. That is not rebellious. That is biblical. That is strategic. And that is how complex cases get solved.</p>
+
+  <div class="action-box">
+    <h4>Your Action Step</h4>
+    <p>Write down the names of every practitioner currently on your health team. Next to each name, answer honestly: Do they listen? Do they explain? Do they collaborate? Are they open to approaches outside their training? If the answer is "no" to more than one of these, it may be time to find a new team member. Your healing depends on being heard.</p>
+  </div>
+</section>
+
+<div class="page-break"></div>
+
+<!-- =============================================
+     RECOMMENDED READING
+     ============================================= -->
+<section>
+  <h2>Recommended Reading &amp; Resources</h2>
+
+  <p>Knowledge is power, but only when applied. These are the books and resources that shaped my understanding of root cause healing. I recommend starting with whichever title speaks to your most pressing need.</p>
+
+  <ul class="reading-list">
+    <li>
+      <span class="book-title">Why Do I Still Have Thyroid Symptoms?</span><br>
+      <span class="book-author">by Datis Kharrazian, DHSc -- Essential for anyone with Hashimoto's or hypothyroidism.</span>
+    </li>
+    <li>
+      <span class="book-title">The Wahls Protocol</span><br>
+      <span class="book-author">by Terry Wahls, MD -- A physician who reversed her own MS through nutrition. Transformative read.</span>
+    </li>
+    <li>
+      <span class="book-title">The Autoimmune Fix</span><br>
+      <span class="book-author">by Tom O'Bryan, DC -- Deep dive into gut permeability and its role in autoimmune disease.</span>
+    </li>
+    <li>
+      <span class="book-title">Brain Maker</span><br>
+      <span class="book-author">by David Perlmutter, MD -- The gut-brain connection explained clearly and compellingly.</span>
+    </li>
+    <li>
+      <span class="book-title">The Gerson Therapy</span><br>
+      <span class="book-author">by Charlotte Gerson and Morton Walker -- The nutritional regeneration protocol that healed my degenerative disks.</span>
+    </li>
+    <li>
+      <span class="book-title">The Complete Guide to Fasting</span><br>
+      <span class="book-author">by Jason Fung, MD -- The best clinical introduction to therapeutic fasting.</span>
+    </li>
+    <li>
+      <span class="book-title">Toxic</span><br>
+      <span class="book-author">by Neil Nathan, MD -- Essential reading on mold illness, Lyme disease, and complex chronic conditions.</span>
+    </li>
+    <li>
+      <span class="book-title">None of These Diseases</span><br>
+      <span class="book-author">by S.I. McMillen, MD and David E. Stern, MD -- A fascinating look at biblical health principles validated by modern science.</span>
+    </li>
+  </ul>
+
+  <hr class="section-sep">
+
+  <h2>What Comes Next</h2>
+
+  <p>This guide gave you the framework. The 7 Pillars of Root Cause Thinking are the lens through which I evaluate every health challenge -- my own and those of the people I work with. But a framework is only as powerful as its implementation.</p>
+
+  <p>If you're reading this and recognizing your own story in these pages -- if you've been bouncing between specialists, collecting diagnoses, and still not finding answers -- know that there is a path forward. It starts with thinking differently. It continues with acting strategically. And it succeeds when you find the right people to walk it with you.</p>
+</section>
+
+<div class="page-break"></div>
+
+<!-- =============================================
+     CTA: STRATEGY CONSULT
+     ============================================= -->
+<section>
+  <div class="cta-section">
+    <h2>Ready to Map Your Root Cause?</h2>
+    <p>Book a one-on-one Strategy Consult with Jonathan. In this focused session, we'll review your health history, identify the upstream drivers behind your symptoms, and build a strategic action plan tailored to your specific case.</p>
+    <p>This is not a medical appointment. It is a strategic thinking session with someone who has been in the trenches and come out the other side.</p>
+    <div class="price">$49</div>
+    <p style="font-size:0.9rem; color: var(--subtle); margin-bottom: 0.5em;">Strategy Consult &bull; 45 minutes &bull; Virtual</p>
+    <a href="https://NotDrWise.com" class="cta-link">Book at NotDrWise.com</a>
+  </div>
+
+  <hr class="section-sep">
+
+  <h3 style="text-align:center; margin-bottom:0.5em;">Professional-Grade Supplements</h3>
+  <p style="text-align:center;">Access the same professional-grade supplements I use and recommend through my Fullscript dispensary. Practitioner pricing included.</p>
+  <p style="text-align:center; font-size:1.1rem;"><strong><a href="https://NotDrWise.Fullscript.com">NotDrWise.Fullscript.com</a></strong></p>
+</section>
+
+<div class="page-break"></div>
+
+<!-- =============================================
+     DISCLAIMER
+     ============================================= -->
+<section>
+  <h2>Disclaimer</h2>
+
+  <div class="disclaimer">
+    <p><strong>Jonathan Weisz is NOT a doctor, physician, licensed medical professional, or healthcare provider.</strong> He is an educator, complex case strategist, and health advocate sharing his personal experience and research. The information in this guide is for educational purposes only and does not constitute medical advice, diagnosis, or treatment.</p>
+
+    <p>Nothing in this guide should be interpreted as a substitute for professional medical advice. Always consult with a qualified healthcare provider before starting any new supplement, dietary protocol, fasting regimen, or health program -- especially if you are currently taking medications, are pregnant or nursing, or have a diagnosed medical condition.</p>
+
+    <p>The personal experiences described in this guide are Jonathan's own and are not guaranteed outcomes. Individual results vary based on genetics, health history, compliance, and numerous other factors. What worked for one person may not work for another.</p>
+
+    <p>Supplement recommendations in this guide are for informational purposes. The mention of specific supplements or protocols does not constitute an endorsement of those products as treatments for any disease. The Fullscript dispensary link (NotDrWise.Fullscript.com) is an affiliate/practitioner link and the author receives commission on purchases made through it.</p>
+
+    <p>Scripture references are included as expressions of the author's personal faith and are not presented as medical evidence. The inclusion of biblical passages does not imply that prayer or faith should replace qualified medical care.</p>
+
+    <p>If you are experiencing a medical emergency, call 911 or go to your nearest emergency room immediately.</p>
+
+    <p style="margin-top: 1em;">&copy; 2026 Jonathan Weisz / NotDrWise. All rights reserved. This guide may not be reproduced, distributed, or resold without written permission.</p>
+  </div>
+
+  <div class="guide-footer">
+    <p>The 7 Pillars of Root Cause Thinking &bull; NotDrWise.com</p>
+    <p style="margin-top:0.3em;">Written by Jonathan Weisz &bull; Complex Case Strategist</p>
+  </div>
+</section>
+
+</body>
+</html>

@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jonathan Weisz — Complex Case Strategist | Survivor | Father</title>
+<meta name="description" content="I survived Lyme disease, traumatic brain injury, and cancer — all at the same time. Now I help people with complex diagnoses find a strategic path forward through functional medicine and biblical wisdom.">
+<meta property="og:title" content="Jonathan Weisz — Complex Case Strategist | Survivor | Father">
+<meta property="og:description" content="Lyme. TBI. Cancer. 14+ diagnoses. 7 surgeries. A 44-day fast. I survived what they said I wouldn't. Now I help complex cases find a way forward.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://jonathanweisz.com">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#faf8f5;--card:#ffffff;--card2:#f5f0ea;--card3:#eee8df;
+  --text:#2c2418;--textlight:#6b5d4f;--textmid:#4a3f33;
+  --warm:#c8956c;--warmdeep:#a06b3f;--warmbg:rgba(200,149,108,.08);--warmsolid:#f7f0e8;
+  --gold:#b8860b;--goldlight:#d4a843;
+  --green:#3d7a4a;--greenlight:#5a9e6a;--greenbg:rgba(61,122,74,.06);
+  --blue:#3b6b8a;--bluebg:rgba(59,107,138,.06);
+  --sky:#5a9ab5;
+  --rose:#9e5a5a;--rosebg:rgba(158,90,90,.06);
+  --border:rgba(44,36,24,.08);--borderdark:rgba(44,36,24,.12);
+  --radius:14px;
+  --shadow:0 2px 20px rgba(44,36,24,.06);
+}
+html{font-size:16px;scroll-behavior:smooth}
+body{font-family:'Georgia','Times New Roman',serif;background:var(--bg);color:var(--text);line-height:1.8}
+.sans{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+.container{max-width:820px;margin:0 auto;padding:0 20px}
+
+/* ===== HERO ===== */
+.hero{text-align:center;padding:72px 20px 56px;background:linear-gradient(180deg,#efe8dd 0%,var(--bg) 100%)}
+.hero-greeting{font-size:.7rem;letter-spacing:.25em;text-transform:uppercase;color:var(--warm);font-family:-apple-system,sans-serif;font-weight:700;margin-bottom:20px}
+.hero h1{font-size:clamp(2.2rem,6vw,3.4rem);font-weight:800;line-height:1.15;margin-bottom:20px;color:var(--text);font-family:-apple-system,sans-serif}
+.hero h1 em{font-style:normal;color:var(--warmdeep)}
+.hero .tagline{font-size:clamp(1.05rem,3vw,1.2rem);color:var(--textlight);max-width:640px;margin:0 auto 12px;line-height:1.7}
+.hero .verse{font-size:.9rem;color:var(--warm);margin:20px auto 32px;max-width:480px}
+
+/* Stats row */
+.hero-stats{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:32px}
+.hero-stat{
+  background:var(--card);border:1px solid var(--border);border-radius:40px;
+  padding:8px 18px;font-family:-apple-system,sans-serif;font-size:.75rem;
+  color:var(--textmid);font-weight:600;box-shadow:var(--shadow);
+}
+.hero-stat strong{color:var(--warmdeep);font-weight:800}
+
+/* CTA */
+.cta-group{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.cta{
+  display:inline-flex;align-items:center;gap:8px;padding:16px 36px;border-radius:50px;
+  font-family:-apple-system,sans-serif;font-size:.95rem;font-weight:700;
+  text-decoration:none;transition:all .2s;border:none;cursor:pointer;
+}
+.cta-primary{background:var(--warmdeep);color:#fff;box-shadow:0 4px 20px rgba(160,107,63,.3)}
+.cta-primary:hover{background:#8a5a30;transform:translateY(-1px)}
+.cta-secondary{background:transparent;color:var(--warmdeep);border:2px solid var(--warm)}
+.cta-secondary:hover{background:var(--warmbg)}
+.cta-sm{padding:12px 24px;font-size:.85rem}
+
+/* ===== SECTIONS ===== */
+.section{padding:48px 20px;max-width:820px;margin:0 auto}
+.section-label{font-family:-apple-system,sans-serif;font-size:.65rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--warm);margin-bottom:10px}
+.section h2{font-family:-apple-system,sans-serif;font-size:clamp(1.6rem,4.5vw,2.2rem);font-weight:800;margin-bottom:20px;line-height:1.2;color:var(--text)}
+.section h2 em{font-style:normal;color:var(--warmdeep)}
+
+/* ===== STORY ===== */
+.story p{font-size:1rem;color:var(--textmid);margin-bottom:16px;line-height:1.9}
+.story p strong{color:var(--text);font-weight:700}
+.story .callout{padding:22px 26px;border-left:4px solid var(--warm);background:var(--warmbg);border-radius:0 var(--radius) var(--radius) 0;margin:28px 0;font-style:italic;color:var(--warmdeep);font-size:1.05rem;line-height:1.8}
+
+/* Big quote */
+.big-quote{text-align:center;padding:40px 20px;max-width:640px;margin:0 auto}
+.big-quote p{font-size:clamp(1.2rem,3.5vw,1.5rem);color:var(--warmdeep);font-style:italic;line-height:1.6}
+.big-quote .ref{font-size:.8rem;color:var(--textlight);margin-top:8px}
+
+/* ===== EXTREME STATS ===== */
+.extreme-section{background:var(--text);color:var(--bg);padding:56px 20px}
+.extreme-section .section-label{color:var(--goldlight)}
+.extreme-section h2{color:#fff;font-family:-apple-system,sans-serif}
+.extreme-section h2 em{color:var(--goldlight)}
+
+.extreme-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;max-width:820px;margin:0 auto}
+.extreme-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);border-radius:var(--radius);padding:20px 16px;text-align:center}
+.extreme-num{font-family:-apple-system,sans-serif;font-size:clamp(1.8rem,5vw,2.4rem);font-weight:900;color:var(--goldlight);line-height:1}
+.extreme-label{font-family:-apple-system,sans-serif;font-size:.7rem;color:rgba(255,255,255,.6);margin-top:6px;letter-spacing:.05em;line-height:1.4}
+
+/* ===== EXPANDABLE ===== */
+.expand-group{max-width:820px;margin:24px auto 0}
+.expand-item{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:8px;overflow:hidden;box-shadow:var(--shadow)}
+.expand-header{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:18px 22px;cursor:pointer;font-family:-apple-system,sans-serif;
+  font-size:.9rem;font-weight:700;color:var(--text);
+  transition:background .15s;
+}
+.expand-header:hover{background:var(--warmbg)}
+.expand-icon{font-size:1.2rem;color:var(--warm);transition:transform .2s;font-weight:400}
+.expand-item.open .expand-icon{transform:rotate(45deg)}
+.expand-body{display:none;padding:0 22px 20px;font-size:.88rem;color:var(--textmid);line-height:1.8}
+.expand-item.open .expand-body{display:block}
+
+/* ===== DIAGNOSIS GRID ===== */
+.dx-section{background:var(--card2);padding:56px 20px}
+.dx-grid{max-width:820px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px}
+.dx-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:18px 20px;box-shadow:var(--shadow)}
+.dx-card h4{font-family:-apple-system,sans-serif;font-size:.82rem;font-weight:700;color:var(--text);margin-bottom:4px}
+.dx-card p{font-size:.73rem;color:var(--textlight);line-height:1.6}
+.dx-category{font-family:-apple-system,sans-serif;font-size:.58rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:3px 10px;border-radius:20px;display:inline-block;margin-bottom:8px}
+.cat-cancer{background:var(--rosebg);color:var(--rose)}
+.cat-neuro{background:var(--bluebg);color:var(--blue)}
+.cat-infection{background:rgba(200,149,108,.1);color:var(--warmdeep)}
+.cat-gut{background:var(--greenbg);color:var(--green)}
+.cat-hormonal{background:rgba(180,140,60,.08);color:var(--gold)}
+.cat-immune{background:rgba(90,154,181,.08);color:var(--sky)}
+.cat-structural{background:rgba(120,100,80,.08);color:#786450}
+
+/* ===== SURGERY TIMELINE ===== */
+.surgery-list{max-width:820px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}
+.surgery-item{display:flex;align-items:flex-start;gap:10px;padding:14px 16px;background:var(--card);border:1px solid var(--border);border-radius:10px}
+.surgery-dot{flex-shrink:0;width:8px;height:8px;border-radius:50%;background:var(--rose);margin-top:6px}
+.surgery-text{font-family:-apple-system,sans-serif;font-size:.78rem;color:var(--textmid);line-height:1.5}
+
+/* ===== OFFERINGS ===== */
+.offerings{max-width:820px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:16px}
+.offer-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:32px 26px;box-shadow:var(--shadow);text-decoration:none;color:inherit;transition:all .2s;display:block}
+.offer-card:hover{transform:translateY(-2px);box-shadow:0 6px 30px rgba(44,36,24,.1)}
+.offer-icon{font-size:2rem;margin-bottom:14px}
+.offer-card h3{font-family:-apple-system,sans-serif;font-size:1.05rem;font-weight:800;margin-bottom:8px}
+.offer-card p{font-size:.85rem;color:var(--textlight);line-height:1.7}
+.offer-link{display:inline-block;margin-top:14px;font-family:-apple-system,sans-serif;font-size:.8rem;font-weight:700;color:var(--warmdeep)}
+
+/* ===== BOOKS ===== */
+.books-grid{max-width:820px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px}
+.book-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:26px 22px;box-shadow:var(--shadow);text-align:center}
+.book-emoji{font-size:2.2rem;margin-bottom:12px}
+.book-card h4{font-family:-apple-system,sans-serif;font-size:.95rem;font-weight:800;margin-bottom:6px}
+.book-card p{font-size:.78rem;color:var(--textlight);line-height:1.6;margin-bottom:14px}
+.book-status{font-family:-apple-system,sans-serif;font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:5px 16px;border-radius:20px;display:inline-block;text-decoration:none}
+.status-available{background:var(--greenbg);color:var(--green)}
+.status-coming{background:var(--warmbg);color:var(--warmdeep)}
+
+/* ===== EMAIL CAPTURE ===== */
+.capture{max-width:620px;margin:48px auto;padding:40px 32px;background:var(--card);border:2px solid var(--borderdark);border-radius:var(--radius);box-shadow:0 4px 30px rgba(44,36,24,.08);text-align:center}
+.capture h3{font-family:-apple-system,sans-serif;font-size:clamp(1.2rem,3.5vw,1.5rem);font-weight:800;margin-bottom:8px}
+.capture .sub{font-size:.9rem;color:var(--textlight);margin-bottom:24px;line-height:1.7}
+.capture-form{display:flex;flex-direction:column;gap:10px;max-width:380px;margin:0 auto}
+.capture-input{
+  padding:14px 18px;border:2px solid var(--border);border-radius:10px;
+  font-family:-apple-system,sans-serif;font-size:.9rem;
+  background:var(--bg);color:var(--text);outline:none;
+  transition:border-color .2s;
+}
+.capture-input:focus{border-color:var(--warm)}
+.capture-input::placeholder{color:var(--textlight)}
+.capture-submit{
+  padding:16px;border:none;border-radius:10px;
+  background:var(--warmdeep);color:#fff;
+  font-family:-apple-system,sans-serif;font-size:.95rem;font-weight:700;
+  cursor:pointer;transition:all .2s;
+  box-shadow:0 4px 16px rgba(160,107,63,.25);
+}
+.capture-submit:hover{background:#8a5a30}
+.capture-note{font-size:.7rem;color:var(--textlight);margin-top:8px;line-height:1.5}
+.capture-success{display:none;text-align:center}
+.capture-success h4{font-family:-apple-system,sans-serif;font-size:1.1rem;font-weight:800;color:var(--green);margin-bottom:8px}
+.capture-success p{font-size:.85rem;color:var(--textmid);line-height:1.7}
+
+/* ===== FOOTER ===== */
+footer{text-align:center;padding:40px 20px;border-top:1px solid var(--border);margin-top:20px}
+footer .links{display:flex;gap:20px;justify-content:center;flex-wrap:wrap;margin-bottom:16px}
+footer a{font-family:-apple-system,sans-serif;font-size:.8rem;color:var(--warmdeep);text-decoration:none;font-weight:600}
+footer a:hover{text-decoration:underline}
+footer .disclaimer{font-size:.65rem;color:var(--textlight);max-width:520px;margin:0 auto;line-height:1.7}
+footer .copy{font-size:.7rem;color:var(--textlight);margin-top:16px;font-family:-apple-system,sans-serif}
+
+@media(max-width:600px){
+  .hero-stats{gap:6px}
+  .hero-stat{font-size:.65rem;padding:6px 12px}
+  .extreme-grid{grid-template-columns:repeat(3,1fr)}
+  .offerings{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<div class="hero">
+  <div class="hero-greeting sans">Welcome &mdash; I'm glad you found me</div>
+  <h1>I survived what <em>98 experts</em> said they couldn't fix.</h1>
+  <p class="tagline">Lyme disease. Traumatic brain injury. A rare Stage III cancer. 14+ overlapping diagnoses. 7 surgeries. A body that was falling apart — and a God who put it back together.</p>
+  <p class="tagline" style="font-weight:700;color:var(--text);font-style:normal;font-size:1rem">I'm <strong>Jonathan Weisz</strong> — Complex Case Strategist, father, and survivor.</p>
+
+  <div class="hero-stats">
+    <span class="hero-stat"><strong>14+</strong> Diagnoses</span>
+    <span class="hero-stat"><strong>7</strong> Surgeries</span>
+    <span class="hero-stat"><strong>44</strong> Day Fast</span>
+    <span class="hero-stat"><strong>Stage III</strong> Cancer</span>
+    <span class="hero-stat"><strong>Pro</strong> MX Athlete</span>
+  </div>
+
+  <div class="cta-group">
+    <a href="#free-guide" class="cta cta-primary">Get the Free Guide &rarr;</a>
+    <a href="#my-story" class="cta cta-secondary">Read My Full Story</a>
+  </div>
+</div>
+
+<!-- ===== EXTREME STATS ===== -->
+<div class="extreme-section">
+  <div style="max-width:820px;margin:0 auto">
+    <div class="section-label">What I've Walked Through</div>
+    <h2 style="margin-bottom:24px">The numbers that <em>shouldn't add up</em> &mdash; but I'm still here.</h2>
+  </div>
+  <div class="extreme-grid">
+    <div class="extreme-card">
+      <div class="extreme-num">44</div>
+      <div class="extreme-label">Days on a liquid fast</div>
+    </div>
+    <div class="extreme-card">
+      <div class="extreme-num">25</div>
+      <div class="extreme-label">Days water-only fast</div>
+    </div>
+    <div class="extreme-card">
+      <div class="extreme-num">7</div>
+      <div class="extreme-label">Major surgeries</div>
+    </div>
+    <div class="extreme-card">
+      <div class="extreme-num">14+</div>
+      <div class="extreme-label">Concurrent diagnoses</div>
+    </div>
+    <div class="extreme-card">
+      <div class="extreme-num">5x</div>
+      <div class="extreme-label">Shingles since age 19</div>
+    </div>
+    <div class="extreme-card">
+      <div class="extreme-num">0</div>
+      <div class="extreme-label">Knee replacements needed (they said 35)</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MY STORY ===== -->
+<div class="section story" id="my-story">
+  <div class="section-label">My Story</div>
+  <h2>I was an <em>elite athlete</em>. Then my body declared war on itself.</h2>
+
+  <p>I grew up on a motocross bike. <strong>Pro-level racing</strong> — the kind that breaks bones and builds a different breed of human. I lived at full throttle. My body was a machine.</p>
+
+  <p>But the machine started breaking. A <strong>broken jaw</strong>. <strong>Shattered ribs</strong> — front and back. A <strong>broken scapula</strong>. A <strong>fluid-filled lung</strong>. <strong>Two knee surgeries</strong>. A <strong>6mm indentation on my femur</strong> filled with severe arthritis. At 35 years old, an orthopedic surgeon looked at the imaging and told me I'd need a <strong>full knee replacement</strong>. I'm 46 now. I've never had one. I still don't need one.</p>
+
+  <p>At 22, I was diagnosed with <strong>degenerative disk disease</strong>. The MRI showed a spine that looked like it belonged to a 50-year-old. Doctors offered pain management and eventually fusion surgery. Instead, I found <strong>Gerson Therapy</strong> — a nutrition-based regenerative protocol — and my disks healed. Not managed. <em>Healed.</em> I'm 46 now, which means by their math I have the back of a 76-year-old. But I'm still standing. Still moving. Still building.</p>
+
+  <div class="callout">"Nutrition changed my life. It gave me hope where 98 so-called experts had little to offer."</div>
+
+  <p>Then came <strong>shingles</strong> — not once, but <strong>five times</strong>, starting at age 19. Then <strong>mono</strong>. Then <strong>Epstein-Barr virus</strong>. My immune system was screaming, and nobody was listening to the pattern. They treated each outbreak like an isolated event. It wasn't.</p>
+
+  <p>The cascade continued: <strong>Lyme disease</strong>. A <strong>traumatic brain injury</strong> that rewired my nervous system. Co-infections stacking — <strong>Cytomegalovirus, Babesia</strong>. Then the gut collapsed: <strong>SIBO, Candida overgrowth, severe diverticulitis</strong>, an <strong>appendix infection</strong> that we resolved without surgery when every ER doctor said to cut. <strong>Iron-deficiency anemia, critically low B12</strong> from malabsorption.</p>
+
+  <p>Hormones followed: <strong>low testosterone, poor thyroid conversion, Hashimoto's thyroiditis</strong> swinging between hyper and hypothyroid, <strong>dangerously low cholesterol</strong> that sounded healthy on paper but meant my body couldn't manufacture hormones. Then <strong>POTS, adrenal fatigue, chronic fatigue syndrome</strong>.</p>
+
+  <p>And then the diagnosis that changed everything: <strong>Carcinoma ex pleomorphic adenoma (CXPA)</strong> — a rare Stage III malignancy of the salivary gland. A cancer so uncommon most oncologists see it once or twice in a career. Two tumor removal surgeries. Fighting cancer while immunocompromised, neurologically impaired, hormonally depleted, and gut-compromised.</p>
+
+  <div class="callout">I saw specialist after specialist. Every one brilliant in their lane. But no one was driving the car. I realized that if I was going to survive, I needed to become my own strategist — not because I'm smarter than my doctors, but because I was the only one sitting in every appointment.</div>
+</div>
+
+<!-- ===== FASTING + HEALING EXPANDABLE ===== -->
+<div class="section" style="padding-top:0">
+  <h2>The things that <em>actually healed me</em>.</h2>
+  <p style="font-size:.9rem;color:var(--textlight);margin-bottom:20px">Click to expand each section.</p>
+
+  <div class="expand-group" style="margin:0">
+
+    <div class="expand-item">
+      <div class="expand-header" onclick="toggleExpand(this)">
+        <span>My Fasting History — 44 Days, 25 Days, and Beyond</span>
+        <span class="expand-icon">+</span>
+      </div>
+      <div class="expand-body">
+        <p><strong>44-day liquid fast.</strong> No solid food for 44 consecutive days. Bone broth, fresh-pressed juices, water. This was not a cleanse or a diet. It was a strategic, faith-driven reset of a body that had forgotten how to heal itself. Autophagy — the body's cellular recycling — kicked in. Inflammation markers dropped. Mental clarity returned.</p>
+        <p><strong>25-day water-only fast.</strong> Nothing but water for 25 days. The hardest thing I've ever done physically. Day 3-5 is where most people quit. By day 10, something shifts. By day 20, the body is running on a completely different fuel source. Stem cell regeneration, immune reset, deep cellular repair.</p>
+        <p><strong>Multiple 3, 5, and 7-day fasts.</strong> These became part of my rhythm. Quarterly resets. Strategic timing around treatment cycles, seasonal transitions, and spiritual preparation. Jesus fasted 40 days. Elijah fasted 40 days. Moses fasted 40 days. Fasting isn't extreme — it's biblical.</p>
+        <p style="margin-top:12px;color:var(--warm);font-style:italic">"Is this not the fast that I have chosen: to loose the bonds of wickedness, to undo the heavy burdens, to let the oppressed go free?" — Isaiah 58:6</p>
+      </div>
+    </div>
+
+    <div class="expand-item">
+      <div class="expand-header" onclick="toggleExpand(this)">
+        <span>Gerson Therapy — How Nutrition Healed My Spine</span>
+        <span class="expand-icon">+</span>
+      </div>
+      <div class="expand-body">
+        <p>At 22, my MRI showed the spine of a 50-year-old. Degenerative disk disease. Multiple compressed and herniated disks. The recommendation was pain management, injections, and eventually fusion surgery.</p>
+        <p>I found <strong>Gerson Therapy</strong> — a nutrition-based protocol originally developed for cancer and degenerative disease. Fresh-pressed organic juices (13 per day in the full protocol), coffee enemas for liver detoxification, and a plant-based nutrient-dense diet designed to flood the body with the raw materials it needs to regenerate.</p>
+        <p>The result: <strong>my disks healed.</strong> Not managed. Not "stabilized." Healed. The same doctors who told me I'd be in a wheelchair by 40 have no explanation. I'm 46 and still building, still active, still racing motorcycles.</p>
+        <p>This is when I understood: <strong>the body was designed to heal.</strong> Our job is to remove what's blocking it and provide what it needs.</p>
+      </div>
+    </div>
+
+    <div class="expand-item">
+      <div class="expand-header" onclick="toggleExpand(this)">
+        <span>The Knee They Said I'd Replace at 35</span>
+        <span class="expand-icon">+</span>
+      </div>
+      <div class="expand-body">
+        <p>A 6mm indentation on my femur, filled with severe arthritis. The orthopedic surgeon said: "You'll need a full knee replacement. Probably within the next 2-3 years." I was 35.</p>
+        <p>Instead of surgery, I went deep on anti-inflammatory nutrition, targeted supplementation (curcumin, collagen, omega-3), regenerative movement protocols, and strategic fasting to reduce systemic inflammation.</p>
+        <p><strong>I'm 46 now. I have never had the knee replacement.</strong> I'm fully functional. The same knee that was "beyond repair" at 35 has carried me through 11 more years of life, fatherhood, and building businesses.</p>
+        <p>This isn't anti-medicine. This is pro-strategy. Sometimes the best intervention is giving the body what it needs instead of cutting out what's broken.</p>
+      </div>
+    </div>
+
+    <div class="expand-item">
+      <div class="expand-header" onclick="toggleExpand(this)">
+        <span>The Appendix Infection — Resolved Without Surgery</span>
+        <span class="expand-icon">+</span>
+      </div>
+      <div class="expand-body">
+        <p>Severe appendix infection. ER doctors were preparing for emergency surgery. The conventional answer was clear: cut it out.</p>
+        <p>Through aggressive IV antibiotics, anti-inflammatory protocols, and close monitoring, the infection resolved. The appendix was saved. No surgery. No recovery time. No scar.</p>
+        <p>This isn't always possible, and I'm not suggesting anyone refuse emergency surgery. But it taught me something critical: <strong>the first recommendation isn't always the only option.</strong> A strategist asks: "What else could we try first?"</p>
+      </div>
+    </div>
+
+    <div class="expand-item">
+      <div class="expand-header" onclick="toggleExpand(this)">
+        <span>Elite Athlete to Complex Case — The Full Arc</span>
+        <span class="expand-icon">+</span>
+      </div>
+      <div class="expand-body">
+        <p>Pro motocross. Full throttle. A body built for speed and impact. The injuries were part of the deal — broken jaw, shattered ribs (front and back), broken scapula, fluid-filled lung, two knee surgeries, back surgery. I accepted them as the cost of competition.</p>
+        <p>But the chronic illness wasn't from the track. Lyme came from a tick. TBI came from accumulated impact. The infections, the autoimmunity, the cancer — those came from a body under relentless stress with an immune system that had been fighting on too many fronts for too long.</p>
+        <p>The athletic mindset — strategic, disciplined, willing to suffer for the goal — is exactly what got me through the complex case. I approached my health the way I approached racing: study the track, build a plan, execute with precision, adjust on the fly, never quit.</p>
+        <p><strong>The same grit that made me a pro athlete made me a complex case strategist.</strong> The arena just changed.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== DIAGNOSES GRID ===== -->
+<div class="dx-section">
+  <div style="max-width:820px;margin:0 auto;padding-bottom:24px">
+    <div class="section-label">Full Diagnostic History</div>
+    <h2 style="font-family:-apple-system,sans-serif;font-weight:800">If you see yourself here, <em>that's why I built this</em>.</h2>
+  </div>
+  <div class="dx-grid">
+    <div class="dx-card"><span class="dx-category cat-cancer">Cancer</span><h4>CXPA — Stage III</h4><p>Carcinoma ex pleomorphic adenoma. Rare salivary gland malignancy. Two tumor removal surgeries.</p></div>
+    <div class="dx-card"><span class="dx-category cat-infection">Infection</span><h4>Lyme Disease</h4><p>Tick-borne Borrelia with neurological involvement. Multi-system impact on brain, joints, and immune function.</p></div>
+    <div class="dx-card"><span class="dx-category cat-neuro">Neurological</span><h4>Traumatic Brain Injury</h4><p>Cumulative impact from pro motocross. Dysregulated nervous system, cognition, and autonomic function.</p></div>
+    <div class="dx-card"><span class="dx-category cat-infection">Co-Infection</span><h4>Epstein-Barr Virus</h4><p>Reactivated EBV. Linked to chronic fatigue, immune suppression, and autoimmune triggering.</p></div>
+    <div class="dx-card"><span class="dx-category cat-infection">Co-Infection</span><h4>Cytomegalovirus</h4><p>Reactivated herpes-family virus. Contributed to fatigue and systemic inflammation.</p></div>
+    <div class="dx-card"><span class="dx-category cat-infection">Co-Infection</span><h4>Babesia</h4><p>Parasitic co-infection. Affects red blood cells, causes night sweats and air hunger.</p></div>
+    <div class="dx-card"><span class="dx-category cat-infection">Viral</span><h4>Shingles (5x) + Mono</h4><p>Recurring shingles since age 19. Five outbreaks. Mono/EBV reactivation. Pattern of immune compromise.</p></div>
+    <div class="dx-card"><span class="dx-category cat-gut">Gut</span><h4>SIBO</h4><p>Small intestinal bacterial overgrowth. Bloating, malabsorption, nutrient depletion.</p></div>
+    <div class="dx-card"><span class="dx-category cat-gut">Gut</span><h4>Candida Overgrowth</h4><p>Systemic fungal overgrowth. Brain fog, gut lining damage, immune suppression.</p></div>
+    <div class="dx-card"><span class="dx-category cat-gut">Gut</span><h4>Severe Diverticulitis</h4><p>Intestinal inflammation and infection requiring aggressive intervention.</p></div>
+    <div class="dx-card"><span class="dx-category cat-gut">Gut</span><h4>Appendix Infection</h4><p>Resolved without surgery through strategic intervention. ER recommended emergency appendectomy.</p></div>
+    <div class="dx-card"><span class="dx-category cat-gut">Nutritional</span><h4>Anemia + Low B12</h4><p>Iron-deficiency anemia and critically low B12 from gut malabsorption.</p></div>
+    <div class="dx-card"><span class="dx-category cat-hormonal">Hormonal</span><h4>Low Testosterone</h4><p>Severely depleted from chronic illness, low cholesterol, and HPA axis dysfunction.</p></div>
+    <div class="dx-card"><span class="dx-category cat-hormonal">Hormonal</span><h4>Hashimoto's Thyroiditis</h4><p>Autoimmune thyroid attack. Oscillating hyper/hypo. Poor T4→T3 conversion.</p></div>
+    <div class="dx-card"><span class="dx-category cat-hormonal">Hormonal</span><h4>Low Cholesterol</h4><p>Can't manufacture hormones without cholesterol substrate. "Healthy" labs hiding dysfunction.</p></div>
+    <div class="dx-card"><span class="dx-category cat-neuro">Autonomic</span><h4>POTS</h4><p>Postural orthostatic tachycardia. Standing up became a cardiovascular event.</p></div>
+    <div class="dx-card"><span class="dx-category cat-immune">Immune</span><h4>Adrenal Fatigue + CFS</h4><p>HPA axis burnout. Cortisol depleted. Unable to recover from exertion.</p></div>
+    <div class="dx-card"><span class="dx-category cat-structural">Structural</span><h4>Degenerative Disk Disease</h4><p>Diagnosed at 22. Spine of a 50-year-old. Healed through Gerson Therapy nutrition. No surgery.</p></div>
+  </div>
+
+  <div style="max-width:820px;margin:24px auto 0">
+    <div class="section-label" style="margin-bottom:10px">Surgical History</div>
+    <div class="surgery-list">
+      <div class="surgery-item"><div class="surgery-dot"></div><div class="surgery-text">Back surgery (herniated disk)</div></div>
+      <div class="surgery-item"><div class="surgery-dot"></div><div class="surgery-text">Knee surgery #1</div></div>
+      <div class="surgery-item"><div class="surgery-dot"></div><div class="surgery-text">Knee surgery #2</div></div>
+      <div class="surgery-item"><div class="surgery-dot"></div><div class="surgery-text">Tumor removal #1 (pleomorphic adenoma)</div></div>
+      <div class="surgery-item"><div class="surgery-dot"></div><div class="surgery-text">Tumor removal #2 (CXPA malignancy)</div></div>
+      <div class="surgery-item"><div class="surgery-dot"></div><div class="surgery-text">Broken jaw repair</div></div>
+      <div class="surgery-item"><div class="surgery-dot" style="background:var(--green)"></div><div class="surgery-text" style="color:var(--green)">Appendix — resolved WITHOUT surgery</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== BIG QUOTE ===== -->
+<div class="big-quote">
+  <p>"Be still, and know that I am God."</p>
+  <div class="ref">Psalm 46:10</div>
+</div>
+
+<!-- ===== EMAIL CAPTURE ===== -->
+<div class="section" id="free-guide">
+  <div class="capture">
+    <h3>The 7 Pillars of Root Cause Thinking</h3>
+    <p class="sub">A free guide to understanding complex illness the way I wish someone had shown me on day one. Biblical wisdom meets functional medicine strategy.</p>
+    <div id="captureForm">
+      <div class="capture-form">
+        <input type="text" class="capture-input" id="captureName" placeholder="First name" required>
+        <input type="email" class="capture-input" id="captureEmail" placeholder="Email address" required>
+        <button class="capture-submit" onclick="submitCapture()">Send Me the Free Guide</button>
+      </div>
+      <p class="capture-note">No spam. No selling your info. Just the guide and occasional insights from someone who's been where you are.</p>
+    </div>
+    <div class="capture-success" id="captureSuccess">
+      <h4>Check your inbox.</h4>
+      <p>The 7 Pillars guide is on its way. If you don't see it in a few minutes, check your spam folder — then add me to your contacts so we stay connected.</p>
+      <p style="margin-top:12px;font-size:.8rem;color:var(--warm);font-style:italic">"He who has begun a good work in you will complete it." — Philippians 1:6</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== WHAT I DO NOW ===== -->
+<div class="section">
+  <div class="section-label">What I Do Now</div>
+  <h2>I turned survival into <em>a strategy for others</em>.</h2>
+</div>
+<div class="offerings" style="padding:0 20px 40px">
+  <a href="https://notdrwise.com" class="offer-card">
+    <div class="offer-icon">&#9883;</div>
+    <h3>NotDrWise &mdash; Complex Case Strategy</h3>
+    <p>Functional medicine coaching for people with overlapping, treatment-resistant diagnoses. I help you think strategically — supplements, protocols, and a framework that connects the dots your doctors aren't connecting.</p>
+    <p style="font-size:.78rem;color:var(--green);margin-top:8px;font-family:-apple-system,sans-serif;font-weight:600">$49 Strategy Consult &bull; Coaching &bull; Fullscript Dispensary</p>
+    <span class="offer-link">Visit NotDrWise &rarr;</span>
+  </a>
+  <a href="https://staytheway.com" class="offer-card">
+    <div class="offer-icon">&#9775;</div>
+    <h3>StayTheWay Ministry</h3>
+    <p>Bible studies, interactive quizzes, the BENR whole-person healing assessment, and weekly teachings on walking by the Spirit. Faith isn't separate from healing — it's the foundation.</p>
+    <p style="font-size:.78rem;color:var(--warm);margin-top:8px;font-family:-apple-system,sans-serif;font-weight:600">7-Pillar Series &bull; Swipe Studies &bull; BENR Assessment</p>
+    <span class="offer-link">Visit StayTheWay &rarr;</span>
+  </a>
+</div>
+
+<!-- ===== BOOKS ===== -->
+<div class="section">
+  <div class="section-label">Books</div>
+  <h2>The stories I'm <em>putting into words</em>.</h2>
+</div>
+<div class="books-grid" style="padding:0 20px 40px">
+  <div class="book-card">
+    <div class="book-emoji">&#128214;</div>
+    <h4>TraumaBond</h4>
+    <p>The documented truth about coercive control, deception in relationships, and what it takes to break free — with court evidence and clinical clarity.</p>
+    <span class="book-status status-coming">Pre-Order Interest &mdash; Coming Soon</span>
+  </div>
+  <div class="book-card">
+    <div class="book-emoji">&#128330;</div>
+    <h4>Be Still and Know</h4>
+    <p>How a 7-week teaching series on walking by the Spirit became my roadmap through a 5-month marriage, an 18-day divorce, and delivered peace.</p>
+    <span class="book-status status-coming">In Development</span>
+  </div>
+  <div class="book-card">
+    <div class="book-emoji">&#128154;</div>
+    <h4>Think to Heal</h4>
+    <p>7 biblical principles for strategic health recovery. Free for anyone navigating a complex diagnosis with faith and functional medicine wisdom.</p>
+    <a href="#free-guide" class="book-status status-available" style="text-decoration:none">Free Download &rarr;</a>
+  </div>
+</div>
+
+<!-- ===== GRACE NOTE ===== -->
+<div class="section" style="text-align:center;max-width:580px">
+  <p style="font-size:1rem;color:var(--textmid);font-style:italic;line-height:1.9">
+    Everything I do — the strategy, the teaching, the writing, the fighting — is for my daughter <strong>Grace</strong>. She was born during COVID, an answer to years of prayer. She is the reason I refused to quit. If you're fighting for someone you love, I understand. That's the strongest fuel there is.
+  </p>
+  <p style="font-size:.9rem;color:var(--warm);margin-top:20px;font-style:italic;line-height:1.7">
+    "He brought me up out of a horrible pit, out of the miry clay, and set my feet upon a rock, and established my steps. He also put a new song in my mouth &mdash; praise to our God."
+  </p>
+  <p style="font-size:.75rem;color:var(--textlight);margin-top:4px">Psalm 40:1-3</p>
+</div>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="links sans">
+    <a href="https://notdrwise.com">NotDrWise</a>
+    <a href="https://staytheway.com">StayTheWay</a>
+    <a href="https://notdrwise.fullscript.com">Fullscript Dispensary</a>
+    <a href="https://youtube.com/@motomicX">YouTube</a>
+  </div>
+  <p class="disclaimer">I am not a medical doctor and do not treat, diagnose, cure, or prevent disease. I am a Complex Case Strategist who teaches functional medicine strategy based on personal experience and research. Always consult with your healthcare provider before changing your health regimen. Full disclosure: I earn a commission on supplements purchased through my Fullscript dispensary. If you are in crisis, please contact a licensed professional or call 988.</p>
+  <p class="copy">&copy; 2026 Jonathan Weisz &bull; Underwood, North Dakota</p>
+</footer>
+
+<script>
+/* Expandable sections */
+function toggleExpand(header) {
+  const item = header.parentElement;
+  item.classList.toggle('open');
+}
+
+/* Email capture */
+function submitCapture() {
+  const name = document.getElementById('captureName').value.trim();
+  const email = document.getElementById('captureEmail').value.trim();
+  if (!name || !email || !email.includes('@')) {
+    alert('Please enter your name and a valid email address.');
+    return;
+  }
+
+  // Send to Google Apps Script endpoint
+  const endpoint = 'https://script.google.com/macros/s/AKfycbyLDr5uRDwbheTOJPlghcRpbsEkCBuLpDYwdG1c0BXfXpYpovM-YsvR5KDdEjT_7IQW/exec';
+  const data = { action: 'subscribe', email: email, name: name, source: 'jonathanweisz.com', list: 'notdrwise' };
+
+  fetch(endpoint, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+  }).catch(() => {});
+
+  // Show success regardless (no-cors won't return response)
+  document.getElementById('captureForm').style.display = 'none';
+  document.getElementById('captureSuccess').style.display = 'block';
+}
+</script>
+</body>
+</html>
