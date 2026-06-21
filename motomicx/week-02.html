@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>MotoMicX — This Week in Moto</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;600;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Rajdhani', sans-serif;
+    background: #0a0a0a;
+    color: #fff;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: repeating-conic-gradient(#111 0% 25%, transparent 0% 50%) 0 0 / 40px 40px;
+    opacity: 0.12;
+    z-index: 0;
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 500px;
+    height: 700px;
+    background: radial-gradient(ellipse at center,
+      rgba(255,255,255,0.15) 0%,
+      rgba(255,255,255,0.08) 20%,
+      rgba(255,255,255,0.03) 45%,
+      transparent 70%
+    );
+    border-radius: 50%;
+    z-index: 0;
+    pointer-events: none;
+    filter: blur(40px);
+  }
+
+  /* ── Hamburger Menu ── */
+  .menu-toggle {
+    position: absolute;
+    top: 24px;
+    right: 14px;
+    z-index: 100;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+  }
+  .menu-toggle span {
+    display: block;
+    width: 26px;
+    height: 2px;
+    background: #888;
+    margin: 6px 0;
+    transition: 0.3s;
+    border-radius: 2px;
+  }
+  .menu-toggle:hover span { background: #ff4400; }
+
+  .home-btn {
+    position: absolute;
+    top: 24px;
+    left: 14px;
+    z-index: 100;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.55rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #888;
+    text-decoration: none;
+    padding: 6px 10px;
+    border: 1px solid #333;
+    border-radius: 6px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .home-btn:hover { color: #ff4400; border-color: #ff4400; }
+  body.menu-open .menu-toggle span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 6px);
+    background: #ff4400;
+  }
+  body.menu-open .menu-toggle span:nth-child(2) { opacity: 0; }
+  body.menu-open .menu-toggle span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -6px);
+    background: #ff4400;
+  }
+
+  .archive-menu {
+    position: fixed;
+    top: 0; right: 0;
+    width: 280px;
+    height: 100vh;
+    background: #111;
+    border-left: 1px solid #2a2a2a;
+    padding: 80px 20px 30px;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    z-index: 90;
+    overflow-y: auto;
+  }
+  body.menu-open .archive-menu { transform: translateX(0); }
+
+  .archive-menu-header {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: #ff4400;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #222;
+  }
+  .archive-menu a {
+    display: block;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #999;
+    padding: 12px 0;
+    border-bottom: 1px solid #1a1a1a;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .archive-menu a:hover { color: #ff4400; }
+  .archive-menu a .week-date {
+    display: block;
+    font-size: 0.75rem;
+    color: #555;
+    margin-top: 2px;
+  }
+
+  .menu-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.6);
+    z-index: 85;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+  }
+  body.menu-open .menu-overlay {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  /* ── Layout ── */
+  .container {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 420px;
+    margin: 0 auto;
+    padding: 24px 14px 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .container > * { width: 100%; }
+  @media (min-width: 600px) {
+    .container { max-width: 620px; padding: 30px 24px 50px; }
+  }
+
+  /* ── Header ── */
+  .header { text-align: center; margin-bottom: 20px; }
+
+  .logo-round {
+    width: 260px;
+    height: auto;
+    margin-bottom: 8px;
+    filter: drop-shadow(0 0 20px rgba(255,0,0,0.3));
+  }
+  .logo-wide {
+    display: none;
+    max-width: 420px;
+    width: 100%;
+    margin-bottom: 8px;
+    filter: drop-shadow(0 0 20px rgba(255,0,0,0.3));
+  }
+  @media (min-width: 600px) {
+    .logo-round { display: none; }
+    .logo-wide { display: inline-block; }
+  }
+
+  .racing-stripe {
+    height: 5px;
+    background: linear-gradient(90deg, #ff0000, #ff4400, #ffaa00, #ff4400, #ff0000);
+    border-radius: 3px;
+    margin: 14px 0 10px;
+    animation: glow 2s ease-in-out infinite;
+  }
+  @keyframes glow {
+    0%, 100% { box-shadow: 0 0 8px rgba(255,68,0,0.4); }
+    50% { box-shadow: 0 0 22px rgba(255,68,0,0.9); }
+  }
+
+  .week-label {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 3px;
+    color: #ff4400;
+    text-transform: uppercase;
+  }
+
+  /* ── Music Section ── */
+  .music-box {
+    border: 1px solid rgba(255,0,0,0.25);
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin: 14px 0 0;
+    background: linear-gradient(145deg, #131313, #161616);
+    text-align: center;
+  }
+  .music-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #ff4400;
+    margin-bottom: 10px;
+  }
+  .music-links {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .music-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #ccc;
+    text-decoration: none;
+    padding: 6px 12px;
+    border: 1px solid #2a2a2a;
+    border-radius: 8px;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .music-link:hover { color: #ff4400; border-color: #ff4400; }
+  .music-icon { font-size: 1rem; }
+
+  /* ── Email Signup ── */
+  .signup-box {
+    border: 1px solid rgba(255,68,0,0.35);
+    border-radius: 12px;
+    padding: 16px;
+    margin: 14px 0 0;
+    background: linear-gradient(145deg, #131313, #161616);
+    text-align: center;
+  }
+  .signup-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    background: linear-gradient(135deg, #ff4400, #ffaa00);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 4px;
+  }
+  .signup-sub {
+    font-size: 0.8rem;
+    color: #888;
+    margin-bottom: 12px;
+  }
+  .signup-form {
+    display: flex;
+    gap: 8px;
+  }
+  .signup-input {
+    flex: 1;
+    padding: 10px 12px;
+    border: 1px solid #333;
+    border-radius: 8px;
+    background: #0a0a0a;
+    color: #fff;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .signup-input:focus { border-color: #ff4400; }
+  .signup-input::placeholder { color: #555; }
+  .signup-btn {
+    padding: 10px 16px;
+    border: none;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #ff4400, #ff6600);
+    color: #fff;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: box-shadow 0.2s, transform 0.2s;
+    white-space: nowrap;
+  }
+  .signup-btn:hover {
+    box-shadow: 0 0 14px rgba(255,68,0,0.4);
+    transform: translateY(-1px);
+  }
+  .signup-btn:disabled {
+    opacity: 0.5;
+    cursor: default;
+    transform: none;
+    box-shadow: none;
+  }
+  .signup-msg {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.85rem;
+    margin-top: 10px;
+    display: none;
+  }
+  .signup-msg.success { display: block; color: #44ff88; }
+  .signup-msg.error { display: block; color: #ff4444; }
+
+  /* ── Cards ── */
+  .cards { display: flex; flex-direction: column; gap: 12px; margin-top: 18px; }
+
+  .card {
+    position: relative;
+    background: linear-gradient(145deg, #161616, #1a1a1a);
+    border: 1px solid transparent;
+    border-radius: 14px;
+    padding: 16px 14px 14px 58px;
+    overflow: visible;
+    transition: transform 0.2s, box-shadow 0.3s;
+  }
+  .card:hover { transform: translateY(-2px); }
+
+  .card:nth-child(odd) {
+    border-color: rgba(255,102,0,0.35);
+    box-shadow: 0 0 12px rgba(255,102,0,0.2), 0 0 30px rgba(255,102,0,0.1), inset 0 0 20px rgba(255,102,0,0.04);
+  }
+  .card:nth-child(odd):hover {
+    box-shadow: 0 0 16px rgba(255,102,0,0.35), 0 0 40px rgba(255,102,0,0.15), inset 0 0 20px rgba(255,102,0,0.06);
+  }
+  .card:nth-child(even) {
+    border-color: rgba(255,0,0,0.3);
+    box-shadow: 0 0 12px rgba(255,0,0,0.2), 0 0 30px rgba(255,0,0,0.1), inset 0 0 20px rgba(255,0,0,0.04);
+  }
+  .card:nth-child(even):hover {
+    box-shadow: 0 0 16px rgba(255,0,0,0.35), 0 0 40px rgba(255,0,0,0.15), inset 0 0 20px rgba(255,0,0,0.06);
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; bottom: 0; width: 4px;
+    border-radius: 14px 0 0 14px;
+  }
+  .card:nth-child(odd)::before  { background: #ff6600; }
+  .card:nth-child(even)::before { background: #ff0000; }
+
+  .card-rank {
+    position: absolute;
+    top: 50%; left: 14px;
+    transform: translateY(-50%);
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 900;
+    font-size: 1.6rem;
+    line-height: 1;
+    color: #ffffff;
+  }
+
+  .card-headline {
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700;
+    font-size: 1.35rem;
+    line-height: 1.2;
+    color: #fff;
+    margin-bottom: 4px;
+  }
+
+  .card-take {
+    font-size: 1.05rem;
+    line-height: 1.35;
+    color: #ccc;
+  }
+
+  .card-stat {
+    display: inline-block;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #ff4400;
+    background: #ff440012;
+    padding: 3px 8px;
+    border-radius: 4px;
+    margin-top: 8px;
+    letter-spacing: 1px;
+  }
+
+  /* ── Footer ── */
+  .footer {
+    text-align: center;
+    margin-top: 28px;
+    padding-top: 14px;
+    border-top: 1px solid #222;
+  }
+  .footer-brand {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.6rem;
+    letter-spacing: 4px;
+    color: #444;
+    text-transform: uppercase;
+  }
+  .footer-yt {
+    display: inline-block;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #ff0000;
+    letter-spacing: 1px;
+    margin-top: 10px;
+    text-decoration: none;
+  }
+  .footer-yt:hover { color: #ff4444; }
+
+  /* ── Card Animations ── */
+  .card {
+    opacity: 0; transform: translateY(30px);
+    animation: slideIn 0.45s ease forwards;
+  }
+  .card:nth-child(1)  { animation-delay: 0.05s; }
+  .card:nth-child(2)  { animation-delay: 0.15s; }
+  .card:nth-child(3)  { animation-delay: 0.25s; }
+  .card:nth-child(4)  { animation-delay: 0.35s; }
+  .card:nth-child(5)  { animation-delay: 0.45s; }
+  .card:nth-child(6)  { animation-delay: 0.55s; }
+  .card:nth-child(7)  { animation-delay: 0.65s; }
+  .card:nth-child(8)  { animation-delay: 0.75s; }
+  .card:nth-child(9)  { animation-delay: 0.85s; }
+  .card:nth-child(10) { animation-delay: 0.95s; }
+  @keyframes slideIn { to { opacity: 1; transform: translateY(0); } }
+</style>
+</head>
+<body>
+
+<!-- Hamburger Button -->
+<button class="menu-toggle" onclick="document.body.classList.toggle('menu-open')" aria-label="Menu">
+  <span></span><span></span><span></span>
+</button>
+
+<!-- Home Button -->
+<a class="home-btn" href="motomicX.html">MotoMicX</a>
+
+<!-- Archive Slide-Out Menu -->
+<nav class="archive-menu">
+  <div class="archive-menu-header">Past Weeks</div>
+  <a href="motomicx/week-01.html">
+    Week 1 — Fox Raceway Opener
+    <span class="week-date">June 1, 2026</span>
+  </a>
+  <!-- NEW WEEKS GET ADDED HERE -->
+</nav>
+
+<!-- Overlay -->
+<div class="menu-overlay" onclick="document.body.classList.remove('menu-open')"></div>
+
+<div class="container">
+
+  <!-- Header -->
+  <div class="header">
+    <img src="https://res.cloudinary.com/dyq7rnjjw/image/upload/w_400,q_auto,f_auto/v1780715540/9D3AB9D1-117E-48EF-8FAC-4B259B8A7E66_wkxfio.png" alt="MotoMicX" class="logo-round">
+    <img src="https://res.cloudinary.com/dyq7rnjjw/image/upload/w_600,q_auto,f_auto/v1780696662/50AFC30A-D581-42AD-92DE-E057F93969D0_w2gfrm.png" alt="MotoMicX" class="logo-wide">
+    <div class="racing-stripe"></div>
+    <div class="week-label">Top 10</div>
+  </div>
+
+  <!-- Music Links -->
+  <div class="music-box">
+    <div class="music-title">Latest Music</div>
+    <div class="music-links">
+      <a class="music-link" href="https://music.apple.com/us/artist/revmx/1769737562" target="_blank"><span class="music-icon">&#127925;</span> Apple Music</a>
+      <a class="music-link" href="https://open.spotify.com/artist/1SSQAeEUIZVMqX7izyDNVA" target="_blank"><span class="music-icon">&#127911;</span> Spotify</a>
+      <a class="music-link" href="https://youtube.com/@motomicX" target="_blank"><span class="music-icon">&#9654;</span> YouTube</a>
+    </div>
+  </div>
+
+  <!-- Email Signup -->
+  <div class="signup-box">
+    <div class="signup-title">Join the List</div>
+    <div class="signup-sub">Weekly moto news, predictions &amp; giveaways</div>
+    <form class="signup-form" id="signupForm" onsubmit="return handleSignup(event)">
+      <input type="email" class="signup-input" id="signupEmail" placeholder="Your email" required>
+      <button type="submit" class="signup-btn" id="signupBtn">Go</button>
+    </form>
+    <div class="signup-msg" id="signupMsg"></div>
+  </div>
+
+  <!-- Cards -->
+  <div class="cards">
+
+    <div class="card">
+      <div class="card-rank">01</div>
+      <div class="card-headline">Deegan's Been on a 450 for 3 Months. Can He Podium Saturday?</div>
+      <div class="card-take">Went 5-4 at Pala on a bike he barely knows. Hangtown ruts don't care about your last name.</div>
+      <div class="card-stat">12 Pts Off the Lead After Rd 1</div>
+    </div>
+
+    <div class="card">
+      <div class="card-rank">02</div>
+      <div class="card-headline">Levi Kitchen Won Moto 1 by 5.5 Seconds. Then Moto 2 Happened.</div>
+      <div class="card-take">Crashed. Finished 13th. Zero career overalls. His teammate took the red plate instead. Speed ain't the problem.</div>
+      <div class="card-stat">Moto 1: 1st &bull; Moto 2: 13th</div>
+    </div>
+
+    <div class="card">
+      <div class="card-rank">03</div>
+      <div class="card-headline">Jett's 8-Moto Pala Win Streak? Dead.</div>
+      <div class="card-take">91 laps led at Fox Raceway, never lost there. Started 16th, charged to 3rd on an ankle held together by 11 screws. Legend behavior, but he's not 100% and everybody knows it.</div>
+      <div class="card-stat">91-Lap Streak Snapped</div>
+    </div>
+
+    <div class="card">
+      <div class="card-rank">04</div>
+      <div class="card-headline">Hunter Lawrence Won Both Motos and Chose Violence</div>
+      <div class="card-take">Won by 8.7 seconds and 6 seconds. Lost the SX title by 3 points. Now his injured little brother is chasing him. Thanksgiving is going to be awkward.</div>
+      <div class="card-stat">1-1 Sweep &bull; Red Plate Holder</div>
+    </div>
+
+    <div class="card">
+      <div class="card-rank">05</div>
+      <div class="card-headline">Prado: "Oh My God, I'm So Bad With Lappers"</div>
+      <div class="card-take">Two-time MXGP World Champ. Qualified 0.182s off Hunter. Went 2-2. Still can't figure out how to pass a guy on a 250 going 30 mph. Welcome to America, Jorge.</div>
+      <div class="card-stat">0.182s Off Pole &bull; P2 Overall</div>
+    </div>
+
+    <div class="card">
+      <div class="card-rank">06</div>
+      <div class="card-headline">Tomac &amp; Sexton Both Done After ONE Round</div>
+      <div class="card-take">Tomac: neck. Sexton: shoulder. Two former champs gone before Hangtown. The 450 class just lost half its depth and all its chaos.</div>
+      <div class="card-stat">2 Former Champs Out</div>
+    </div>
+
+    <div class="card">
+      <div class="card-rank">07</div>
+      <div class="card-headline">Roczen Won SX at 32, Got Ankle Surgery, and Might Still Show Up This Summer</div>
+      <div class="card-take">Won the title by 3 points after a dozen surgeries and 13 seasons. Had ankle surgery in May. Suzuki says he's "eyeing a return at later rounds." The champ is sitting at home watching Hunter run away with it. How long before he can't take it?</div>
+      <div class="card-stat">Ankle Surgery May '26 &bull; Return TBD</div>
+    </div>
+
+    <div class="card">
+      <div class="card-rank">08</div>
+      <div class="card-headline">Pro Circuit Swept the 250 Podium Like It's 2019 Again</div>
+      <div class="card-take">Hammaker got his first career win in 33 starts. PC hasn't held the red plate since Cianciarulo. Mitch Payton might actually be smiling.</div>
+      <div class="card-stat">PC Kawasaki 1-2-3 Sweep</div>
+    </div>
+
+    <div class="card">
+      <div class="card-rank">09</div>
+      <div class="card-headline">Villopoto "Came Back" to Kawasaki. But Is He Actually Racing?</div>
+      <div class="card-take">10 titles. 83 wins. Last raced in 2015. Every article says "ambassador role." The internet thinks he's lining up. RV probably thinks it's funny.</div>
+      <div class="card-stat">10 Titles &bull; 83 Wins &bull; 0 Confirmed Gates</div>
+    </div>
+
+    <div class="card">
+      <div class="card-rank">10</div>
+      <div class="card-headline">Hangtown Saturday: The Field Got Smaller. The Drama Got Bigger.</div>
+      <div class="card-take">Hunter defending. Jett chasing. Deegan learning. Prado adjusting. Kitchen praying for a good Moto 2. This one's going to be loud.</div>
+      <div class="card-stat">June 7 &bull; 1 PM PT &bull; Peacock</div>
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <div class="footer-brand">MotoMicX &times; RevMX</div>
+    <a class="footer-yt" href="https://youtube.com/@motomicX" target="_blank">@motomicX on YouTube</a>
+  </div>
+
+</div>
+
+<script>
+// Menu close on outside click
+document.addEventListener('click', function(e) {
+  if (document.body.classList.contains('menu-open') &&
+      !e.target.closest('.archive-menu') &&
+      !e.target.closest('.menu-toggle')) {
+    document.body.classList.remove('menu-open');
+  }
+});
+
+// Email signup
+var SIGNUP_API = 'https://script.google.com/macros/s/AKfycbyLDr5uRDwbheTOJPlghcRpbsEkCBuLpDYwdG1c0BXfXpYpovM-YsvR5KDdEjT_7IQW/exec';
+
+function handleSignup(e) {
+  e.preventDefault();
+  var email = document.getElementById('signupEmail').value;
+  var btn = document.getElementById('signupBtn');
+  var msg = document.getElementById('signupMsg');
+
+  btn.disabled = true;
+  btn.textContent = '...';
+
+  fetch(SIGNUP_API, {
+    method: 'POST',
+    body: JSON.stringify({ action: 'subscribe', email: email, drawingOptIn: true }),
+    headers: { 'Content-Type': 'text/plain' }
+  })
+  .then(function(r) { return r.json(); })
+  .then(function() {
+    msg.className = 'signup-msg success';
+    msg.textContent = "You're in! Check your inbox to verify.";
+    btn.textContent = 'Done';
+    localStorage.setItem('motomicx_email', email);
+  })
+  .catch(function() {
+    msg.className = 'signup-msg success';
+    msg.textContent = "You're in! Check your inbox to verify.";
+    btn.textContent = 'Done';
+    localStorage.setItem('motomicx_email', email);
+  });
+
+  return false;
+}
+
+// Auto-fill if already signed up
+(function() {
+  var saved = localStorage.getItem('motomicx_email');
+  if (saved) {
+    var msg = document.getElementById('signupMsg');
+    msg.className = 'signup-msg success';
+    msg.innerHTML = '&#10003; Signed up as ' + saved;
+  }
+})();
+</script>
+</body>
+</html>
